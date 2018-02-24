@@ -9,7 +9,7 @@ import br.com.ecommerce.retaguarda.dashboard.PageHomeRetaguarda;
  * @author Jarbas
  * 
  * */
-public class TestLoginRetaguarda_IT {
+public class TestLoginRetaguarda_IT extends BaseTestCase {
 
 	PageHomeRetaguarda  pageHomeRetaguarda  = new PageHomeRetaguarda();
 	PageLoginRetaguarda pageLoginRetaguarda = new PageLoginRetaguarda();

@@ -47,15 +47,18 @@ public abstract class Utils {
 			}
 			Assert.assertEquals(esperado, atual);
 		} catch (Exception e) {
+			takeScreenshot("Esperava-se: ["+esperado+"]E retornou.: ["+atual+"]");
 			assertFail("Erro encontrado: Esperado ["+esperado+"], mas retornou ["+atual+"]");
 		}finally{
 			if (isError) {
 				Log.erro("E R R O . . .");
 				Log.erro("Esperava-se: ["+esperado+"]");
 				Log.erro("E retornou.: ["+atual+"]");
+				takeScreenshot("Esperava-se: ["+esperado+"]E retornou.: ["+atual+"]");
 			}else{
 				Log.info("Resultado esperado..: ["+esperado+"]");
-				Log.info("Resultado encontrado: ["+atual+"]"); 
+				Log.info("Resultado encontrado: ["+atual+"]");
+				takeScreenshot("Esperava-se: ["+esperado+"]E retornou.: ["+atual+"]");
 			}
 		}
 	}
