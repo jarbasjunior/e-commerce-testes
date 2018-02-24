@@ -270,11 +270,11 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	 *  ACESSO AO MENU CONTAS
 	 * -------------------------------------------------
 	 */
-	public void acessarMenuContas_A_Pagar(){
+	public void acessarMenuContasApagar(){
 		acessarMenu(menuContas, contasPagar);
 	}
 	
-	public void acessarMenuContas_A_Receber(){
+	public void acessarMenuContasAreceber(){
 		acessarMenu(menuContas, contasReceber);
 	}
 	
