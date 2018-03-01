@@ -1,7 +1,7 @@
 package br.com.ecommerce.config.testbase;
 
 import br.com.ecommerce.config.pagebase.PageLoginRetaguarda;
-import br.com.ecommerce.retaguarda.dashboard.PageHomeRetaguarda;
+import br.com.ecommerce.retaguarda.pages.dashboard.PageHomeRetaguarda;
 
 /**
  * 

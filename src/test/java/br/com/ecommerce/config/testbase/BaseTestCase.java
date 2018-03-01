@@ -8,7 +8,7 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 
-import br.com.ecommerce.config.setup.Browser;
+import br.com.ecommerce.config.pagebase.PageLoginRetaguarda;
 import br.com.ecommerce.config.setup.Property;
 import br.com.ecommerce.config.setup.Selenium;
 import br.com.ecommerce.config.suite.AllTests;
@@ -17,6 +17,7 @@ public class BaseTestCase {
 	
 	
 	protected static WebDriver driver;
+	PageLoginRetaguarda     pageLoginRetaguarda     = new PageLoginRetaguarda();
 	
 	@Rule
 	public TestName nameTest = new TestName();
@@ -24,6 +25,7 @@ public class BaseTestCase {
 	@Before
 	public void before(){
 		Log.msgInicioTeste(nameTest.getMethodName());
+		pageLoginRetaguarda.realizarLoginRetaguarda();
 	}
 
 	@After
@@ -33,12 +35,8 @@ public class BaseTestCase {
 	
 	@BeforeClass
 	public static void beforeClass(){
-		if(!AllTests.isAllTestsExecution){
-			Selenium.getDriver().navigate().to(Property.URL);
-			if (Property.BROWSER_NAME.equals(Browser.FIREFOX)) {
-				Selenium.getDriver().manage().window().maximize();
-			}
-		}
+		if(!AllTests.isAllTestsExecution)
+			Selenium.getDriver().navigate().to(Property.URL_RETAGUARDA);
 	}
 	
 	@AfterClass

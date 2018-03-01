@@ -19,6 +19,8 @@ import javax.imageio.ImageIO;
 
 import org.junit.Assert;
 
+import com.github.javafaker.Faker;
+
 import br.com.ecommerce.config.setup.Property;
 
 /**
@@ -42,9 +44,7 @@ public abstract class Utils {
 	
 	public static void assertEquals(Object atual, Object esperado) {
 		try {
-			if (atual == null || !esperado.toString().equals(atual.toString())) {
-				isError = true;
-			}
+			isError = !esperado.toString().equals(atual.toString());
 			Assert.assertEquals(esperado, atual);
 		} catch (Exception e) {
 			takeScreenshot("Esperava-se: ["+esperado+"]E retornou.: ["+atual+"]");
@@ -58,11 +58,9 @@ public abstract class Utils {
 			}else{
 				Log.info("Resultado esperado..: ["+esperado+"]");
 				Log.info("Resultado encontrado: ["+atual+"]");
-				takeScreenshot("Esperava-se: ["+esperado+"]E retornou.: ["+atual+"]");
 			}
 		}
 	}
-	
 	public static void assertTrue(String message, boolean bol){
 		Assert.assertTrue(message, bol);
 	}
@@ -187,6 +185,40 @@ public abstract class Utils {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	public static String geraNomeEmpresa(){
+		Faker fake = new Faker();
+		return fake.company().name();
+	}
+	
+	public static String geraCNPJ(){
+		Faker fake = new Faker();
+		StringBuilder sb = new StringBuilder(fake.number().digits(14));
+		sb.insert(2 , ".");
+		sb.insert(6 , ".");
+		sb.insert(10, "/");
+		sb.insert(15, "-");
+		return sb.toString();
+	}
+	
+	public static String geraEmail(){
+		Faker fake = new Faker();
+		return fake.internet().emailAddress();
+	}
+	
+	public static String geraTelefone(){
+		Faker fake = new Faker();
+		return fake.phoneNumber().phoneNumber();
+	}
+	
+	public static String geraEndereco(){
+		Faker fake = new Faker();
+		return fake.address().streetName()    +", "+
+			   fake.address().buildingNumber()+", "+
+		       fake.address().city()          +"-"+
+			   fake.address().stateAbbr()     +", "+
+		       fake.address().country();
 	}
 	
 	public static void calculaTempoDoTest(Date tempoInicio, Date tempoFinal) {

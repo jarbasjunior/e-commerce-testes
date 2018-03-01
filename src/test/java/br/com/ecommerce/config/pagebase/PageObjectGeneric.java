@@ -23,13 +23,13 @@ import br.com.ecommerce.config.setup.Property;
 import br.com.ecommerce.config.setup.Selenium;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
-import br.com.ecommerce.retaguarda.dashboard.PageHomeRetaguarda;
+import br.com.ecommerce.retaguarda.pages.dashboard.PageHomeRetaguarda;
 
 public abstract class PageObjectGeneric<T> {
 
 	private static final PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
 	private static final PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda(); 
-	private static final String URL_RETAGURADA                   = Property.URL;
+	private static final String URL_RETAGURADA                   = Property.URL_RETAGUARDA;
 	private static final int    LOAD_TIMEOUT                     = 20;
 	private static final int    INTERVALO_VERIFICACAO            = 1;
 	private String windowHandleJanelaInicial;
