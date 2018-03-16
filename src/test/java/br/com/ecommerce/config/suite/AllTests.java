@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import br.com.ecommerce.config.setup.Property;
 import br.com.ecommerce.config.setup.Selenium;
 import br.com.ecommerce.config.util.Utils;
+import br.com.ecommerce.retaguarda.testes.cadastros.TestCadastrosCategorias_IT;
 import br.com.ecommerce.retaguarda.testes.dadosgerais.TestDadosGerais_IT;
 /**
  * Classe que agrupa todas as classes de teste, funcionando com uma suíte de regressão.
@@ -20,7 +21,8 @@ import br.com.ecommerce.retaguarda.testes.dadosgerais.TestDadosGerais_IT;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	TestDadosGerais_IT.class
+	TestDadosGerais_IT.class,
+	TestCadastrosCategorias_IT.class
 })
 
 public class AllTests {

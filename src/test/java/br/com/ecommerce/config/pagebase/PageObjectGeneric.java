@@ -14,6 +14,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,7 +32,7 @@ public abstract class PageObjectGeneric<T> {
 	private static final PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda(); 
 	private static final String URL_RETAGURADA                   = Property.URL_RETAGUARDA;
 	private static final int    LOAD_TIMEOUT                     = 20;
-	private static final int    INTERVALO_VERIFICACAO            = 1;
+	private static final int    INTERVALO_VERIFICACAO            = 2;
 	private String windowHandleJanelaInicial;
 	private static final Wait<WebDriver> wait = new FluentWait<WebDriver>(Selenium.getDriver())
 				    								.withTimeout( LOAD_TIMEOUT         , TimeUnit.SECONDS) // Tempo limite (segundos)
@@ -147,6 +148,23 @@ public abstract class PageObjectGeneric<T> {
 		return true;
 	}
 	
+	public void selecionarValorComboTexto(WebElement element, String textVisible){
+		try{
+			new Select(element).selectByVisibleText(textVisible);
+		}catch(NoSuchElementException e){
+			erroSelecaoCombo(element, textVisible);
+			Utils.takeScreenshot("SelecionarComboTexto");
+		}
+	}
+	
+	public void selecionarValorComboValue(WebElement element, String valueVisible){
+		try{
+			new Select(element).selectByValue(valueVisible);
+		}catch(NoSuchElementException e){
+			erroSelecaoCombo(element, valueVisible);
+			Utils.takeScreenshot("SelecionarComboValue");
+		}
+	}
 	public void clicarBotaoDireito(WebElement elemento) {
 		Actions action = new Actions(Selenium.getDriver());
 		action.contextClick(elemento).build().perform();
@@ -208,9 +226,7 @@ public abstract class PageObjectGeneric<T> {
 	}
 	
 	public void retornarFramePai() {
-		Log.info("Retornando para frame SIGO...");
 		Selenium.getDriver().switchTo().defaultContent();
-		Log.info("Driver na frame SIGO...");
 	}
 
 
@@ -220,17 +236,17 @@ public abstract class PageObjectGeneric<T> {
 	
 	public void erroPreenchimento(WebElement element, String value) {
 		erro();
-		Log.erro("["+element+"] não encontrado, valor ["+value+"] não pode ser preenchido.");
-		pageHomeRetagurada.sairDoSistema();
+		Log.erro("["+element+"] não encontrado, valor ["+value+"] não pôde ser preenchido.");
+		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail("["+element+"] não encontrado, valor ["+value+"] não pode ser preenchido.");
+		Assert.fail("["+element+"] não encontrado, valor ["+value+"] não pôde ser preenchido.");
 		
 	}
 	
 	public void erroEspera(WebElement element) {
 		erro();
 		Log.erro("Tempo excedido para aguardar elemento: " + element);
-		pageHomeRetagurada.sairDoSistema();
+		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
 		Assert.fail("Tempo excedido para aguardar elemento: " + element);
 	}
@@ -238,7 +254,7 @@ public abstract class PageObjectGeneric<T> {
 	public void erroClick(WebElement element) {
 		erro();
 		Log.erro("Erro ao clicar no elemento ["+element+"].");
-		pageHomeRetagurada.sairDoSistema();
+		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
 		Assert.fail("Erro ao clicar no elemento ["+element+"].");
 	}
@@ -246,7 +262,7 @@ public abstract class PageObjectGeneric<T> {
 	public void erroGetValorAtributo(WebElement element) {
 		erro();
 		Log.erro("Erro ao buscar valor de atributo do elemento ["+element+"].");
-		pageHomeRetagurada.sairDoSistema();
+		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
 		Assert.fail("Erro ao buscar valor de atributo do elemento ["+element+"].");
 	}
@@ -254,9 +270,17 @@ public abstract class PageObjectGeneric<T> {
 	public void erroConfirmaAlerta() {
 		erro();
 		Log.erro("Erro ao realizar a confirmacao do Alerta");
-		pageHomeRetagurada.sairDoSistema();
+		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
 		Assert.fail("Erro ao realizar a confirmacao do Alerta");
+	}
+	
+	public void erroSelecaoCombo(WebElement element, String valor) {
+		erro();
+		Log.erro("Erro na seleção do combo");
+		pageHomeRetagurada.sairDoRetaguarda();
+		pageLoginRetagurada.driveNaPaginaLogin();
+		Assert.fail("Erro ao selecionar no elemento: ["+element.getTagName()+ "] com o valor: "+valor);
 	}
 	
 	public void erro() {

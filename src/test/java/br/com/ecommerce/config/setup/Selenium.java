@@ -53,7 +53,7 @@ public class Selenium {
 				firefoxOptions.setCapability(CapabilityType.PROXY, proxy);
 				firefoxOptions.setCapability("pdfjs.disabled", false);
 				//Rodar sem abrir o navegador = true, com o navegador = false
-				firefoxOptions.setHeadless(false);
+				firefoxOptions.setHeadless(true);
 				firefoxOptions.setProfile(getProfileFireFox(firefoxProfile));
 				driver = new FirefoxDriver(firefoxOptions);
 			}

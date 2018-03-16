@@ -34,12 +34,14 @@ public class TestDadosGerais_IT extends BaseTestCase {
 		String telefone = Utils.geraTelefone();
 		String endereco = Utils.geraEndereco();
 		pageMenu.acessarMenuDadosGeraisConfiguracoes();
+		pageConfiguracoes.conferirOrtografiaDeCamposTelaConfigurcoes();
 		pageConfiguracoes.navegarParaEdicaoDeConfiguracoes();
 		pageEditarConfiguracoes.alterarDadosDaCompanhia(nome, email, telefone, endereco, cnpj);
 		pageConfiguracoes.validarMsgFeedbackSucesso();
 		pageMenu.acessarMenuDadosGeraisConfiguracoes();
-		pageConfiguracoes.conferirDadosDaCompanhia(nome, email, telefone, endereco, cnpj);
+		pageConfiguracoes.conferirAlteracaoDaCompanhia(nome, email, telefone, endereco, cnpj);
 		Selenium.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirDadosLojaVirtual(telefone, endereco, email);
+		pageHomeLojaVirtual.conferirDadosCompanhiaNaLojaVirtual(telefone, endereco, email);
+		pageHomeRetaguarda.sairDoRetaguarda();
 	}
 }

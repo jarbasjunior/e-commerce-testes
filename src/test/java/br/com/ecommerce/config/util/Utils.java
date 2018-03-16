@@ -18,6 +18,8 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import com.github.javafaker.Faker;
 
@@ -61,8 +63,20 @@ public abstract class Utils {
 			}
 		}
 	}
+	
 	public static void assertTrue(String message, boolean bol){
-		Assert.assertTrue(message, bol);
+		try {
+			isError = !bol;
+			Assert.assertTrue(message, bol);
+		} catch (Exception e) {
+			takeScreenshot(message);
+			assertFail(message);
+		}finally{
+			if (isError) {
+				Log.erro("E R R O . . .");
+				Log.erro(message);
+			}
+		}
 	}
 	
 	public static void assertFail(String message) {
@@ -192,6 +206,11 @@ public abstract class Utils {
 		return fake.company().name();
 	}
 	
+	public static String geraCategoria(){
+		Faker fake = new Faker();
+		return fake.lorem().characters(4, true).toUpperCase();
+	}
+	
 	public static String geraCNPJ(){
 		Faker fake = new Faker();
 		StringBuilder sb = new StringBuilder(fake.number().digits(14));
@@ -205,6 +224,13 @@ public abstract class Utils {
 	public static String geraEmail(){
 		Faker fake = new Faker();
 		return fake.internet().emailAddress();
+	}
+	
+	public static void scrollDown(WebElement e){
+		for (int i = 0; i < 5; i++) {
+			e.sendKeys(Keys.PAGE_DOWN);
+		}
+		wait(1000);
 	}
 	
 	public static String geraTelefone(){

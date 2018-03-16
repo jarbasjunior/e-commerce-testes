@@ -32,10 +32,11 @@ public class PageHomeRetaguarda extends PageObjectGeneric<PageHomeRetaguarda> {
 		Log.info("Login realizado com sucesso.");
 	}
 	
-	public void sairDoSistema() {
-		Log.info("Saindo do retaguarda...");
-		waitAndClick(btDropDownUser);
-		waitAndClick(btSair);
+	public void sairDoRetaguarda() {
+		Selenium.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		btDropDownUser.click();
+		btSair.click();
+		Utils.wait(2000);
 		Log.info("Logout realizado com sucesso.");
 	}
 }

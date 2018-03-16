@@ -24,6 +24,7 @@ public class PageLoginRetaguarda extends PageObjectGeneric<PageLoginRetaguarda> 
 	WebElement btEntrar;
 	
 	public void realizarLoginRetaguarda(){
+		openPageRetaguarda();
 		Log.info("Informando email...");
 		preencherCampo(fieldEmail, Property.EMAIL);
 		Log.info("Informando senha...");
@@ -32,9 +33,15 @@ public class PageLoginRetaguarda extends PageObjectGeneric<PageLoginRetaguarda> 
 		Log.info("Direcionando para retaguarda...");
 	}
 	
+	public void openPageRetaguarda(){
+		Log.info("Navegando para retaguarda...");
+		Selenium.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		aguardarElementoVisivel(btEntrar);
+	}
+	
 	public void driveNaPaginaLogin() {
 		Log.info("Retornando para página de login...");
-		aguardarElementoVisivel(fieldEmail);
+		aguardarElementoVisivel(btEntrar);
 		Log.info("Página de login carregada.");
 	}
 }

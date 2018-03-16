@@ -19,7 +19,7 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	//==========================================================
 	// Botao principal retaguarda 
 	//==========================================================
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Dashboard']")
+	@FindBy(xpath = "//*[@href='/admin/dashboard']")
 	WebElement btDashboard;
 	
 	//==========================================================
@@ -28,7 +28,7 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Dados Gerais']")
 	public static WebElement menuDadosGerais;
 
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Dados Gerais']//..//..//ul/li/a[text()='Configurações']")
+	@FindBy(xpath = "//*[@href='/admin/settings']")
 	public static WebElement configuracoes;
 	
 	//==========================================================
@@ -37,55 +37,55 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']")
 	public static WebElement menuCadastros;
 
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Categorias']")
+	@FindBy(xpath = "//*[@href='/admin/categories']")
 	public static WebElement cadastroCategorias;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Cores']")
+	@FindBy(xpath = "//*[@href='/admin/colors']")
 	public static WebElement cadastroCores;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Clientes']")
+	@FindBy(xpath = "//*[@href='/admin/clients']")
 	public static WebElement cadastroClientes;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Métodos de Envio']")
+	@FindBy(xpath = "//*[@href='/admin/shipping_methods']")
 	public static WebElement cadastroMetodosDeEnvio;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Fornecedores']")
+	@FindBy(xpath = "//*[@href='/admin/suppliers']")
 	public static WebElement cadastroFornecedores;
 
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Funcionários']")
+	@FindBy(xpath = "//*[@href='/admin/employees']")
 	public static WebElement cadastroFuncionarios;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Marcas']")
+	@FindBy(xpath = "//*[@href='/admin/brands']")
 	public static WebElement cadastroMarcas;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Grupos Fiscais']")
+	@FindBy(xpath = "//*[@href='/admin/tax_groups']")
 	public static WebElement cadastroGruposFiscais;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Op. Cartão Crédito']")
+	@FindBy(xpath = "//*[@href='/admin/credit_card_companies']")
 	public static WebElement cadastroOpCartaoCredito;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Produtos']")
+	@FindBy(xpath = "//*[@href='/admin/products']")
 	public static WebElement cadastroProdutos;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Tipos de Pagamento']")
+	@FindBy(xpath = "//*[@href='/admin/payment_types']")
 	public static WebElement cadastroTiposPagamento;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Tamanhos']")
+	@FindBy(xpath = "//*[@href='/admin/sizes']")
 	public static WebElement cadastroTamanhos;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Tipos de Contas']")
+	@FindBy(xpath = "//*[@href='/admin/bill_types']")
 	public static WebElement cadastroTiposDeContas;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Tipos de Entrada']")
+	@FindBy(xpath = "//*[@href='/admin/product_in_types']")
 	public static WebElement cadastroTiposDeEntrada;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Tipos de Saídas']")
+	@FindBy(xpath = "//*[@href='/admin/product_out_types']")
 	public static WebElement cadastroTiposDeSaidas;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Slides']")
+	@FindBy(xpath = "//*[@href='/admin/slides']")
 	public static WebElement cadastroSlides;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']//..//..//ul/li/a[text()='Unidades']")
+	@FindBy(xpath = "//*[@href='/admin/units']")
 	public static WebElement cadastroUnidades;
 	
 	
@@ -95,16 +95,16 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Estoque']")
 	public static WebElement menuEstoque;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Estoque']//..//..//ul/li/a[text()='Entrada de Produtos']")
+	@FindBy(xpath = "//*[@href='/admin/dashboard' and text()='Entrada de Produtos']")
 	public static WebElement entradaDeProdutos;
 
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Estoque']//..//..//ul/li/a[text()='Saída de Produtos']")
+	@FindBy(xpath = "//*[@href='/admin/products_outs']")
 	public static WebElement saidaDeProdutos;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Estoque']//..//..//ul/li/a[text()='Compra de Produtos']")
+	@FindBy(xpath = "//*[@href='/admin/product_purchases']")
 	public static WebElement compraDeProdutos;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Estoque']//..//..//ul/li/a[text()='Balanço']")
+	@FindBy(xpath = "//*[@href='/admin/date_inventories']")
 	public static WebElement balanco;
 	
 	
@@ -114,10 +114,10 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Contas']")
 	public static WebElement menuContas;
 		
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Contas']//..//..//ul/li/a[text()='À Pagar']")
+	@FindBy(xpath = "//*[@href='/admin/bills_to_pay']")
 	public static WebElement contasPagar;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Contas']//..//..//ul/li/a[text()='À Receber']")
+	@FindBy(xpath = "//*[@href='/admin/bills_to_receive']")
 	public static WebElement contasReceber;
 	
 	
@@ -127,16 +127,16 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Relatórios']")
 	public static WebElement menuRelatorios;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Relatórios']//..//..//ul/li/a[text()='Estoque de Produto']")
+	@FindBy(xpath = "//*[@href='/admin/reports/inventaries']")
 	public static WebElement relatorioEstqoueDeProduto;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Relatórios']//..//..//ul/li/a[text()='Vendas']")
+	@FindBy(xpath = "//*[@href='/admin/reports/sales']")
 	public static WebElement relatorioVendas;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Relatórios']//..//..//ul/li/a[text()='Produtos']")
+	@FindBy(xpath = "//*[@href='/admin/reports/products']")
 	public static WebElement relatorioProduto;
 	
-	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Relatórios']//..//..//ul/li/a[text()='Contas a pagar']")
+	@FindBy(xpath = "//*[@href='/admin/reports/bills_to_pay']")
 	public static WebElement relatorioContasPagar;
 	
 	//==========================================================
@@ -167,6 +167,7 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	 * -------------------------------------------------
 	 */
 	public void acessarMenuDadosGeraisConfiguracoes(){
+		Log.info("Navegando para tela de configurações...");
 		acessarMenu(menuDadosGerais,configuracoes);
 	}
 	
@@ -176,6 +177,7 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	 * -------------------------------------------------
 	 */
 	public void acessarMenuCadastrosCategorias(){
+		Log.info("Navegando para tela de cadastro de categorias...");
 		acessarMenu(menuCadastros, cadastroCategorias);
 	}
 	
