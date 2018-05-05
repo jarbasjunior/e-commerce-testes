@@ -10,9 +10,10 @@ import org.junit.runners.Suite;
 import org.openqa.selenium.WebDriver;
 
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.Selenium;
-import br.com.ecommerce.config.testbase.TestLoginRetaguarda_IT;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Utils;
+import br.com.ecommerce.retaguarda.testes.cadastros.TestCadastrosCategorias_IT;
+import br.com.ecommerce.retaguarda.testes.dadosgerais.TestDadosGerais_IT;
 /**
  * Classe que agrupa todas as classes de teste, funcionando com uma suíte de regressão.
  * @author Jarbas
@@ -20,7 +21,8 @@ import br.com.ecommerce.config.util.Utils;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-
+	TestDadosGerais_IT.class,
+	TestCadastrosCategorias_IT.class
 })
 
 public class AllTests {
@@ -35,15 +37,12 @@ protected static WebDriver driver;
 	public static void beforeClass() throws Exception {
 		inicio = Calendar.getInstance().getTime();
 		isAllTestsExecution = true;
-		Selenium.getDriver().navigate().to(Property.URL);
-		Selenium.getDriver().manage().window().maximize();
-		TestLoginRetaguarda_IT testLogin = new TestLoginRetaguarda_IT();
-		testLogin.loginRetaguardaComSucesso();
+		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
 	}
 
 	@AfterClass
 	public static void afterClass() throws Exception {
-		Selenium.resetDriver();
+		DriverFactory.resetDriver();
 		fim = Calendar.getInstance().getTime();
 		Utils.calculaTempoDoTest(inicio, fim);
 	}
