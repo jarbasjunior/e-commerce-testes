@@ -5,17 +5,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.pagebase.PageObjectGeneric;
-import br.com.ecommerce.config.setup.Selenium;
+import br.com.ecommerce.config.basepage.BasePage;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
 
-public class PageEditarCategoria extends PageObjectGeneric<PageEditarCategoria> {
+public class PageEditarCategoria extends BasePage<PageEditarCategoria> {
 
 	public PageEditarCategoria() {
-		PageFactory.initElements(Selenium.getDriver(), this);
+		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
 
+	@FindBy(xpath = "//h3")
+	WebElement iconeHome;
+	
 	@FindBy(xpath = "//*[@for='category_name']")
 	WebElement nameCategorias;
 	
@@ -51,21 +54,21 @@ public class PageEditarCategoria extends PageObjectGeneric<PageEditarCategoria> 
 		Log.info("Alterando nome da categoria ["+categoriaAnterior+"] para ["+categoriaAtual+"]...");
 		aguardarElementoVisivel(btSalvar);
 		preencherCampo(fieldNomeCategoria, categoriaAtual);
-		waitAndClick(btSalvar);
+		click(btSalvar);
 		Log.info("Salvando alteração da categoria ["+categoriaAnterior+"] para ["+categoriaAtual+"]...");
 	}
 	
 	public void validarOrtografiaDeCamposTelaEditarCategoria(String categoria) {
-		
-		WebElement titleEditarCategorias = Selenium.getDriver().findElement(By.xpath("//*[@id='main-content']//span[text()='Editar "+categoria+"']"));
+		aguardarElementoVisivel(iconeHome);
+		WebElement titleEditarCategorias = DriverFactory.getDriver().findElement(By.xpath("//*[@id='main-content']//span[text()='Editar "+categoria+"']"));
 		Log.info("Conferindo ortografia na tela de inclusão de categoria...");
-		Utils.assertEquals(titleEditarCategorias.getText()  , "Editar "+categoria);
-		Utils.assertEquals(nameCategorias.getText()         , "Nome da Categoria:");
-		Utils.assertEquals(nameAtiva.getText()              , "Ativa");
-		Utils.assertEquals(nameMenuPrincipal.getText()      , "Menu Principal");
-		Utils.assertEquals(nameCategoriaAgrupadora.getText(), "Categoria agrupadora");
-		Utils.assertEquals(btCancelar.getText()             , "Cancelar");
-		Utils.assertEquals(btSalvar.getAttribute("value")   , "Salvar");
+		Utils.assertEquals(getTextElement(titleEditarCategorias)  , "Editar "+categoria);
+		Utils.assertEquals(getTextElement(nameCategorias)         , "Nome da Categoria:");
+		Utils.assertEquals(getTextElement(nameAtiva)              , "Ativa");
+		Utils.assertEquals(getTextElement(nameMenuPrincipal)      , "Menu Principal");
+		Utils.assertEquals(getTextElement(nameCategoriaAgrupadora), "Categoria agrupadora");
+		Utils.assertEquals(getTextElement(btCancelar)             , "Cancelar");
+		Utils.assertEquals(getTextValueAtributo(btSalvar)		      , "Salvar");
 		Log.info("Ortografia validada com sucesso.");
 	}
 

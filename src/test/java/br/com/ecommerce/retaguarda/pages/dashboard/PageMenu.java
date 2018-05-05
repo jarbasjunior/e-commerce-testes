@@ -4,16 +4,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.pagebase.PageObjectGeneric;
+import br.com.ecommerce.config.basepage.BasePage;
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.Selenium;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
 
-public class PageMenu extends PageObjectGeneric<PageMenu> {
+public class PageMenu extends BasePage<PageMenu> {
 
 	public PageMenu() {
-		PageFactory.initElements(Selenium.getDriver(), this);
+		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
 	
 	//==========================================================
@@ -150,14 +150,13 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	
 	public void acessarMenu(WebElement... elements){
 		try {
-			waitAndClick(btDashboard);
+			click(btDashboard);
 		} catch (Exception e) {
 			Utils.takeScreenshot(elements.clone().toString());
 			Utils.assertFail("Erro ao acessar menu. Favor verificar em: ["+Property.EVIDENCIAS_TESTE_PATH+"]");
 		}
 		for(WebElement element: elements){
-			waitAndClick(element);
-			Log.info("Acessando menu: [" +element.getText()+"]");
+			click(element);
 		}
 	}
 	
@@ -304,20 +303,3 @@ public class PageMenu extends PageObjectGeneric<PageMenu> {
 	// ****************** FIM ACESSO MENUS ********************
 	//==========================================================
 }
-
-
-	/*public void acessarMenu(WebElement element){
-		waitAndClick(btDashboard);//incluido para sempre voltar aos ids default
-		waitAndClick(element);
-		Log.info("Acessando menu : " +element.getText());
-	}
-	public void acessarSubMenu(WebElement element){
-		aguardarElementoVisivel(element);
-		waitAndClick(element);
-		Log.info("Acessando menu : " +element.getText());
-	}
-	public void acessarSubItemMenu(WebElement element){
-		aguardarElementoVisivel(element);
-		waitAndClick(element);
-		Log.info("Acessando menu : " +element.getText());
-	}*/

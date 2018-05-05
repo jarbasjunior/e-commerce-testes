@@ -1,4 +1,4 @@
-package br.com.ecommerce.config.pagebase;
+package br.com.ecommerce.config.basepage;
 
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -21,31 +22,31 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.google.common.base.Function;
 
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.Selenium;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
 import br.com.ecommerce.retaguarda.pages.dashboard.PageHomeRetaguarda;
 
-public abstract class PageObjectGeneric<T> {
+public abstract class BasePage<T> {
 
 	private static final PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
 	private static final PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda(); 
 	private static final String URL_RETAGURADA                   = Property.URL_RETAGUARDA;
-	private static final int    LOAD_TIMEOUT                     = 20;
+	private static final int    LOAD_TIMEOUT                     = 14;
 	private static final int    INTERVALO_VERIFICACAO            = 2;
 	private String windowHandleJanelaInicial;
-	private static final Wait<WebDriver> wait = new FluentWait<WebDriver>(Selenium.getDriver())
+	private static final Wait<WebDriver> wait = new FluentWait<WebDriver>(DriverFactory.getDriver())
 				    								.withTimeout( LOAD_TIMEOUT         , TimeUnit.SECONDS) // Tempo limite (segundos)
 				    								.pollingEvery(INTERVALO_VERIFICACAO, TimeUnit.SECONDS) // Intervalo de tempo de cada busca (segundos) 
 				    								.ignoring(NoSuchElementException.class);  
 
-	public PageObjectGeneric() {
-		PageFactory.initElements(Selenium.getDriver(), this);
+	public BasePage() {
+		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
 
 	public T abrirPagina(Class<T> clazz) {
-		T pagina = PageFactory.initElements(Selenium.getDriver(), clazz);
-		Selenium.getDriver().navigate().to(URL_RETAGURADA);
+		T pagina = PageFactory.initElements(DriverFactory.getDriver(), clazz);
+		DriverFactory.getDriver().navigate().to(URL_RETAGURADA);
 		return pagina;
 	}
 
@@ -67,26 +68,11 @@ public abstract class PageObjectGeneric<T> {
 					return e;
 				}
 			});
-			WebDriverWait driverWait = new WebDriverWait(Selenium.getDriver(),
+			WebDriverWait driverWait = new WebDriverWait(DriverFactory.getDriver(),
 			LOAD_TIMEOUT);
 			driverWait.until(ExpectedConditions.visibilityOf(element));
 		} catch (Exception e) {
 			erroEspera(element);
-		}
-	}
-	
-	public void waitAndClick(WebElement element) {
-		try {
-			final WebElement e = element;
-			WebElement elementoAguardado = wait.until(new Function<WebDriver, WebElement>() {
-			       public WebElement apply(WebDriver driver) {
-			              return e;
-			             }
-			       });
-			click(elementoAguardado);
-			
-		} catch (WebDriverException e) {
-			erroClick(element);
 		}
 	}
 	
@@ -98,19 +84,29 @@ public abstract class PageObjectGeneric<T> {
 			erroClick(element);
 		}
 	}
-
-	public String getValorAtributo(WebElement element) {
+	
+	public String getTextValueAtributo(WebElement element) {
 		try {
 			return element.getAttribute("value");
 		} catch (Exception e) {
-			erroGetValorAtributo(element);
+			erroGetTextAtributo(element);
+			return null;
+		}
+	}
+	
+	public String getTextElement(WebElement element) {
+		try {
+			String s = element.getText(); 
+			return s;
+		} catch (Exception e) {
+			erroGetText(element);
 			return null;
 		}
 	}
 
 	public void confirmarAlerta() {
 		try {
-			Alert alert = Selenium.getDriver().switchTo().alert();
+			Alert alert = DriverFactory.getDriver().switchTo().alert();
 			alert.accept();
 		} catch (Exception e) {
 			erroConfirmaAlerta();
@@ -140,7 +136,7 @@ public abstract class PageObjectGeneric<T> {
 
 	public boolean isVisibility(By locator) {
 		try {
-			WebElement element = Selenium.getDriver().findElement(locator);
+			WebElement element = DriverFactory.getDriver().findElement(locator);
 			element.isDisplayed();
 		} catch (Exception e) {
 			return false;
@@ -165,18 +161,59 @@ public abstract class PageObjectGeneric<T> {
 			Utils.takeScreenshot("SelecionarComboValue");
 		}
 	}
+	
+	public void pageDown(WebElement e){
+		for (int i = 0; i < 5; i++) {
+			e.sendKeys(Keys.PAGE_DOWN);
+		}
+		Utils.wait(500);
+	}
+	
+	public void pageUp(WebElement e){
+		for (int i = 0; i < 5; i++) {
+			e.sendKeys(Keys.PAGE_UP);
+		}
+		Utils.wait(500);
+	}
+	
+	public void tab(WebElement e){
+		e.sendKeys(Keys.TAB);
+	}
+	
+	public boolean isElementPresent(WebElement element){
+        try{
+            int counter = 0;
+            while(counter < LOAD_TIMEOUT){
+                Thread.sleep(INTERVALO_VERIFICACAO);
+                counter++;
+                try{
+                    if(element.isDisplayed()){
+                        return true;
+                    }else{
+                        continue;
+                    }
+                }catch(Exception e){
+                    continue;
+                }
+            }
+            return false;
+        }catch(Exception e){
+            return false;
+        }
+    }
+	
 	public void clicarBotaoDireito(WebElement elemento) {
-		Actions action = new Actions(Selenium.getDriver());
+		Actions action = new Actions(DriverFactory.getDriver());
 		action.contextClick(elemento).build().perform();
 	}
 	
 	public void doubleclick(WebElement elemento) {
-		Actions action = new Actions(Selenium.getDriver());
+		Actions action = new Actions(DriverFactory.getDriver());
 		action.doubleClick().build().perform();
 	}
 
 	public void moverCursorPara(WebElement elemento) {
-		Actions action = new Actions(Selenium.getDriver());
+		Actions action = new Actions(DriverFactory.getDriver());
 		aguardarElementoVisivel(elemento);
 		action.moveToElement(elemento).build().perform();
 	}
@@ -187,22 +224,22 @@ public abstract class PageObjectGeneric<T> {
 	}
 
 	public void voltarPagina() {
-		Selenium.getDriver().navigate().back();
+		DriverFactory.getDriver().navigate().back();
 	}
 
 	public void alternarJanela() {
-		windowHandleJanelaInicial = Selenium.getDriver().getWindowHandle();
-		Set<String> windowHandles = Selenium.getDriver().getWindowHandles();
+		windowHandleJanelaInicial = DriverFactory.getDriver().getWindowHandle();
+		Set<String> windowHandles = DriverFactory.getDriver().getWindowHandles();
 		for (String windowHandle : windowHandles) {
 			if (!windowHandle.equals(windowHandleJanelaInicial)) {
-				Selenium.getDriver().switchTo().window(windowHandle);
+				DriverFactory.getDriver().switchTo().window(windowHandle);
 			}
 		}
 		setWindowHandleJanelaInicial(windowHandleJanelaInicial);
 	}
 	
 	public void retonarJanelaOriginal() {
-		Selenium.getDriver().switchTo().window(getWindowHandleJanelaInicial());
+		DriverFactory.getDriver().switchTo().window(getWindowHandleJanelaInicial());
 	}
 
 	public String getWindowHandleJanelaInicial() {
@@ -214,61 +251,69 @@ public abstract class PageObjectGeneric<T> {
 	}
 
 	public void selecionarFrameID(int idFrame) {
-		Selenium.getDriver().switchTo().frame(idFrame);
+		DriverFactory.getDriver().switchTo().frame(idFrame);
 	}
 	
 	public void selecionarFrameNameOrID(String stringFrame) {
-		Selenium.getDriver().switchTo().frame(stringFrame);
+		DriverFactory.getDriver().switchTo().frame(stringFrame);
 	}
 	
 	public void selecionarFrameWebElement(WebElement element) {
-		Selenium.getDriver().switchTo().frame(element);
+		DriverFactory.getDriver().switchTo().frame(element);
 	}
 	
 	public void retornarFramePai() {
-		Selenium.getDriver().switchTo().defaultContent();
+		DriverFactory.getDriver().switchTo().defaultContent();
 	}
 
 
 	public WebElement getElement(By by) {
-		return Selenium.getDriver().findElement(by);
+		return DriverFactory.getDriver().findElement(by);
 	}
 	
 	public void erroPreenchimento(WebElement element, String value) {
 		erro();
-		Log.erro("["+element+"] não encontrado, valor ["+value+"] não pôde ser preenchido.");
+		Log.erro(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail("["+element+"] não encontrado, valor ["+value+"] não pôde ser preenchido.");
-		
+		Assert.fail(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
 	}
-	
 	public void erroEspera(WebElement element) {
 		erro();
-		Log.erro("Tempo excedido para aguardar elemento: " + element);
+		Utils.takeScreenshot("erroEspera");
+		Log.erro("Tempo excedido ("+LOAD_TIMEOUT+"s) para aguardar elemento "+element.toString().substring(45, element.toString().length()-1)+"");
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail("Tempo excedido para aguardar elemento: " + element);
+		Assert.fail("Tempo excedido ("+LOAD_TIMEOUT+"s) para aguardar elemento "+element.toString().substring(45, element.toString().length()-1)+"");
 	}
 	
 	public void erroClick(WebElement element) {
 		erro();
-		Log.erro("Erro ao clicar no elemento ["+element+"].");
+		Log.erro("Erro ao clicar no elemento: "+element.toString().substring(45, element.toString().length()-2)+"].");
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail("Erro ao clicar no elemento ["+element+"].");
+		Assert.fail("Erro ao clicar no elemento "+element.toString().substring(45, element.toString().length()-2)+"].");
 	}
 	
-	public void erroGetValorAtributo(WebElement element) {
+	public void erroGetTextAtributo(WebElement element) {
 		erro();
-		Log.erro("Erro ao buscar valor de atributo do elemento ["+element+"].");
+		Utils.takeScreenshot("erroGetTextAtributo");
+		Log.erro("Erro ao buscar texto de atributo do elemento: "+element.toString().substring(45, element.toString().length()-2)+"].");
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail("Erro ao buscar valor de atributo do elemento ["+element+"].");
+		Assert.fail("Erro ao buscar texto de atributo do elemento: "+element.toString().substring(45, element.toString().length()-2)+"].");
+	}
+	
+	public void erroGetText(WebElement element) {
+		erro();
+		Utils.takeScreenshot("erroGetText");
+		Log.erro("Erro ao buscar texto do elemento: "+element.toString().substring(45, element.toString().length()-2)+"].");
+		Assert.fail("Erro ao buscar texto do elemento: "+element.toString().substring(45, element.toString().length()-2)+"].");
 	}
 	
 	public void erroConfirmaAlerta() {
 		erro();
+		Utils.takeScreenshot("erroAlerta");
 		Log.erro("Erro ao realizar a confirmacao do Alerta");
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
@@ -277,13 +322,17 @@ public abstract class PageObjectGeneric<T> {
 	
 	public void erroSelecaoCombo(WebElement element, String valor) {
 		erro();
-		Log.erro("Erro na seleção do combo");
+		Utils.takeScreenshot("erroSelectCombo");
+		Log.erro("Erro ao selecionar elemento do combo: "+element.toString().substring(45, element.toString().length()-2)+"], com o valor: "+valor);
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail("Erro ao selecionar no elemento: ["+element.getTagName()+ "] com o valor: "+valor);
+		Assert.fail("Erro ao selecionar elemento do combo: "+element.toString().substring(45, element.toString().length()-2)+"], com o valor: "+valor);
 	}
 	
 	public void erro() {
 		Log.erro("E R R O ...");
+		Log.info("    ||");
+		Log.info("   \\  /");
+		Log.info("    **");
 	}
 }

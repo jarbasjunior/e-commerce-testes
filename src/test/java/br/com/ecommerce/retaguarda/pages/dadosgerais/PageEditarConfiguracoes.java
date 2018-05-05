@@ -4,15 +4,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.pagebase.PageObjectGeneric;
-import br.com.ecommerce.config.setup.Selenium;
+import br.com.ecommerce.config.basepage.BasePage;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
 
-public class PageEditarConfiguracoes extends PageObjectGeneric<PageEditarConfiguracoes> {
+public class PageEditarConfiguracoes extends BasePage<PageEditarConfiguracoes> {
 
 	public PageEditarConfiguracoes() {
-		PageFactory.initElements(Selenium.getDriver(), this);
+		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
 
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]/div/h1[text()='Editar Configurações']")
@@ -40,7 +40,7 @@ public class PageEditarConfiguracoes extends PageObjectGeneric<PageEditarConfigu
 	public void alterarDadosDaCompanhia(String nome, String email, String telefone, String endereco, String cnpj) {
 		
 		aguardarElementoVisivel(titleEditarConfiguracoes);
-		Utils.assertEquals(titleEditarConfiguracoes.getText(), "Editar Configurações");
+		Utils.assertEquals(getTextElement(titleEditarConfiguracoes), "Editar Configurações");
 		
 		Log.info("Realizando alterações na tela de configurações...");
 		preencherCampo(fieldNome    , nome);
@@ -48,7 +48,8 @@ public class PageEditarConfiguracoes extends PageObjectGeneric<PageEditarConfigu
 		preencherCampo(fieldTelefone, telefone);
 		preencherCampo(fieldEndereco, endereco);
 		preencherCampo(fieldCNPJ    , cnpj);
-		waitAndClick(btSalvar);
+		tab(fieldCNPJ);
+		click(btSalvar);
 		Log.info("Salvando alterações...");
 	}
 }

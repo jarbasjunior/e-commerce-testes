@@ -18,12 +18,12 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 
 import org.junit.Assert;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 
 import com.github.javafaker.Faker;
 
+import br.com.ecommerce.config.basepage.PageLoginRetaguarda;
 import br.com.ecommerce.config.setup.Property;
+import br.com.ecommerce.retaguarda.pages.dashboard.PageHomeRetaguarda;
 
 /**
  * Classe com m�todos de apoio, que otimizam a codifica��o das classes de
@@ -34,7 +34,9 @@ import br.com.ecommerce.config.setup.Property;
  */
 public abstract class Utils {
 
-	private static boolean isError = false;
+	private static boolean 			           isError 			   = false;
+	private static final   PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+	private static final   PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 
 	public static void wait(final int iTimeInMillis) {
 		try {
@@ -49,17 +51,17 @@ public abstract class Utils {
 			isError = !esperado.toString().equals(atual.toString());
 			Assert.assertEquals(esperado, atual);
 		} catch (Exception e) {
-			takeScreenshot("Esperava-se: ["+esperado+"]E retornou.: ["+atual+"]");
 			assertFail("Erro encontrado: Esperado ["+esperado+"], mas retornou ["+atual+"]");
 		}finally{
 			if (isError) {
 				Log.erro("E R R O . . .");
+				Log.info("    ||");
+				Log.info("   \\  /");
+				Log.info("    **");
 				Log.erro("Esperava-se: ["+esperado+"]");
 				Log.erro("E retornou.: ["+atual+"]");
-				takeScreenshot("Esperava-se: ["+esperado+"]E retornou.: ["+atual+"]");
-			}else{
-				Log.info("Resultado esperado..: ["+esperado+"]");
-				Log.info("Resultado encontrado: ["+atual+"]");
+				takeScreenshot(removeCaracterEspecial(esperado.toString())+"#"+removeCaracterEspecial(atual.toString()));
+				retornarPageLogin();
 			}
 		}
 	}
@@ -74,7 +76,11 @@ public abstract class Utils {
 		}finally{
 			if (isError) {
 				Log.erro("E R R O . . .");
+				Log.info("    ||");
+				Log.info("   \\  /");
+				Log.info("    **");
 				Log.erro(message);
+				retornarPageLogin();
 			}
 		}
 	}
@@ -137,26 +143,40 @@ public abstract class Utils {
 		return Integer.parseInt(str);
 	}
 	
+	public static String removeCaracterEspecial(String s) {
+		s = s.replace(".", "");
+		s = s.replace(":", "");
+		s = s.replace(";", "");
+		s = s.replace("/", "");
+		s = s.replace("\\", "");
+		s = s.replace("ç", "c");
+		s = s.replace("{", "c");
+		s = s.replace("}", "c");
+		s = s.replace("[", "c");
+		s = s.replace("]", "c");
+		if (!s.equals(""))
+			return s;
+		else{
+			s = "Sem valor";
+		}
+		return s;
+	}
+	
 	public static void takeScreenshot(String fileName){
-		Date data = new Date();
 		
-	    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd hh mm ss a");
-    	Calendar now = Calendar.getInstance();
-        Robot robot;
+		Date 			 data      = new Date();
+		Robot 			 robot 	   = null;
+	    SimpleDateFormat formatter = new SimpleDateFormat("ddMMyy hh mm ss a");
 		try {
 			robot = new Robot();
-         	BufferedImage screenShot = robot.createScreenCapture(new java.awt.Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-         	try {
-				ImageIO.write(screenShot, "JPG", new File(Property.EVIDENCIAS_TESTE_PATH+fileName+ data.getTime()));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-         	System.out.println(formatter.format(now.getTime()));
-				
-		} catch (AWTException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (AWTException e1) {
+			e1.printStackTrace();
+		}
+       	try {
+       		BufferedImage screenShot = robot.createScreenCapture(new java.awt.Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+			ImageIO.write(screenShot, "png", new File(Property.EVIDENCIAS_TESTE_PATH+fileName+ "_"+formatter.format(data)+".png"));
+		} catch (IOException e) {
+			Log.erro("Erro ao capturar tela");
 		}
 	}
 	
@@ -226,13 +246,6 @@ public abstract class Utils {
 		return fake.internet().emailAddress();
 	}
 	
-	public static void scrollDown(WebElement e){
-		for (int i = 0; i < 5; i++) {
-			e.sendKeys(Keys.PAGE_DOWN);
-		}
-		wait(1000);
-	}
-	
 	public static String geraTelefone(){
 		Faker fake = new Faker();
 		return fake.phoneNumber().phoneNumber();
@@ -245,6 +258,11 @@ public abstract class Utils {
 		       fake.address().city()          +"-"+
 			   fake.address().stateAbbr()     +", "+
 		       fake.address().country();
+	}
+	
+	public static void retornarPageLogin(){
+		pageHomeRetagurada.sairDoRetaguarda();
+		pageLoginRetagurada.driveNaPaginaLogin();
 	}
 	
 	public static void calculaTempoDoTest(Date tempoInicio, Date tempoFinal) {

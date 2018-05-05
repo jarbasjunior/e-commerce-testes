@@ -17,7 +17,7 @@ import org.openqa.selenium.remote.CapabilityType;
  * Classe Utils para o Selenium
  * Identifica qual o browser escolhido no config.properties e inicializa o webdriver correspondente
  */
-public class Selenium {
+public class DriverFactory {
 	
 	private static WebDriver driver = null;
 	

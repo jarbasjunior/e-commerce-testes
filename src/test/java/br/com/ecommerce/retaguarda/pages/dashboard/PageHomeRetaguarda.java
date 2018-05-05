@@ -4,16 +4,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.pagebase.PageObjectGeneric;
+import br.com.ecommerce.config.basepage.BasePage;
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.Selenium;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
 
-public class PageHomeRetaguarda extends PageObjectGeneric<PageHomeRetaguarda> {
+public class PageHomeRetaguarda extends BasePage<PageHomeRetaguarda> {
 
 	public PageHomeRetaguarda() {
-		PageFactory.initElements(Selenium.getDriver(), this);
+		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
 
 	@FindBy(xpath = "//*[@id='container']/header/div[2]/ul/li/a/span")
@@ -28,15 +28,15 @@ public class PageHomeRetaguarda extends PageObjectGeneric<PageHomeRetaguarda> {
 	public void verificaAutenticidadeUsuario(){
 		aguardarElementoVisivel(user);
 		Log.info("Verificando autenticidade do usuário...");
-		Utils.assertEquals(user.getText(), Property.USR);
+		Utils.assertEquals(getTextElement(user), Property.USR);
 		Log.info("Login realizado com sucesso.");
 	}
 	
 	public void sairDoRetaguarda() {
-		Selenium.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		Log.info("Realizando logout do retaguarda...");
+		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
 		btDropDownUser.click();
 		btSair.click();
-		Utils.wait(2000);
-		Log.info("Logout realizado com sucesso.");
+		Utils.wait(1500);
 	}
 }

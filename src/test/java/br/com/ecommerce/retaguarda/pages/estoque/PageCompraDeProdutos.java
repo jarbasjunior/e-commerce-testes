@@ -4,14 +4,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.pagebase.PageObjectGeneric;
-import br.com.ecommerce.config.setup.Selenium;
+import br.com.ecommerce.config.basepage.BasePage;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 
-public class PageCompraDeProdutos extends PageObjectGeneric<PageCompraDeProdutos> {
+public class PageCompraDeProdutos extends BasePage<PageCompraDeProdutos> {
 
 	public PageCompraDeProdutos() {
-		PageFactory.initElements(Selenium.getDriver(), this);
+		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
 
 	@FindBy(xpath = "//*[@id='container']/header/div[2]/ul/li/a/span")
@@ -19,6 +19,6 @@ public class PageCompraDeProdutos extends PageObjectGeneric<PageCompraDeProdutos
 	
 	public void sairDoSistema() {
 		Log.info("Saindo do retaguarda...");
-		waitAndClick(user);
+		click(user);
 	}
 }

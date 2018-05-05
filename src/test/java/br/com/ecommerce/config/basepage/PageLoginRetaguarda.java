@@ -1,17 +1,17 @@
-package br.com.ecommerce.config.pagebase;
+package br.com.ecommerce.config.basepage;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.Selenium;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 
-public class PageLoginRetaguarda extends PageObjectGeneric<PageLoginRetaguarda> {
+public class PageLoginRetaguarda extends BasePage<PageLoginRetaguarda> {
 
 	public PageLoginRetaguarda() {
-		PageFactory.initElements(Selenium.getDriver(), this);
+		PageFactory.initElements(DriverFactory.getDriver(), this);
 	}
 
 	@FindBy(id = "session_email")
@@ -29,18 +29,17 @@ public class PageLoginRetaguarda extends PageObjectGeneric<PageLoginRetaguarda> 
 		preencherCampo(fieldEmail, Property.EMAIL);
 		Log.info("Informando senha...");
 		preencherCampo(fieldSenha, Property.PASSWORD);
-		waitAndClick(btEntrar);
+		click(btEntrar);
 		Log.info("Direcionando para retaguarda...");
 	}
 	
 	public void openPageRetaguarda(){
 		Log.info("Navegando para retaguarda...");
-		Selenium.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
 		aguardarElementoVisivel(btEntrar);
 	}
 	
 	public void driveNaPaginaLogin() {
-		Log.info("Retornando para página de login...");
 		aguardarElementoVisivel(btEntrar);
 		Log.info("Página de login carregada.");
 	}

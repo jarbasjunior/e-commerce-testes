@@ -8,13 +8,13 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 
-import br.com.ecommerce.config.pagebase.PageLoginRetaguarda;
+import br.com.ecommerce.config.basepage.PageLoginRetaguarda;
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.Selenium;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.suite.AllTests;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.retaguarda.pages.dashboard.PageHomeRetaguarda;
-public class BaseTestCase {
+public class BaseTest {
 	
 	
 	protected static WebDriver           driver;
@@ -39,13 +39,13 @@ public class BaseTestCase {
 	@BeforeClass
 	public static void beforeClass(){
 		if(!AllTests.isAllTestsExecution)
-			Selenium.getDriver().navigate().to(Property.URL_RETAGUARDA);
+			DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
 	}
 	
 	@AfterClass
 	public static void afterClass(){
 		if(!AllTests.isAllTestsExecution){
-			Selenium.resetDriver();
+			DriverFactory.resetDriver();
 		}
 	}
 	

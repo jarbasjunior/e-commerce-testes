@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
 import org.openqa.selenium.WebDriver;
 
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.Selenium;
+import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Utils;
 import br.com.ecommerce.retaguarda.testes.cadastros.TestCadastrosCategorias_IT;
 import br.com.ecommerce.retaguarda.testes.dadosgerais.TestDadosGerais_IT;
@@ -37,12 +37,12 @@ protected static WebDriver driver;
 	public static void beforeClass() throws Exception {
 		inicio = Calendar.getInstance().getTime();
 		isAllTestsExecution = true;
-		Selenium.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
 	}
 
 	@AfterClass
 	public static void afterClass() throws Exception {
-		Selenium.resetDriver();
+		DriverFactory.resetDriver();
 		fim = Calendar.getInstance().getTime();
 		Utils.calculaTempoDoTest(inicio, fim);
 	}
