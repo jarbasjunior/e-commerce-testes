@@ -29,13 +29,10 @@ public class AllTests {
 	
 protected static WebDriver driver;
 	
-	public static Date    fim    			  = null;
-	public static Date    inicio 			  = null;
 	public static Boolean isAllTestsExecution = false;
 	
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		inicio = Calendar.getInstance().getTime();
 		isAllTestsExecution = true;
 		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
 	}
@@ -43,8 +40,6 @@ protected static WebDriver driver;
 	@AfterClass
 	public static void afterClass() throws Exception {
 		DriverFactory.resetDriver();
-		fim = Calendar.getInstance().getTime();
-		Utils.calculaTempoDoTest(inicio, fim);
 	}
 
 }
