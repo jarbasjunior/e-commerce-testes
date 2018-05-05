@@ -154,11 +154,6 @@ public abstract class Utils {
 		s = s.replace("}", "c");
 		s = s.replace("[", "c");
 		s = s.replace("]", "c");
-		if (!s.equals(""))
-			return s;
-		else{
-			s = "Sem valor";
-		}
 		return s;
 	}
 	
