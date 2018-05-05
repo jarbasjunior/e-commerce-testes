@@ -1,17 +1,13 @@
 package br.com.ecommerce.config.suite;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.openqa.selenium.WebDriver;
 
-import br.com.ecommerce.config.setup.Property;
 import br.com.ecommerce.config.setup.DriverFactory;
-import br.com.ecommerce.config.util.Utils;
+import br.com.ecommerce.config.setup.Property;
 import br.com.ecommerce.retaguarda.testes.cadastros.TestCadastrosCategorias_IT;
 import br.com.ecommerce.retaguarda.testes.dadosgerais.TestDadosGerais_IT;
 /**

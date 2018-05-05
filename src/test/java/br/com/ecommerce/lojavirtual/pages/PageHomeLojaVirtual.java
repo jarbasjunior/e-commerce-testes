@@ -74,7 +74,7 @@ public class PageHomeLojaVirtual extends BasePage<PageHomeLojaVirtual> {
 		WebElement categoriaPrincipal = DriverFactory.getDriver().findElement(By.xpath("//*[@id='header']//a[text()='"+categoria+"']"));
 		Log.info("Conferindo inclusão de subcategoria na home page da loja virtual...");
 		moverCursorPara(categoriaPrincipal);
-		Utils.wait(1000);		
+		Utils.wait(2000);		
 		Utils.assertEquals(getTextElement(categoriaFilho), subcategoria);
 		Log.info("Inclusão de subcategoria validada com sucesso na loja virtual.");
 	}
