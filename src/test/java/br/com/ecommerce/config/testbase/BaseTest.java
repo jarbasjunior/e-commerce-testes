@@ -13,7 +13,7 @@ import br.com.ecommerce.config.setup.Property;
 import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.suite.AllTests;
 import br.com.ecommerce.config.util.Log;
-import br.com.ecommerce.retaguarda.pages.dashboard.PageHomeRetaguarda;
+import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 public class BaseTest {
 	
 	
