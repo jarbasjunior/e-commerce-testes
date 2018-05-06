@@ -23,7 +23,7 @@ import com.github.javafaker.Faker;
 
 import br.com.ecommerce.config.basepage.PageLoginRetaguarda;
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.retaguarda.pages.dashboard.PageHomeRetaguarda;
+import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 
 /**
  * Classe com m�todos de apoio, que otimizam a codifica��o das classes de

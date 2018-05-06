@@ -1,4 +1,4 @@
-package br.com.ecommerce.lojavirtual.pages;
+package br.com.ecommerce.pages.lojavirtual;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
