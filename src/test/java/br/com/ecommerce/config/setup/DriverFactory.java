@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 
 
@@ -19,19 +18,25 @@ import org.openqa.selenium.remote.CapabilityType;
  */
 public class DriverFactory {
 	
-	private static WebDriver driver = null;
+	private static ThreadLocal<WebDriver> threadDriver = new ThreadLocal<WebDriver>(){
+		@Override
+		protected synchronized WebDriver initialValue(){
+			return initDriver();
+		}
+	};
 	
-	
+	public static WebDriver getDriver(){
+		return threadDriver.get();
+	}
 	/**
 	 * Verifica qual o browser escolhido no arquivo de propriedades
 	 * inicializa o driver apropriado e o retorna
 	 * @return retorna instância do WebDriver
 	 */
-	public static WebDriver getDriver() {
+	public static WebDriver initDriver() {
+		WebDriver driver = null;
 		String browser = Property.BROWSER_NAME;
 		
-		if (driver == null) {
-			
 			if (Browser.CHROME.equals(browser)) {
 				ChromeOptions chromeOptions = new ChromeOptions();
 				chromeOptions.addArguments("--start-maximized");
@@ -42,7 +47,7 @@ public class DriverFactory {
 			} else  if (Browser.FIREFOX.equals(browser)){
 				File file = new File(Property.FIREFOX_DRIVE_PATH);
 				System.setProperty("webdriver.gecko.driver",file.getAbsolutePath());
-				FirefoxProfile firefoxProfile = new FirefoxProfile();
+				//FirefoxProfile firefoxProfile = new FirefoxProfile();
 				//Remove o debug do "Marionette"
 				System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 				Proxy proxy = new Proxy();
@@ -53,14 +58,25 @@ public class DriverFactory {
 				firefoxOptions.setCapability(CapabilityType.PROXY, proxy);
 				firefoxOptions.setCapability("pdfjs.disabled", false);
 				//Rodar sem abrir o navegador = true, com o navegador = false
-				firefoxOptions.setHeadless(true);
-				firefoxOptions.setProfile(getProfileFireFox(firefoxProfile));
+				firefoxOptions.setHeadless(false);
+				//firefoxOptions.setProfile(getProfileFireFox(firefoxProfile));
 				driver = new FirefoxDriver(firefoxOptions);
 			}
-		}
 		return driver;
 	}
-	private static FirefoxProfile getProfileFireFox(FirefoxProfile firefoxProfile) {
+	
+	public static void resetDriver(){
+		WebDriver driver = getDriver();
+		if (driver != null) {
+			driver.quit();
+			driver = null;
+		}
+		if (threadDriver != null) {
+			threadDriver.remove();
+		}
+	}
+	
+	/*private static FirefoxProfile getProfileFireFox(FirefoxProfile firefoxProfile) {
 		//	Alterar o perfil para aceitar certificado nÃ£o confiaveis
 		firefoxProfile.setAcceptUntrustedCertificates(true);
 		firefoxProfile.setAssumeUntrustedCertificateIssuer(false);
@@ -78,7 +94,7 @@ public class DriverFactory {
 		2 - Proxy auto-configuration (PAC).
 		4 - Auto-detect proxy settings.
 		5 - Use system proxy settings.l
-		 */
+		 /
 		firefoxProfile.setPreference("browser.download.dir",Property.EVIDENCIAS_TESTE_PATH);
 		firefoxProfile.setPreference("browser.download.folderList", 2);
 		firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-csv, application/zip, application/txt, application/pdf, application/vnd.ms-excel, application/aspx");
@@ -88,13 +104,6 @@ public class DriverFactory {
         firefoxProfile.setPreference("pdfjs.disabled", true);
 
 		return firefoxProfile;
-	}
-	
-	public static void resetDriver(){
-		if (driver != null) {
-			driver.close();
-		}
-		driver = null;
-	}
+	}*/
 	
 }

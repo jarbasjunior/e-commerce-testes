@@ -6,138 +6,138 @@ import org.openqa.selenium.support.PageFactory;
 
 import br.com.ecommerce.config.basepage.BasePage;
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
+import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
 
-public class PageMenu extends BasePage<PageMenu> {
+public class PageMenu extends BasePage {
 
 	public PageMenu() {
-		PageFactory.initElements(DriverFactory.getDriver(), this);
+		PageFactory.initElements(getDriver(), this);
 	}
 	
 	//==========================================================
 	// Botao principal retaguarda 
 	//==========================================================
 	@FindBy(xpath = "//*[@href='/admin/dashboard']")
-	WebElement btDashboard;
+	private WebElement btDashboard;
 	
 	//==========================================================
 	// Menu Dados Gerais
 	//==========================================================
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Dados Gerais']")
-	public static WebElement menuDadosGerais;
+	private WebElement menuDadosGerais;
 
 	@FindBy(xpath = "//*[@href='/admin/settings']")
-	public static WebElement configuracoes;
+	private WebElement configuracoes;
 	
 	//==========================================================
 	// Menu Cadastros
 	//==========================================================
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Cadastros']")
-	public static WebElement menuCadastros;
+	private WebElement menuCadastros;
 
 	@FindBy(xpath = "//*[@href='/admin/categories']")
-	public static WebElement cadastroCategorias;
+	private WebElement cadastroCategorias;
 	
 	@FindBy(xpath = "//*[@href='/admin/colors']")
-	public static WebElement cadastroCores;
+	private WebElement cadastroCores;
 	
 	@FindBy(xpath = "//*[@href='/admin/clients']")
-	public static WebElement cadastroClientes;
+	private WebElement cadastroClientes;
 	
 	@FindBy(xpath = "//*[@href='/admin/shipping_methods']")
-	public static WebElement cadastroMetodosDeEnvio;
+	private WebElement cadastroMetodosDeEnvio;
 	
 	@FindBy(xpath = "//*[@href='/admin/suppliers']")
-	public static WebElement cadastroFornecedores;
+	private WebElement cadastroFornecedores;
 
 	@FindBy(xpath = "//*[@href='/admin/employees']")
-	public static WebElement cadastroFuncionarios;
+	private WebElement cadastroFuncionarios;
 	
 	@FindBy(xpath = "//*[@href='/admin/brands']")
-	public static WebElement cadastroMarcas;
+	private WebElement cadastroMarcas;
 	
 	@FindBy(xpath = "//*[@href='/admin/tax_groups']")
-	public static WebElement cadastroGruposFiscais;
+	private WebElement cadastroGruposFiscais;
 	
 	@FindBy(xpath = "//*[@href='/admin/credit_card_companies']")
-	public static WebElement cadastroOpCartaoCredito;
+	private WebElement cadastroOpCartaoCredito;
 	
 	@FindBy(xpath = "//*[@href='/admin/products']")
-	public static WebElement cadastroProdutos;
+	private WebElement cadastroProdutos;
 	
 	@FindBy(xpath = "//*[@href='/admin/payment_types']")
-	public static WebElement cadastroTiposPagamento;
+	private WebElement cadastroTiposPagamento;
 	
 	@FindBy(xpath = "//*[@href='/admin/sizes']")
-	public static WebElement cadastroTamanhos;
+	private WebElement cadastroTamanhos;
 	
 	@FindBy(xpath = "//*[@href='/admin/bill_types']")
-	public static WebElement cadastroTiposDeContas;
+	private WebElement cadastroTiposDeContas;
 	
 	@FindBy(xpath = "//*[@href='/admin/product_in_types']")
-	public static WebElement cadastroTiposDeEntrada;
+	private WebElement cadastroTiposDeEntrada;
 	
 	@FindBy(xpath = "//*[@href='/admin/product_out_types']")
-	public static WebElement cadastroTiposDeSaidas;
+	private WebElement cadastroTiposDeSaidas;
 	
 	@FindBy(xpath = "//*[@href='/admin/slides']")
-	public static WebElement cadastroSlides;
+	private WebElement cadastroSlides;
 	
 	@FindBy(xpath = "//*[@href='/admin/units']")
-	public static WebElement cadastroUnidades;
+	private WebElement cadastroUnidades;
 	
 	
 	//==========================================================
 	// Menu Estoque 
 	//==========================================================
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Estoque']")
-	public static WebElement menuEstoque;
+	private WebElement menuEstoque;
 	
 	@FindBy(xpath = "//*[@href='/admin/dashboard' and text()='Entrada de Produtos']")
-	public static WebElement entradaDeProdutos;
+	private WebElement entradaDeProdutos;
 
 	@FindBy(xpath = "//*[@href='/admin/products_outs']")
-	public static WebElement saidaDeProdutos;
+	private WebElement saidaDeProdutos;
 	
 	@FindBy(xpath = "//*[@href='/admin/product_purchases']")
-	public static WebElement compraDeProdutos;
+	private WebElement compraDeProdutos;
 	
 	@FindBy(xpath = "//*[@href='/admin/date_inventories']")
-	public static WebElement balanco;
+	private WebElement balanco;
 	
 	
 	//==========================================================
 	// Menu Contas
 	//==========================================================
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Contas']")
-	public static WebElement menuContas;
+	private WebElement menuContas;
 		
 	@FindBy(xpath = "//*[@href='/admin/bills_to_pay']")
-	public static WebElement contasPagar;
+	private WebElement contasPagar;
 	
 	@FindBy(xpath = "//*[@href='/admin/bills_to_receive']")
-	public static WebElement contasReceber;
+	private WebElement contasReceber;
 	
 	
 	//==========================================================
 	// Menu Relatórios
 	//==========================================================
 	@FindBy(xpath = "//*[@id='sidebar']/ul/li/a/span[text()='Relatórios']")
-	public static WebElement menuRelatorios;
+	private WebElement menuRelatorios;
 	
 	@FindBy(xpath = "//*[@href='/admin/reports/inventaries']")
-	public static WebElement relatorioEstqoueDeProduto;
+	private WebElement relatorioEstqoueDeProduto;
 	
 	@FindBy(xpath = "//*[@href='/admin/reports/sales']")
-	public static WebElement relatorioVendas;
+	private WebElement relatorioVendas;
 	
 	@FindBy(xpath = "//*[@href='/admin/reports/products']")
-	public static WebElement relatorioProduto;
+	private WebElement relatorioProduto;
 	
 	@FindBy(xpath = "//*[@href='/admin/reports/bills_to_pay']")
-	public static WebElement relatorioContasPagar;
+	private WebElement relatorioContasPagar;
 	
 	//==========================================================
 	// ******************* FIM MAPEAMENTO *********************

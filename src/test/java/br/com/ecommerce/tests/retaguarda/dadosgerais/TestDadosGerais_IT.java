@@ -1,9 +1,10 @@
 package br.com.ecommerce.tests.retaguarda.dadosgerais;
 
+import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
+
 import org.junit.Test;
 
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.testbase.BaseTest;
 import br.com.ecommerce.config.util.Utils;
 import br.com.ecommerce.pages.lojavirtual.PageHomeLojaVirtual;
@@ -40,7 +41,7 @@ public class TestDadosGerais_IT extends BaseTest {
 		pageConfiguracoes.validarMsgFeedbackSucesso();
 		pageMenu.acessarMenuDadosGeraisConfiguracoes();
 		pageConfiguracoes.conferirAlteracaoDaCompanhia(nome, email, telefone, endereco, cnpj);
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirDadosCompanhiaNaLojaVirtual(telefone, endereco, email);
 		pageHomeRetaguarda.sairDoRetaguarda();
 	}

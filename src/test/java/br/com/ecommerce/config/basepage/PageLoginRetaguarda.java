@@ -8,7 +8,7 @@ import br.com.ecommerce.config.setup.Property;
 import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 
-public class PageLoginRetaguarda extends BasePage<PageLoginRetaguarda> {
+public class PageLoginRetaguarda extends BasePage {
 
 	public PageLoginRetaguarda() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);

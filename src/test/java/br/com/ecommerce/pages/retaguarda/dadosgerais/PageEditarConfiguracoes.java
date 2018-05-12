@@ -5,36 +5,36 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import br.com.ecommerce.config.basepage.BasePage;
-import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
+import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
 
-public class PageEditarConfiguracoes extends BasePage<PageEditarConfiguracoes> {
+public class PageEditarConfiguracoes extends BasePage {
 
 	public PageEditarConfiguracoes() {
-		PageFactory.initElements(DriverFactory.getDriver(), this);
+		PageFactory.initElements(getDriver(), this);
 	}
 
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]/div/h1[text()='Editar Configurações']")
-	WebElement titleEditarConfiguracoes;
+	private WebElement titleEditarConfiguracoes;
 	
 	@FindBy(id = "parameters_1_value")
-	WebElement fieldNome;
+	private WebElement fieldNome;
 	
 	@FindBy(id = "parameters_2_value")
-	WebElement fieldEmail;
+	private WebElement fieldEmail;
 	
 	@FindBy(id = "parameters_3_value")
-	WebElement fieldTelefone;
+	private WebElement fieldTelefone;
 	
 	@FindBy(id = "parameters_4_value")
-	WebElement fieldEndereco;
+	private WebElement fieldEndereco;
 	
 	@FindBy(id = "parameters_5_value")
-	WebElement fieldCNPJ;
+	private WebElement fieldCNPJ;
 	
 	@FindBy(name = "commit")
-	WebElement btSalvar;
+	private WebElement btSalvar;
 	
 	
 	public void alterarDadosDaCompanhia(String nome, String email, String telefone, String endereco, String cnpj) {

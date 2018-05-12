@@ -21,33 +21,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.base.Function;
 
-import br.com.ecommerce.config.setup.Property;
 import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 
-public abstract class BasePage<T> {
+public class BasePage {
 
-	private static final PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
-	private static final PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda(); 
-	private static final String URL_RETAGURADA                   = Property.URL_RETAGUARDA;
-	private static final int    LOAD_TIMEOUT                     = 14;
-	private static final int    INTERVALO_VERIFICACAO            = 2;
+	private int    LOAD_TIMEOUT                     = 14;
+	private int    INTERVALO_VERIFICACAO            = 2;
 	private String windowHandleJanelaInicial;
-	private static final Wait<WebDriver> wait = new FluentWait<WebDriver>(DriverFactory.getDriver())
+	private final Wait<WebDriver> wait = new FluentWait<WebDriver>(DriverFactory.getDriver())
 				    								.withTimeout( LOAD_TIMEOUT         , TimeUnit.SECONDS) // Tempo limite (segundos)
 				    								.pollingEvery(INTERVALO_VERIFICACAO, TimeUnit.SECONDS) // Intervalo de tempo de cada busca (segundos) 
 				    								.ignoring(NoSuchElementException.class);  
 
 	public BasePage() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);
-	}
-
-	public T abrirPagina(Class<T> clazz) {
-		T pagina = PageFactory.initElements(DriverFactory.getDriver(), clazz);
-		DriverFactory.getDriver().navigate().to(URL_RETAGURADA);
-		return pagina;
 	}
 
 	public void preencherCampo(WebElement element, String value) {
@@ -272,6 +262,8 @@ public abstract class BasePage<T> {
 	}
 	
 	public void erroPreenchimento(WebElement element, String value) {
+		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
 		Log.erro(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
 		pageHomeRetagurada.sairDoRetaguarda();
@@ -279,6 +271,8 @@ public abstract class BasePage<T> {
 		Assert.fail(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
 	}
 	public void erroEspera(WebElement element) {
+		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
 		Utils.takeScreenshot("erroEspera");
 		Log.erro("Tempo excedido ("+LOAD_TIMEOUT+"s) para aguardar elemento "+element.toString().substring(45, element.toString().length()-1)+"");
@@ -288,6 +282,8 @@ public abstract class BasePage<T> {
 	}
 	
 	public void erroClick(WebElement element) {
+		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
 		Log.erro("Erro ao clicar no elemento: "+element.toString().substring(45, element.toString().length()-2)+"].");
 		pageHomeRetagurada.sairDoRetaguarda();
@@ -296,6 +292,8 @@ public abstract class BasePage<T> {
 	}
 	
 	public void erroGetTextAtributo(WebElement element) {
+		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
 		Utils.takeScreenshot("erroGetTextAtributo");
 		Log.erro("Erro ao buscar texto de atributo do elemento: "+element.toString().substring(45, element.toString().length()-2)+"].");
@@ -305,13 +303,19 @@ public abstract class BasePage<T> {
 	}
 	
 	public void erroGetText(WebElement element) {
+		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
 		Utils.takeScreenshot("erroGetText");
 		Log.erro("Erro ao buscar texto do elemento: "+element.toString().substring(45, element.toString().length()-2)+"].");
+		pageHomeRetagurada.sairDoRetaguarda();
+		pageLoginRetagurada.driveNaPaginaLogin();
 		Assert.fail("Erro ao buscar texto do elemento: "+element.toString().substring(45, element.toString().length()-2)+"].");
 	}
 	
 	public void erroConfirmaAlerta() {
+		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
 		Utils.takeScreenshot("erroAlerta");
 		Log.erro("Erro ao realizar a confirmacao do Alerta");
@@ -321,6 +325,8 @@ public abstract class BasePage<T> {
 	}
 	
 	public void erroSelecaoCombo(WebElement element, String valor) {
+		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
 		Utils.takeScreenshot("erroSelectCombo");
 		Log.erro("Erro ao selecionar elemento do combo: "+element.toString().substring(45, element.toString().length()-2)+"], com o valor: "+valor);

@@ -1,12 +1,13 @@
 package br.com.ecommerce.config.suite;
 
+import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
+import static br.com.ecommerce.config.setup.DriverFactory.resetDriver;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.openqa.selenium.WebDriver;
 
-import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.setup.Property;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosCategorias_IT;
 import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais_IT;
@@ -23,19 +24,17 @@ import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais_IT;
 
 public class AllTests {
 	
-protected static WebDriver driver;
-	
 	public static Boolean isAllTestsExecution = false;
 	
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 		isAllTestsExecution = true;
-		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		getDriver().navigate().to(Property.URL_RETAGUARDA);
 	}
 
 	@AfterClass
 	public static void afterClass() throws Exception {
-		DriverFactory.resetDriver();
+		resetDriver();
 	}
 
 }

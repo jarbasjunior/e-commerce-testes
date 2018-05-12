@@ -1,9 +1,10 @@
 package br.com.ecommerce.tests.retaguarda.cadastros;
 
+import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
+
 import org.junit.Test;
 
 import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.testbase.BaseTest;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
@@ -20,7 +21,7 @@ import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
  * @author Jarbas
  * 
  * */
-public class TestCadastrosCategorias_IT extends BaseTest {
+public class TestCadastrosCategorias_IT extends BaseTest{
 
 	PageMenu             pageMenu             = new PageMenu();
 	PageCategorias       pageCategorias       = new PageCategorias();
@@ -41,7 +42,7 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
 		pageHomeRetaguarda.sairDoRetaguarda();
 	}
@@ -63,12 +64,12 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 		Log.info("Navegando para home page da loja virtual...");
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
 		/*
 		 * Incluir subcategoria
 		 */
-		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		getDriver().navigate().to(Property.URL_RETAGUARDA);
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
@@ -78,7 +79,7 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoria);
 		pageHomeRetaguarda.sairDoRetaguarda();
 	}
@@ -99,12 +100,12 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
 		/*
 		 * Alterar categoria
 		 */
-		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		getDriver().navigate().to(Property.URL_RETAGUARDA);
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.navegarParaPaginaEdicaoDeCategoria(categoria);
@@ -114,7 +115,7 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(novaCategoria);
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(novaCategoria);
 		pageHomeRetaguarda.sairDoRetaguarda();
 	}
@@ -138,12 +139,12 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 		Log.info("Navegando para home page da loja virtual...");
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
 		/*
 		 * Incluir subcategoria
 		 */
-		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		getDriver().navigate().to(Property.URL_RETAGUARDA);
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
@@ -153,12 +154,12 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAnterior);
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoriaAnterior);
 		/*
 		 * Alterar subcategoria
 		 */
-		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		getDriver().navigate().to(Property.URL_RETAGUARDA);
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.navegarParaPaginaEdicaoDeCategoria(subcategoriaAnterior);
@@ -168,7 +169,7 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAtual);
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoriaAtual);
 		pageHomeRetaguarda.sairDoRetaguarda();
 	}
@@ -192,17 +193,17 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
 		/*
 		 * Excluir categoria
 		 */
-		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		getDriver().navigate().to(Property.URL_RETAGUARDA);
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.excluirCategoria(categoria);
 		pageCategorias.validarMsgFeedbackExclusaoSucesso();
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirExclusaoCategoriaNaLojaVirtual(categoria);
 		pageHomeRetaguarda.sairDoRetaguarda();
 	}
@@ -224,12 +225,12 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 		Log.info("Navegando para home page da loja virtual...");
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
 		/*
 		 * Incluir subcategoria
 		 */
-		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		getDriver().navigate().to(Property.URL_RETAGUARDA);
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
@@ -239,17 +240,17 @@ public class TestCadastrosCategorias_IT extends BaseTest {
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoria);
 		/*
 		 * Excluir subcategoria
 		 */
-		DriverFactory.getDriver().navigate().to(Property.URL_RETAGUARDA);
+		getDriver().navigate().to(Property.URL_RETAGUARDA);
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.excluirCategoria(subcategoria);
 		pageCategorias.validarMsgFeedbackExclusaoSucesso();
-		DriverFactory.getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirExclusaoSubategoriaNaLojaVirtual(categoria, subcategoria);
 		pageHomeRetaguarda.sairDoRetaguarda();
 	}

@@ -10,7 +10,7 @@ import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
 
-public class PageHomeLojaVirtual extends BasePage<PageHomeLojaVirtual> {
+public class PageHomeLojaVirtual extends BasePage {
 
 	public PageHomeLojaVirtual() {
 		PageFactory.initElements(DriverFactory.getDriver(), this);

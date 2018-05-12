@@ -1,52 +1,54 @@
 package br.com.ecommerce.pages.retaguarda.cadastros.categorias;
 
+
+import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import br.com.ecommerce.config.basepage.BasePage;
-import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
 
-public class PageIncluirCategoria extends BasePage<PageIncluirCategoria> {
+public class PageIncluirCategoria extends BasePage {
 
 	public PageIncluirCategoria() {
-		PageFactory.initElements(DriverFactory.getDriver(), this);
+		PageFactory.initElements(getDriver(), this);
 	}
 
 	@FindBy(xpath = "//*[@id='main-content']//span[text()='Novo(a) Categoria']")
-	WebElement titleNovaCategorias;
+	private WebElement titleNovaCategorias;
 	
 	@FindBy(xpath = "//*[@id='new_category']//label[@for='category_name']")
-	WebElement nameNovaCategorias;
+	private WebElement nameNovaCategorias;
 	
 	@FindBy(xpath = "//*[@id='new_category']//label[@for='category_is_active']")
-	WebElement nameAtiva;
+	private WebElement nameAtiva;
 	
 	@FindBy(xpath = "//*[@id='new_category']//label[@for='category_main_menu']")
-	WebElement nameMenuPrincipal;
+	private WebElement nameMenuPrincipal;
 	
 	@FindBy(xpath = "//*[@id='new_category']//label[@for='category_category_id']")
-	WebElement nameCategoriaAgrupadora;
+	private WebElement nameCategoriaAgrupadora;
 	
 	@FindBy(xpath = "//*[@href='/admin/categories' and @class='btn btn-default']")
-	WebElement btCancelar;
+	private WebElement btCancelar;
 	
 	@FindBy(id = "save_button")
-	WebElement btSalvar;
+	private WebElement btSalvar;
 	
 	@FindBy(id = "category_name")
-	WebElement fieldNomeCategoria;
+	private WebElement fieldNomeCategoria;
 	
 	@FindBy(id = "category_is_active")
-	WebElement comboAtiva;
+	private WebElement comboAtiva;
 	
 	@FindBy(id = "category_main_menu")
-	WebElement comboMenuPrincipal;
+	private WebElement comboMenuPrincipal;
 	
 	@FindBy(id = "category_category_id")
-	WebElement comboCategoriaAgrupadora;
+	private WebElement comboCategoriaAgrupadora;
 	
 	
 	public void incluirCategoriaPrincipal(String categoria) {

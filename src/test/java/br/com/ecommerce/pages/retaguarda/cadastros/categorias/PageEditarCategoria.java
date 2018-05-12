@@ -1,53 +1,54 @@
 package br.com.ecommerce.pages.retaguarda.cadastros.categorias;
 
+import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import br.com.ecommerce.config.basepage.BasePage;
-import br.com.ecommerce.config.setup.DriverFactory;
 import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.config.util.Utils;
 
-public class PageEditarCategoria extends BasePage<PageEditarCategoria> {
+public class PageEditarCategoria extends BasePage {
 
 	public PageEditarCategoria() {
-		PageFactory.initElements(DriverFactory.getDriver(), this);
+		PageFactory.initElements(getDriver(), this);
 	}
 
 	@FindBy(xpath = "//h3")
-	WebElement iconeHome;
+	private WebElement iconeHome;
 	
 	@FindBy(xpath = "//*[@for='category_name']")
-	WebElement nameCategorias;
+	private WebElement nameCategorias;
 	
 	@FindBy(xpath = "//*[@for='category_is_active']")
-	WebElement nameAtiva;
+	private WebElement nameAtiva;
 	
 	@FindBy(xpath = "//*[@for='category_main_menu']")
-	WebElement nameMenuPrincipal;
+	private WebElement nameMenuPrincipal;
 	
 	@FindBy(xpath = "//*[@for='category_category_id']")
-	WebElement nameCategoriaAgrupadora;
+	private WebElement nameCategoriaAgrupadora;
 	
 	@FindBy(xpath = "//*[@href='/admin/categories' and @class='btn btn-default']")
-	WebElement btCancelar;
+	private WebElement btCancelar;
 	
 	@FindBy(id = "save_button")
-	WebElement btSalvar;
+	private WebElement btSalvar;
 	
 	@FindBy(id = "category_name")
-	WebElement fieldNomeCategoria;
+	private WebElement fieldNomeCategoria;
 	
 	@FindBy(id = "category_is_active")
-	WebElement comboAtiva;
+	private WebElement comboAtiva;
 	
 	@FindBy(id = "category_main_menu")
-	WebElement comboMenuPrincipal;
+	private WebElement comboMenuPrincipal;
 	
 	@FindBy(id = "category_category_id")
-	WebElement comboCategoriaAgrupadora;
+	private WebElement comboCategoriaAgrupadora;
 	
 	
 	public void editarNomeCategoria(String categoriaAnterior, String categoriaAtual) {
@@ -60,7 +61,7 @@ public class PageEditarCategoria extends BasePage<PageEditarCategoria> {
 	
 	public void validarOrtografiaDeCamposTelaEditarCategoria(String categoria) {
 		aguardarElementoVisivel(iconeHome);
-		WebElement titleEditarCategorias = DriverFactory.getDriver().findElement(By.xpath("//*[@id='main-content']//span[text()='Editar "+categoria+"']"));
+		WebElement titleEditarCategorias = getDriver().findElement(By.xpath("//*[@id='main-content']//span[text()='Editar "+categoria+"']"));
 		Log.info("Conferindo ortografia na tela de inclusão de categoria...");
 		Utils.assertEquals(getTextElement(titleEditarCategorias)  , "Editar "+categoria);
 		Utils.assertEquals(getTextElement(nameCategorias)         , "Nome da Categoria:");
