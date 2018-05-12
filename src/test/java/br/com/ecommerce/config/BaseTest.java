@@ -1,7 +1,7 @@
-package br.com.ecommerce.config.testbase;
+package br.com.ecommerce.config;
 
-import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
-import static br.com.ecommerce.config.setup.DriverFactory.resetDriver;
+import static br.com.ecommerce.config.DriverFactory.getDriver;
+import static br.com.ecommerce.config.DriverFactory.resetDriver;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -10,11 +10,10 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 
-import br.com.ecommerce.config.basepage.PageLoginRetaguarda;
-import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.suite.AllTests;
-import br.com.ecommerce.config.util.Log;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
+import br.com.ecommerce.pages.retaguarda.login.PageLoginRetaguarda;
+import br.com.ecommerce.tests.suites.AllTests;
+import br.com.ecommerce.util.Log;
 public class BaseTest {
 	
 	PageHomeRetaguarda  pageHomeRetaguarda  = new PageHomeRetaguarda();

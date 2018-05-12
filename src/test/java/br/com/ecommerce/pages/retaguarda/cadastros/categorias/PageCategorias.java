@@ -1,15 +1,16 @@
 package br.com.ecommerce.pages.retaguarda.cadastros.categorias;
 
+import static br.com.ecommerce.config.DriverFactory.getDriver;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.basepage.BasePage;
-import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.util.Log;
-import br.com.ecommerce.config.util.Utils;
-import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
+import br.com.ecommerce.config.BasePage;
+import br.com.ecommerce.config.Property;
+import br.com.ecommerce.util.Log;
+import br.com.ecommerce.util.Utils;
 
 public class PageCategorias extends BasePage {
 

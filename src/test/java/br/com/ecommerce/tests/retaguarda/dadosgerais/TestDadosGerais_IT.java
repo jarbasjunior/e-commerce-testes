@@ -1,17 +1,17 @@
 package br.com.ecommerce.tests.retaguarda.dadosgerais;
 
-import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
+import static br.com.ecommerce.config.DriverFactory.getDriver;
 
 import org.junit.Test;
 
-import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.testbase.BaseTest;
-import br.com.ecommerce.config.util.Utils;
+import br.com.ecommerce.config.BaseTest;
+import br.com.ecommerce.config.Property;
 import br.com.ecommerce.pages.lojavirtual.PageHomeLojaVirtual;
 import br.com.ecommerce.pages.retaguarda.dadosgerais.PageConfiguracoes;
 import br.com.ecommerce.pages.retaguarda.dadosgerais.PageEditarConfiguracoes;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
+import br.com.ecommerce.util.Utils;
 
 /**
  * 

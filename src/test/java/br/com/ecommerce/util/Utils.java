@@ -1,4 +1,4 @@
-package br.com.ecommerce.config.util;
+package br.com.ecommerce.util;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -21,9 +21,9 @@ import org.junit.Assert;
 
 import com.github.javafaker.Faker;
 
-import br.com.ecommerce.config.basepage.PageLoginRetaguarda;
-import br.com.ecommerce.config.setup.Property;
+import br.com.ecommerce.config.Property;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
+import br.com.ecommerce.pages.retaguarda.login.PageLoginRetaguarda;
 
 /**
  * Classe com m�todos de apoio, que otimizam a codifica��o das classes de

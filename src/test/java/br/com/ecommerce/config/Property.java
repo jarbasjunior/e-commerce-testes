@@ -1,4 +1,4 @@
-package br.com.ecommerce.config.setup;
+package br.com.ecommerce.config;
 
 import java.io.File;
 import java.io.IOException;

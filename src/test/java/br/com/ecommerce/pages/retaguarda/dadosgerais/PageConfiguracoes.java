@@ -1,15 +1,15 @@
 package br.com.ecommerce.pages.retaguarda.dadosgerais;
 
-import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
+import static br.com.ecommerce.config.DriverFactory.getDriver;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.basepage.BasePage;
-import br.com.ecommerce.config.util.Log;
-import br.com.ecommerce.config.util.Utils;
+import br.com.ecommerce.config.BasePage;
+import br.com.ecommerce.util.Log;
+import br.com.ecommerce.util.Utils;
 
 public class PageConfiguracoes extends BasePage {
 

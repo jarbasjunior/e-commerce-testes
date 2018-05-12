@@ -1,14 +1,14 @@
-package br.com.ecommerce.config.suite;
+package br.com.ecommerce.tests.suites;
 
-import static br.com.ecommerce.config.setup.DriverFactory.getDriver;
-import static br.com.ecommerce.config.setup.DriverFactory.resetDriver;
+import static br.com.ecommerce.config.DriverFactory.getDriver;
+import static br.com.ecommerce.config.DriverFactory.resetDriver;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import br.com.ecommerce.config.setup.Property;
+import br.com.ecommerce.config.Property;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosCategorias_IT;
 import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais_IT;
 /**

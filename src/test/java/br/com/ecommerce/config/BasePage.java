@@ -1,4 +1,4 @@
-package br.com.ecommerce.config.basepage;
+package br.com.ecommerce.config;
 
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -21,10 +21,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.base.Function;
 
-import br.com.ecommerce.config.setup.DriverFactory;
-import br.com.ecommerce.config.util.Log;
-import br.com.ecommerce.config.util.Utils;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
+import br.com.ecommerce.pages.retaguarda.login.PageLoginRetaguarda;
+import br.com.ecommerce.util.Log;
+import br.com.ecommerce.util.Utils;
 
 public class BasePage {
 

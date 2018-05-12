@@ -1,12 +1,13 @@
-package br.com.ecommerce.config.basepage;
+package br.com.ecommerce.pages.retaguarda.login;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.setup.Property;
-import br.com.ecommerce.config.setup.DriverFactory;
-import br.com.ecommerce.config.util.Log;
+import br.com.ecommerce.config.BasePage;
+import br.com.ecommerce.config.DriverFactory;
+import br.com.ecommerce.config.Property;
+import br.com.ecommerce.util.Log;
 
 public class PageLoginRetaguarda extends BasePage {
 

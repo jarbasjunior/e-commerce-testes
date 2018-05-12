@@ -1,4 +1,4 @@
-package br.com.ecommerce.config.util;
+package br.com.ecommerce.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
