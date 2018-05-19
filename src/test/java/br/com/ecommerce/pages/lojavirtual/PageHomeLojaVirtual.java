@@ -1,32 +1,33 @@
 package br.com.ecommerce.pages.lojavirtual;
 
+import static br.com.ecommerce.config.DriverFactory.getDriver;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.basepage.BasePage;
-import br.com.ecommerce.config.setup.DriverFactory;
-import br.com.ecommerce.config.util.Log;
-import br.com.ecommerce.config.util.Utils;
+import br.com.ecommerce.config.BasePage;
+import br.com.ecommerce.util.Log;
+import br.com.ecommerce.util.Utils;
 
-public class PageHomeLojaVirtual extends BasePage<PageHomeLojaVirtual> {
+public class PageHomeLojaVirtual extends BasePage {
 
 	public PageHomeLojaVirtual() {
-		PageFactory.initElements(DriverFactory.getDriver(), this);
+		PageFactory.initElements(getDriver(), this);
 	}
 
 	@FindBy(xpath = "//*[@id='header']/div[1]/div/div/div[1]/div/ul/li[1]/a")
-	WebElement telefoneCompanhia;
+	private WebElement telefoneCompanhia;
 	
 	@FindBy(xpath = "//*[@id='header']/div[1]/div/div/div[1]/div/ul/li[2]/a")
-	WebElement emailCompanhia;
+	private WebElement emailCompanhia;
 	
 	@FindBy(xpath = "//*[@id='footer']/div[1]/div/div/div[3]/div/p")
-	WebElement enderecoCompanhia;
+	private WebElement enderecoCompanhia;
 	
 	@FindBy(xpath = "//*[@id='header']/div[2]/div/div/div[1]/div/a/img")
-	WebElement logoCompanhia;
+	private WebElement logoCompanhia;
 	
 	public void conferirDadosCompanhiaNaLojaVirtual(String telefone, String endereco, String email) {
 		aguardarElementoVisivel(logoCompanhia);
@@ -42,7 +43,7 @@ public class PageHomeLojaVirtual extends BasePage<PageHomeLojaVirtual> {
 	public void conferirCategoriaPrincipalNaLojaVirtual(String categoria) {
 		aguardarElementoVisivel(logoCompanhia);
 		
-		WebElement categoriaPrincipal = DriverFactory.getDriver().findElement(By.xpath("//*[@id='header']//a[text()='"+categoria+"']"));
+		WebElement categoriaPrincipal = getDriver().findElement(By.xpath("//*[@id='header']//a[text()='"+categoria+"']"));
 		Log.info("Conferindo inclusão de categoria na home page da loja virtual...");
 		Utils.assertEquals(getTextElement(categoriaPrincipal), categoria);
 		Log.info("Inclusão de categoria principal validada com sucesso na loja virtual.");
@@ -61,7 +62,7 @@ public class PageHomeLojaVirtual extends BasePage<PageHomeLojaVirtual> {
 		Log.info("Conferindo exclusão de categoria na home page da loja virtual...");
 		By categoriaFilho     = By.xpath("//*/a[text()='"+subcategoria+"']");
 		By categoriaPrincipal = By.xpath("//*[@id='header']//a[text()='"+categoria+"']");
-		moverCursorPara(DriverFactory.getDriver().findElement(categoriaPrincipal));
+		moverCursorPara(getDriver().findElement(categoriaPrincipal));
 		Utils.wait(1000);
 		Utils.assertTrue("Categoria ["+categoria+"] não foi exculída na home page da loja virtual", !isVisibility(categoriaFilho));
 		Log.info("Exclusão de categoria validada com sucesso na loja virtual.");
@@ -70,8 +71,8 @@ public class PageHomeLojaVirtual extends BasePage<PageHomeLojaVirtual> {
 	public void conferirSubcategoriaNaLojaVirtual(String categoria, String subcategoria) {
 		aguardarElementoVisivel(logoCompanhia);
 		
-		WebElement categoriaFilho     = DriverFactory.getDriver().findElement(By.xpath("//*/a[text()='"+subcategoria+"']"));
-		WebElement categoriaPrincipal = DriverFactory.getDriver().findElement(By.xpath("//*[@id='header']//a[text()='"+categoria+"']"));
+		WebElement categoriaFilho     = getDriver().findElement(By.xpath("//*/a[text()='"+subcategoria+"']"));
+		WebElement categoriaPrincipal = getDriver().findElement(By.xpath("//*[@id='header']//a[text()='"+categoria+"']"));
 		Log.info("Conferindo inclusão de subcategoria na home page da loja virtual...");
 		moverCursorPara(categoriaPrincipal);
 		Utils.wait(2000);		

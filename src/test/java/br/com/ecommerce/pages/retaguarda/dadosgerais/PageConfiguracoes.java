@@ -1,44 +1,45 @@
 package br.com.ecommerce.pages.retaguarda.dadosgerais;
 
+import static br.com.ecommerce.config.DriverFactory.getDriver;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import br.com.ecommerce.config.basepage.BasePage;
-import br.com.ecommerce.config.setup.DriverFactory;
-import br.com.ecommerce.config.util.Log;
-import br.com.ecommerce.config.util.Utils;
+import br.com.ecommerce.config.BasePage;
+import br.com.ecommerce.util.Log;
+import br.com.ecommerce.util.Utils;
 
-public class PageConfiguracoes extends BasePage<PageConfiguracoes> {
+public class PageConfiguracoes extends BasePage {
 
 	public PageConfiguracoes() {
-		PageFactory.initElements(DriverFactory.getDriver(), this);
+		PageFactory.initElements(getDriver(), this);
 	}
 
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]/div/h1[text()='Configurações']")
-	WebElement titleConfiguracoes;
+	private WebElement titleConfiguracoes;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]/div/p/strong[text()='Nome da empresa: ']/..")
-	WebElement nomeEmpresa;
+	private WebElement nomeEmpresa;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]/div/p/strong[text()='Email da empresa: ']/..")
-	WebElement emailEmpresa;
+	private WebElement emailEmpresa;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]/div/p/strong[text()='Telefone da empresa: ']/..")
-	WebElement telefoneEmpresa;
+	private WebElement telefoneEmpresa;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]/div/p/strong[text()='Endereço da empresa: ']/..")
-	WebElement enderecoEmpresa;
+	private WebElement enderecoEmpresa;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]/div/p/strong[text()='CNPJ da empresa: ']/..")
-	WebElement cnpjEmpresa;
+	private WebElement cnpjEmpresa;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]/div/a[@href='/admin/settings/edit']")
-	WebElement btEditar;
+	private WebElement btEditar;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]['×']")
-	WebElement msgSucesso;
+	private WebElement msgSucesso;
 	
 	
 	public void navegarParaEdicaoDeConfiguracoes(){
@@ -63,11 +64,11 @@ public class PageConfiguracoes extends BasePage<PageConfiguracoes> {
 	public void conferirOrtografiaDeCamposTelaConfigurcoes() {
 		
 		Log.info("Capturando dados da tela de configurações...");
-		WebElement nomeEmpresa     = DriverFactory.getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='Nome da empresa: ']"));
-		WebElement emailEmpresa    = DriverFactory.getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='Email da empresa: ']"));
-		WebElement telefoneEmpresa = DriverFactory.getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='Telefone da empresa: ']"));
-		WebElement enderecoEmpresa = DriverFactory.getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='Endereço da empresa: ']"));
-		WebElement cnpjEmpresa     = DriverFactory.getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='CNPJ da empresa: ']"));
+		WebElement nomeEmpresa     = getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='Nome da empresa: ']"));
+		WebElement emailEmpresa    = getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='Email da empresa: ']"));
+		WebElement telefoneEmpresa = getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='Telefone da empresa: ']"));
+		WebElement enderecoEmpresa = getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='Endereço da empresa: ']"));
+		WebElement cnpjEmpresa     = getDriver().findElement(By.xpath("//*[@id='main-content']/section/div[2]/div/p/strong[text()='CNPJ da empresa: ']"));
 		
 		Log.info("Conferindo ortografia na tela configurações...");
 		Utils.assertEquals(getTextElement(titleConfiguracoes), "Configurações");
@@ -86,4 +87,3 @@ public class PageConfiguracoes extends BasePage<PageConfiguracoes> {
 		Log.info("Mensagem de feedback validada.");
 	}
 }
-
