@@ -93,7 +93,7 @@ public class PageIncluirCliente extends BasePage {
 	
 	public void validaMsgInclusaoSemSucesso() {
 		Log.info("Validando se cliente foi incluído com dados inválidos..");
-		Utils.assertTrue("Sistema permitiu criação de cliente com dados inválidos", !isMsgSucessoInclusao());
+		Utils.assertFalse("Sistema exibe mensagem de criação de cliente com dados inválidos :/", isMsgSucessoInclusao());
 		Log.info("Sistema não permitiu criação de cliente com dados inválidos \\o/");
 	}
 	

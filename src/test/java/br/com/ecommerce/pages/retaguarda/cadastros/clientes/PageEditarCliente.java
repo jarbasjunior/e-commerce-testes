@@ -89,8 +89,8 @@ public class PageEditarCliente extends BasePage {
 		Log.info("Dados do cliente ["+nome+"] alterados");
 	}
 	
-	public void verificarOrtografiaPageIncluirClientes(){
-		Log.info("Verificando ortografia da página de cadastro de clientes...");
+	public void verificarOrtografiaPageEditarClientes(){
+		Log.info("Verificando ortografia da página de edição de clientes...");
 		Utils.assertEquals(getTextElement(titleEditarCliente)  	, "Editar Cliente");
 		Utils.assertEquals(getTextElement(labelNome)     		, "Nome");
 		Utils.assertEquals(getTextElement(labelSobrenome)		, "Sobrenome");

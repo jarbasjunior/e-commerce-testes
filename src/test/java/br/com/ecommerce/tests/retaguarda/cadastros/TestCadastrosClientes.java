@@ -71,7 +71,8 @@ public class TestCadastrosClientes extends BaseTest{
 		String sobrenome = Utils.geraSobrenome();
 		pageMenu.acessarMenuCadastrosClientes();
 		pageCliente.verificarOrtografiaPageClientes();
-		pageCliente.alterarCliente(nome);
+		pageCliente.navegarParaPaginaEdicaoCliente(nome);
+		pageEditarCliente.verificarOrtografiaPageEditarClientes();
 		pageEditarCliente.alterarCliente(nome, sobrenome, cpf, email, senha, senha, telefone);
 		pageCliente.validaMsgSucessoAlteracao();
 		pageMenu.acessarMenuCadastrosClientes();

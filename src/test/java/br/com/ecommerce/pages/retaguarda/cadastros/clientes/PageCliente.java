@@ -53,8 +53,9 @@ public class PageCliente extends BasePage {
 		Log.info("Redirecionando para página de inclusão de cliente");
 	}
 	
-	public void alterarCliente(String cliente) {
+	public void navegarParaPaginaEdicaoCliente(String cliente) {
 		aguardarElementoVisivel(btEditar);
+		pageDown(btNovo);
 		By b = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+cliente+"']//..//td[contains(.,'Editar')]/a");
 		click(getDriver().findElement(b));
 		Log.info("Redirecionando para página de edição do cliente ["+cliente+"]");

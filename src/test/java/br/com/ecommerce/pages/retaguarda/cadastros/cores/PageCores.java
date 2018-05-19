@@ -52,26 +52,26 @@ public class PageCores extends BasePage {
 	}
 	
 	public void validarCorRemovida(String cor) {
-		Utils.assertTrue("Cor ["+cor+"] ainda está sendo exibida na listagem de cores", !existsColor(cor));
+		Utils.assertFalse("Cor ["+cor+"] ainda está sendo exibida na listagem de cores", existsColor(cor));
 		Log.info("Cor ["+cor+"] removida com sucesso");
 	}
 	
 	public boolean existsColor(String str){
-		Utils.wait(1000);
+		pageDown(btNovo);
 		Log.info("Verificando se cor ["+str+"] está cadastrada...");
 		By cor = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+str+"']");
 		return isVisibility(cor);
 	}
 
-	public void removerCor(String str) {
-		Log.info("Removendo cor ["+str+"]...");
-		Utils.wait(1000);
-		By cor = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+str+"']//../td/a[@data-method='delete']");
-		WebElement removerCor = getDriver().findElement(cor);
+	public void removerCor(String cor) {
+		Log.info("Removendo cor ["+cor+"]...");
+		pageDown(btNovo);
+		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+cor+"']//../td/a[@data-method='delete']");
+		WebElement removerCor = getDriver().findElement(by);
 		click(removerCor);
 		confirmarAlerta();
 		validarMsgSucessoExclusao();
-		Log.info("Cor ["+str+"] removida...");
+		Log.info("Cor ["+cor+"] removida...");
 	}
 	
 	public void validarMsgSucessoExclusao(){

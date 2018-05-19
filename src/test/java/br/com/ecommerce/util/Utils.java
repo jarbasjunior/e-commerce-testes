@@ -54,14 +54,13 @@ public abstract class Utils {
 			assertFail("Erro encontrado: Esperado ["+esperado+"], mas retornou ["+atual+"]");
 		}finally{
 			if (isError) {
-				Log.erro("E R R O . . .");
-				Log.erro("    ||");
-				Log.erro("   \\  /");
-				Log.erro("    **");
+				Log.erro("=> E R R O . . .");
+				Log.erro("     ||");
+				Log.erro("    \\  /");
+				Log.erro("     **");
 				Log.erro("Esperava-se: ["+esperado+"]");
 				Log.erro("E retornou.: ["+atual+"]");
 				takeScreenshot(removeCaracterEspecial(esperado.toString())+"#"+removeCaracterEspecial(atual.toString()));
-				//retornarPageLogin();
 			}
 		}
 	}
@@ -75,12 +74,29 @@ public abstract class Utils {
 			assertFail(message);
 		}finally{
 			if (isError) {
-				Log.erro("E R R O . . .");
-				Log.erro("    ||");
-				Log.erro("   \\  /");
-				Log.erro("    **");
+				Log.erro("=> E R R O . . .");
+				Log.erro("     ||");
+				Log.erro("    \\  /");
+				Log.erro("     **");
 				Log.erro(message);
-				//retornarPageLogin();
+			}
+		}
+	}
+	
+	public static void assertFalse(String message, boolean bol){
+		try {
+			isError = bol;
+			Assert.assertFalse(message, bol);
+		} catch (Exception e) {
+			takeScreenshot(message);
+			assertFail(message);
+		}finally{
+			if (isError) {
+				Log.erro("=> E R R O . . .");
+				Log.erro("     ||");
+				Log.erro("    \\  /");
+				Log.erro("     **");
+				Log.erro(message);
 			}
 		}
 	}
