@@ -167,6 +167,7 @@ public class BasePage {
 	}
 	
 	public void tab(WebElement e){
+		click(e);
 		e.sendKeys(Keys.TAB);
 	}
 	
@@ -336,9 +337,9 @@ public class BasePage {
 	}
 	
 	public void erro() {
-		Log.erro("E R R O ...");
-		Log.info("    ||");
-		Log.info("   \\  /");
-		Log.info("    **");
+		Log.erro("=> E R R O ...");
+		Log.info("     ||");
+		Log.info("    \\  /");
+		Log.info("     **");
 	}
 }

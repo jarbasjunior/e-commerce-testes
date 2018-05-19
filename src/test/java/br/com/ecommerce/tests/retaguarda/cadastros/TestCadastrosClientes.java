@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import br.com.ecommerce.config.BaseTest;
 import br.com.ecommerce.pages.lojavirtual.PageHomeLojaVirtual;
-import br.com.ecommerce.pages.retaguarda.cadastros.cores.PageCores;
-import br.com.ecommerce.pages.retaguarda.cadastros.cores.PageIncluirCores;
+import br.com.ecommerce.pages.retaguarda.cadastros.clientes.PageCliente;
+import br.com.ecommerce.pages.retaguarda.cadastros.clientes.PageEditarCliente;
+import br.com.ecommerce.pages.retaguarda.cadastros.clientes.PageIncluirCliente;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
-import br.com.ecommerce.util.Log;
 import br.com.ecommerce.util.Utils;
 
 /**
@@ -20,50 +20,62 @@ import br.com.ecommerce.util.Utils;
 public class TestCadastrosClientes extends BaseTest{
 
 	PageMenu             pageMenu             = new PageMenu();
-	PageCores			 pageCores			  = new PageCores();
-	PageIncluirCores     pageIncluirCores     = new PageIncluirCores();
+	PageCliente  		 pageCliente		  = new PageCliente();
+	PageEditarCliente    pageEditarCliente    = new PageEditarCliente();
+	PageIncluirCliente   pageIncluirCliente   = new PageIncluirCliente();
 	PageHomeRetaguarda   pageHomeRetaguarda   = new PageHomeRetaguarda();
 	PageHomeLojaVirtual  pageHomeLojaVirtual  = new PageHomeLojaVirtual();
 	
 	@Test
 	public void cadastrarClienteComSucesso(){
-		String cor = "Azul";
-		String corHexa = Utils.getColorHexa(cor);
-		pageMenu.acessarMenuCadastrosCores();
-		pageCores.verificarOrtografiaPageCores();
-		if (!pageCores.existsColor(cor)) {
-			pageCores.navegarParaPageInclusaoCores();
-			pageIncluirCores.verificarOrtografiaPageIncluirCores();
-			pageIncluirCores.incluirCor(cor, corHexa);
-			pageIncluirCores.validaMsgSucessoInclusao();
-			pageMenu.acessarMenuCadastrosCores();
-			pageCores.verificarOrtografiaPageCores();
-			pageCores.validarCorInserida(cor);
-		}else
-			Log.info("Cor ["+cor+"] já cadastrada no sistema");
+		String cpf       = Utils.geraCPFSemFormato();
+		String nome      = Utils.geraNome();
+		String email     = Utils.geraEmail();
+		String senha     = Utils.geraSenha();
+		String telefone  = Utils.geraTelefoneBRA();
+		String sobrenome = Utils.geraSobrenome();
+		pageMenu.acessarMenuCadastrosClientes();
+		pageCliente.verificarOrtografiaPageClientes();
+		pageCliente.navegarParaPageInclusaoClientes();
+		pageIncluirCliente.verificarOrtografiaPageIncluirClientes();
+		pageIncluirCliente.incluirCliente(nome, sobrenome, cpf, email, senha, senha, telefone);
+		pageCliente.validaMsgSucessoInclusao();
+		pageMenu.acessarMenuCadastrosClientes();
+		pageCliente.verificarOrtografiaPageClientes();
+		pageCliente.validarClienteNaListagem(nome, cpf, email, telefone);
 	}
 	
 	@Test
-	public void adicionarCorExistenteSemSucesso(){
-		String cor = "Preto";
-		String corHexa = Utils.getColorHexa(cor);
-		pageMenu.acessarMenuCadastrosCores();
-		pageCores.verificarOrtografiaPageCores();
-		if (!pageCores.existsColor(cor)) {
-			pageCores.navegarParaPageInclusaoCores();
-			pageIncluirCores.verificarOrtografiaPageIncluirCores();
-			pageIncluirCores.incluirCor(cor, corHexa);
-			pageIncluirCores.validaMsgSucessoInclusao();
-			pageMenu.acessarMenuCadastrosCores();
-			pageCores.verificarOrtografiaPageCores();
-			pageCores.validarCorInserida(cor);
-		}
-		pageCores.navegarParaPageInclusaoCores();
-		pageIncluirCores.verificarOrtografiaPageIncluirCores();
-		pageIncluirCores.incluirCor(cor, corHexa);
-		Utils.assertTrue("Mensagem exibe sucesso em novo cadastro de cor, a qual já foi inserida anteriormente", !pageIncluirCores.isMensagemSucessoInclusao());
-		pageMenu.acessarMenuCadastrosCores();
-		pageCores.verificarOrtografiaPageCores();
-		Utils.assertTrue("Cor que já existe foi inserida novamente", !pageCores.existsColor(cor));
+	public void cadastrarClienteSemSucessoComEmailInválido(){
+		String cpf       = Utils.geraCPFSemFormato();
+		String nome      = Utils.geraNome();
+		String email     = Utils.geraSite();
+		String senha     = Utils.geraSenha();
+		String telefone  = Utils.geraTelefoneBRA();
+		String sobrenome = Utils.geraSobrenome();
+		pageMenu.acessarMenuCadastrosClientes();
+		pageCliente.verificarOrtografiaPageClientes();
+		pageCliente.navegarParaPageInclusaoClientes();
+		pageIncluirCliente.verificarOrtografiaPageIncluirClientes();
+		pageIncluirCliente.incluirCliente(nome, sobrenome, cpf, email, senha, senha, telefone);
+		pageIncluirCliente.validaMsgInclusaoSemSucesso();
+	}
+	
+	@Test
+	public void alterarDadosClienteComSucesso(){
+		String cpf       = Utils.geraCPFSemFormato();
+		String nome      = "Fulano";
+		String email     = Utils.geraEmail();
+		String senha     = Utils.geraSenha();
+		String telefone  = Utils.geraTelefoneBRA();
+		String sobrenome = Utils.geraSobrenome();
+		pageMenu.acessarMenuCadastrosClientes();
+		pageCliente.verificarOrtografiaPageClientes();
+		pageCliente.alterarCliente(nome);
+		pageEditarCliente.alterarCliente(nome, sobrenome, cpf, email, senha, senha, telefone);
+		pageCliente.validaMsgSucessoAlteracao();
+		pageMenu.acessarMenuCadastrosClientes();
+		pageCliente.verificarOrtografiaPageClientes();
+		pageCliente.validarClienteNaListagem(nome, cpf, email, telefone);
 	}
 }
