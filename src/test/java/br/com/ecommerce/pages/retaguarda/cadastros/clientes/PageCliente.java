@@ -24,19 +24,19 @@ public class PageCliente extends BasePage {
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//span[text()='Id']")
-	private WebElement nomeId;
+	private WebElement labelId;
 	
 	@FindBy(xpath = "//th[text()='Nome']")
-	private WebElement nomeNome;
+	private WebElement labelNome;
 	
 	@FindBy(xpath = "//span[text()='Email']")
-	private WebElement nomeEmail;
+	private WebElement labelEmail;
 	
 	@FindBy(xpath = "//th[text()='CPF']")
-	private WebElement nomeCPF;
+	private WebElement labelCPF;
 	
 	@FindBy(xpath = "//th[text()='Telefone']")
-	private WebElement nomeTelefone;
+	private WebElement labelTelefone;
 	
 	@FindBy(xpath = "//a[@class='btn btn-default'][contains(.,'Ativar')]")
 	private WebElement btAtivar;
@@ -114,11 +114,11 @@ public class PageCliente extends BasePage {
 	public void verificarOrtografiaPageClientes(){
 		Log.info("Verificando ortografia da página clientes...");
 		Utils.assertEquals(getTextElement(titleClientes), "Clientes");
-		Utils.assertEquals(getTextElement(nomeId)       , "Id");
-		Utils.assertEquals(getTextElement(nomeCPF)      , "CPF");
-		Utils.assertEquals(getTextElement(nomeNome)     , "Nome");
-		Utils.assertEquals(getTextElement(nomeEmail)    , "Email");
-		Utils.assertEquals(getTextElement(nomeTelefone) , "Telefone");
+		Utils.assertEquals(getTextElement(labelId)       , "Id");
+		Utils.assertEquals(getTextElement(labelCPF)      , "CPF");
+		Utils.assertEquals(getTextElement(labelNome)     , "Nome");
+		Utils.assertEquals(getTextElement(labelEmail)    , "Email");
+		Utils.assertEquals(getTextElement(labelTelefone) , "Telefone");
 		Utils.assertEquals(getTextElement(btNovo)       , "Novo(a)");
 		Utils.assertEquals(getTextElement(btEditar)     , "Editar");
 		Log.info("Ortografia validada com sucesso.");

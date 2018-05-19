@@ -24,10 +24,10 @@ public class PageCores extends BasePage {
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//th[text()='Título']")
-	private WebElement nomeTitutlo;
+	private WebElement labelTitutlo;
 	
 	@FindBy(xpath = "//th[text()='Cor']")
-	private WebElement nomeCor;
+	private WebElement labelCor;
 	
 	@FindBy(xpath = "//a[@class='btn btn-default'][contains(.,'Ativar')]")
 	private WebElement btAtivar;
@@ -85,8 +85,8 @@ public class PageCores extends BasePage {
 		Log.info("Verificando ortografia da página cores...");
 		Utils.assertEquals(getTextElement(titleCoresEstilos), "Cores/Estilos");
 		Utils.assertEquals(getTextElement(btNovo)           , "Novo");
-		Utils.assertEquals(getTextElement(nomeTitutlo)      , "Título");
-		Utils.assertEquals(getTextElement(nomeCor)          , "Cor");
+		Utils.assertEquals(getTextElement(labelTitutlo)      , "Título");
+		Utils.assertEquals(getTextElement(labelCor)          , "Cor");
 		Utils.assertEquals(getTextElement(btAtivar)         , "Ativar");
 		Utils.assertEquals(getTextElement(btEditar)         , "Editar");
 		Utils.assertEquals(getTextElement(btRemover)         , "Remover");
