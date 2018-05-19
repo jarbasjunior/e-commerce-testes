@@ -243,6 +243,11 @@ public abstract class Utils {
 		return fake.name().firstName();
 	}
 	
+	public static String geraMarca(){
+		Faker fake = new Faker();
+		return fake.beer().name();
+	}
+	
 	public static String geraSobrenome() {
 		Faker fake = new Faker();
 		return fake.name().lastName();
