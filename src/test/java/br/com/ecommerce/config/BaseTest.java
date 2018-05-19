@@ -31,6 +31,7 @@ public class BaseTest {
 
 	@After
 	public void after(){
+		pageHomeRetaguarda.sairDoRetaguarda();
 		Log.msgFimTeste(nameTest.getMethodName());
 	}
 	

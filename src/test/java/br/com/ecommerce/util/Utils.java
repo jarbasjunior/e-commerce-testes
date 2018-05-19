@@ -55,13 +55,13 @@ public abstract class Utils {
 		}finally{
 			if (isError) {
 				Log.erro("E R R O . . .");
-				Log.info("    ||");
-				Log.info("   \\  /");
-				Log.info("    **");
+				Log.erro("    ||");
+				Log.erro("   \\  /");
+				Log.erro("    **");
 				Log.erro("Esperava-se: ["+esperado+"]");
 				Log.erro("E retornou.: ["+atual+"]");
 				takeScreenshot(removeCaracterEspecial(esperado.toString())+"#"+removeCaracterEspecial(atual.toString()));
-				retornarPageLogin();
+				//retornarPageLogin();
 			}
 		}
 	}
@@ -76,11 +76,11 @@ public abstract class Utils {
 		}finally{
 			if (isError) {
 				Log.erro("E R R O . . .");
-				Log.info("    ||");
-				Log.info("   \\  /");
-				Log.info("    **");
+				Log.erro("    ||");
+				Log.erro("   \\  /");
+				Log.erro("    **");
 				Log.erro(message);
-				retornarPageLogin();
+				//retornarPageLogin();
 			}
 		}
 	}
@@ -241,9 +241,25 @@ public abstract class Utils {
 		return fake.internet().emailAddress();
 	}
 	
-	public static String geraTelefone(){
-		Faker fake = new Faker();
-		return fake.phoneNumber().phoneNumber();
+	public static String getColorHexa(String cor){
+		switch (cor) {
+		case "Preto":
+			return "#000000";
+		case "Azul":
+			return "#0000FF";
+		case "Verde":
+			return "#008000";
+		case "Roxo":
+			return "#800080";
+		case "Rosa":
+			return "#FFC0CB";
+		case "Vermelho":
+			return "#FF0000";
+		case "Amarelo":
+			return "#FFFF00";
+		default:
+			return "Cor não mapeada em hexadecimal";
+		}
 	}
 	
 	public static String geraEndereco(){
@@ -253,6 +269,11 @@ public abstract class Utils {
 		       fake.address().city()          +"-"+
 			   fake.address().stateAbbr()     +", "+
 		       fake.address().country();
+	}
+	
+	public static String geraTelefone(){
+		Faker fake = new Faker();
+		return fake.phoneNumber().phoneNumber();
 	}
 	
 	public static void retornarPageLogin(){

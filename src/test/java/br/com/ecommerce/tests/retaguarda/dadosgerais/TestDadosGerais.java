@@ -19,7 +19,7 @@ import br.com.ecommerce.util.Utils;
  * @author Jarbas
  * 
  * */
-public class TestDadosGerais_IT extends BaseTest {
+public class TestDadosGerais extends BaseTest {
 
 	PageMenu                pageMenu                = new PageMenu();
 	PageConfiguracoes       pageConfiguracoes       = new PageConfiguracoes();
@@ -43,6 +43,5 @@ public class TestDadosGerais_IT extends BaseTest {
 		pageConfiguracoes.conferirAlteracaoDaCompanhia(nome, email, telefone, endereco, cnpj);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirDadosCompanhiaNaLojaVirtual(telefone, endereco, email);
-		pageHomeRetaguarda.sairDoRetaguarda();
 	}
 }

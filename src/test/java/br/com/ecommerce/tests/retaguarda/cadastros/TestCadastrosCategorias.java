@@ -21,7 +21,7 @@ import br.com.ecommerce.util.Utils;
  * @author Jarbas
  * 
  * */
-public class TestCadastrosCategorias_IT extends BaseTest{
+public class TestCadastrosCategorias extends BaseTest{
 
 	PageMenu             pageMenu             = new PageMenu();
 	PageCategorias       pageCategorias       = new PageCategorias();
@@ -44,7 +44,6 @@ public class TestCadastrosCategorias_IT extends BaseTest{
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
-		pageHomeRetaguarda.sairDoRetaguarda();
 	}
 
 	@Test
@@ -81,7 +80,6 @@ public class TestCadastrosCategorias_IT extends BaseTest{
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoria);
-		pageHomeRetaguarda.sairDoRetaguarda();
 	}
 	
 	@Test
@@ -117,7 +115,6 @@ public class TestCadastrosCategorias_IT extends BaseTest{
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(novaCategoria);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(novaCategoria);
-		pageHomeRetaguarda.sairDoRetaguarda();
 	}
 	
 	@Test
@@ -171,7 +168,6 @@ public class TestCadastrosCategorias_IT extends BaseTest{
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAtual);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoriaAtual);
-		pageHomeRetaguarda.sairDoRetaguarda();
 	}
 	
 	@Test
@@ -205,7 +201,6 @@ public class TestCadastrosCategorias_IT extends BaseTest{
 		pageCategorias.validarMsgFeedbackExclusaoSucesso();
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirExclusaoCategoriaNaLojaVirtual(categoria);
-		pageHomeRetaguarda.sairDoRetaguarda();
 	}
 	
 	@Test
@@ -252,6 +247,5 @@ public class TestCadastrosCategorias_IT extends BaseTest{
 		pageCategorias.validarMsgFeedbackExclusaoSucesso();
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
 		pageHomeLojaVirtual.conferirExclusaoSubategoriaNaLojaVirtual(categoria, subcategoria);
-		pageHomeRetaguarda.sairDoRetaguarda();
 	}
 }
