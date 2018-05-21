@@ -10,6 +10,11 @@ import org.junit.runners.Suite;
 
 import br.com.ecommerce.config.Property;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosCategorias;
+import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosClientes;
+import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosCores;
+import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosFornecedores;
+import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosFuncionarios;
+import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosMarcas;
 import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais;
 /**
  * Classe que agrupa todas as classes de teste, funcionando com uma suíte de regressão.
@@ -18,8 +23,14 @@ import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+	TestCadastrosCategorias.class,
 	TestDadosGerais.class,
-	TestCadastrosCategorias.class
+	TestCadastrosCores.class,
+	TestCadastrosClientes.class,
+	TestCadastrosFornecedores.class,
+	TestCadastrosFuncionarios.class,
+	TestCadastrosMarcas.class,
+	TestCadastrosGruposFiscais.class
 })
 
 public class AllTests {

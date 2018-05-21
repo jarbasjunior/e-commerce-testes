@@ -53,7 +53,7 @@ public class PageHomeLojaVirtual extends BasePage {
 		aguardarElementoVisivel(logoCompanhia);
 		Log.info("Conferindo exclusão de categoria na home page da loja virtual...");
 		By by = By.xpath("//*[@id='header']//a[text()='"+categoria+"']");
-		Utils.assertTrue("Categoria ["+categoria+"] não foi exculída na home page da loja virtual", !isVisibility(by));
+		Utils.assertFalse("Categoria ["+categoria+"] não foi exculída na home page da loja virtual", isVisibility(by));
 		Log.info("Exclusão de categoria validada com sucesso na loja virtual.");
 	}
 	
@@ -64,7 +64,7 @@ public class PageHomeLojaVirtual extends BasePage {
 		By categoriaPrincipal = By.xpath("//*[@id='header']//a[text()='"+categoria+"']");
 		moverCursorPara(getDriver().findElement(categoriaPrincipal));
 		Utils.wait(1000);
-		Utils.assertTrue("Categoria ["+categoria+"] não foi exculída na home page da loja virtual", !isVisibility(categoriaFilho));
+		Utils.assertFalse("Categoria ["+categoria+"] não foi exculída na home page da loja virtual", isVisibility(categoriaFilho));
 		Log.info("Exclusão de categoria validada com sucesso na loja virtual.");
 	}
 	

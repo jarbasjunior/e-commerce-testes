@@ -23,7 +23,7 @@ public class PageIncluirCores extends BasePage {
 	private WebElement nomeTitutlo;
 	
 	@FindBy(id = "color_title")
-	private WebElement inputTitutlo;
+	private WebElement inputTitulo;
 	
 	@FindBy(xpath = "//label[text()='Cor (Hexadecimal):']")
 	private WebElement nomeCor;
@@ -42,12 +42,12 @@ public class PageIncluirCores extends BasePage {
 
 
 	public void incluirCor(String cor, String corHexa) {
-		Log.info("Inserindo cor ["+cor+"]...");
+		Log.info("Inserindo dados da cor ["+cor+"]...");
 		aguardarElementoVisivel(inputCor);
-		preencherCampo(inputTitutlo, cor);
+		preencherCampo(inputTitulo, cor);
 		preencherCampo(inputCor, corHexa);
 		click(btSalvar);
-		Log.info("Cor azul inserida com sucesso");
+		Log.info("Dados da cor ["+cor+"] inseridos");
 	}
 	
 	public void verificarOrtografiaPageIncluirCores() {

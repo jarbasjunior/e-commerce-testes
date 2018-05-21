@@ -54,14 +54,13 @@ public abstract class Utils {
 			assertFail("Erro encontrado: Esperado ["+esperado+"], mas retornou ["+atual+"]");
 		}finally{
 			if (isError) {
-				Log.erro("E R R O . . .");
-				Log.erro("    ||");
-				Log.erro("   \\  /");
-				Log.erro("    **");
+				Log.erro("=> E R R O . . .");
+				Log.erro("     ||");
+				Log.erro("    \\  /");
+				Log.erro("     **");
 				Log.erro("Esperava-se: ["+esperado+"]");
 				Log.erro("E retornou.: ["+atual+"]");
 				takeScreenshot(removeCaracterEspecial(esperado.toString())+"#"+removeCaracterEspecial(atual.toString()));
-				//retornarPageLogin();
 			}
 		}
 	}
@@ -75,12 +74,29 @@ public abstract class Utils {
 			assertFail(message);
 		}finally{
 			if (isError) {
-				Log.erro("E R R O . . .");
-				Log.erro("    ||");
-				Log.erro("   \\  /");
-				Log.erro("    **");
+				Log.erro("=> E R R O . . .");
+				Log.erro("     ||");
+				Log.erro("    \\  /");
+				Log.erro("     **");
 				Log.erro(message);
-				//retornarPageLogin();
+			}
+		}
+	}
+	
+	public static void assertFalse(String message, boolean bol){
+		try {
+			isError = bol;
+			Assert.assertFalse(message, bol);
+		} catch (Exception e) {
+			takeScreenshot(message);
+			assertFail(message);
+		}finally{
+			if (isError) {
+				Log.erro("=> E R R O . . .");
+				Log.erro("     ||");
+				Log.erro("    \\  /");
+				Log.erro("     **");
+				Log.erro(message);
 			}
 		}
 	}
@@ -105,34 +121,6 @@ public abstract class Utils {
 		nf.setMinimumFractionDigits(2);
 		nf.setMaximumFractionDigits(2);
 		return nf.format(value).replace(",","");
-	}
-	
-	public static String geraSigla(int tamanhoSigla){
-		Random random = new Random();
-		char[] letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < tamanhoSigla; i++) {
-			int ch = random.nextInt (letras.length);
-		    sb.append (letras [ch]);
-		}    
-		return sb.toString();    
-	}
-	
-	public static int geraNumeroEntreIntervalo(int min, int max){
-		Random random = new Random();
-		return random.nextInt((max - min) + 1) + min;
-	}
-	
-	public static String geraNumeroEntre1_99(){
-		return converteInteiroParaString(geraNumeroEntreIntervalo(1, 99));
-	}
-	
-	public static String geraNumeroEntre100_999(){
-		return converteInteiroParaString(geraNumeroEntreIntervalo(100, 999));
-	}
-	
-	public static String geraNumeroEntre1000_10000(){
-		return converteInteiroParaString(geraNumeroEntreIntervalo(1000, 10000));
 	}
 	
 	public static String converteInteiroParaString(int numero){
@@ -216,11 +204,54 @@ public abstract class Utils {
 		}
 	}
 	
+	public static String geraSigla(int tamanhoSigla){
+		Random random = new Random();
+		char[] letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < tamanhoSigla; i++) {
+			int ch = random.nextInt (letras.length);
+		    sb.append (letras [ch]);
+		}    
+		return sb.toString();    
+	}
+	
+	public static int geraNumeroEntreIntervalo(int min, int max){
+		Random random = new Random();
+		return random.nextInt((max - min) + 1) + min;
+	}
+	
+	public static String geraNumeroEntre11_86(){
+		return converteInteiroParaString(geraNumeroEntreIntervalo(11, 86));
+	}
+	
+	public static String geraNumeroEntre88000000_99999999(){
+		return converteInteiroParaString(geraNumeroEntreIntervalo(88000000, 99999999));
+	}
+	
+	public static String geraSite(){
+		Faker fake = new Faker();
+		return "www." + fake.app().name().toLowerCase().replace(" ", "") + ".com";
+	}
+	
 	public static String geraNomeEmpresa(){
 		Faker fake = new Faker();
 		return fake.company().name();
 	}
 	
+	public static String geraNome(){
+		Faker fake = new Faker();
+		return fake.name().firstName();
+	}
+	
+	public static String geraMarca(){
+		Faker fake = new Faker();
+		return fake.beer().name();
+	}
+	
+	public static String geraSobrenome() {
+		Faker fake = new Faker();
+		return fake.name().lastName();
+	}
 	public static String geraCategoria(){
 		Faker fake = new Faker();
 		return fake.lorem().characters(4, true).toUpperCase();
@@ -234,6 +265,42 @@ public abstract class Utils {
 		sb.insert(10, "/");
 		sb.insert(15, "-");
 		return sb.toString();
+	}
+	
+	public static String geraSenha() {
+		Faker fake = new Faker();
+		return fake.crypto().sha1().substring(0, 11);
+	}
+	
+	public static String geraCPFFormatado(){
+		Faker fake = new Faker();
+		StringBuilder sb = new StringBuilder(fake.number().digits(11));
+		sb.insert(3 , ".");
+		sb.insert(7 , ".");
+		sb.insert(11, "-");
+		return sb.toString();
+	}
+	
+	public static String formataCPF(String cpf){
+		StringBuilder sb = new StringBuilder(cpf);
+		sb.insert(3 , ".");
+		sb.insert(7 , ".");
+		sb.insert(11, "-");
+		return sb.toString();
+	}
+	
+	public static String formataTelefone(String telefone) {
+		StringBuilder sb = new StringBuilder(telefone);
+		sb.insert(0 , "(");
+		sb.insert(3 , ")");
+		sb.insert(4 , " ");
+		sb.insert(10, "-");
+		return sb.toString();
+	}
+	
+	public static String geraCPFSemFormato(){
+		Faker fake = new Faker();
+		return fake.number().digits(11);
 	}
 	
 	public static String geraEmail(){
@@ -271,9 +338,13 @@ public abstract class Utils {
 		       fake.address().country();
 	}
 	
-	public static String geraTelefone(){
+	public static String geraTelefoneEUA(){
 		Faker fake = new Faker();
 		return fake.phoneNumber().phoneNumber();
+	}
+	
+	public static String geraTelefoneBRA(){
+		return geraNumeroEntre11_86() + "9" + geraNumeroEntre88000000_99999999();
 	}
 	
 	public static void retornarPageLogin(){

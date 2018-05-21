@@ -156,7 +156,7 @@ public class BasePage {
 		for (int i = 0; i < 5; i++) {
 			e.sendKeys(Keys.PAGE_DOWN);
 		}
-		Utils.wait(500);
+		Utils.wait(1000);
 	}
 	
 	public void pageUp(WebElement e){
@@ -167,7 +167,20 @@ public class BasePage {
 	}
 	
 	public void tab(WebElement e){
+		click(e);
 		e.sendKeys(Keys.TAB);
+	}
+	
+	public void marcarCheckbox(WebElement e){
+		if (!e.isSelected()) {
+			click(e);
+		}
+	}
+	
+	public void desmarcarCheckbox(WebElement e){
+		if (e.isSelected()) {
+			click(e);
+		}
 	}
 	
 	public boolean isElementPresent(WebElement element){
@@ -336,9 +349,9 @@ public class BasePage {
 	}
 	
 	public void erro() {
-		Log.erro("E R R O ...");
-		Log.info("    ||");
-		Log.info("   \\  /");
-		Log.info("    **");
+		Log.erro("=> E R R O ...");
+		Log.info("     ||");
+		Log.info("    \\  /");
+		Log.info("     **");
 	}
 }

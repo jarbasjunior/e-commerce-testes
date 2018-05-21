@@ -79,12 +79,14 @@ public class TestCadastrosCores extends BaseTest{
 			pageCores.verificarOrtografiaPageCores();
 			pageCores.validarCorInserida(cor);
 		}
+		pageMenu.acessarMenuCadastrosCores();
+		pageCores.verificarOrtografiaPageCores();
 		pageCores.navegarParaPageInclusaoCores();
 		pageIncluirCores.verificarOrtografiaPageIncluirCores();
 		pageIncluirCores.incluirCor(cor, corHexa);
-		Utils.assertTrue("Mensagem exibe sucesso em novo cadastro de cor, a qual já foi inserida anteriormente", !pageIncluirCores.isMensagemSucessoInclusao());
+		Utils.assertFalse("Mensagem exibe sucesso em novo cadastro de cor, a qual já foi inserida anteriormente", pageIncluirCores.isMensagemSucessoInclusao());
 		pageMenu.acessarMenuCadastrosCores();
 		pageCores.verificarOrtografiaPageCores();
-		Utils.assertTrue("Cor que já existe foi inserida novamente", !pageCores.existsColor(cor));
+		Utils.assertFalse("Cor que já existe foi inserida novamente", pageCores.existsColor(cor));
 	}
 }
