@@ -23,13 +23,14 @@ import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	TestDadosGerais.class,
 	TestCadastrosCategorias.class,
+	TestDadosGerais.class,
 	TestCadastrosCores.class,
 	TestCadastrosClientes.class,
 	TestCadastrosFornecedores.class,
 	TestCadastrosFuncionarios.class,
-	TestCadastrosMarcas.class
+	TestCadastrosMarcas.class,
+	TestCadastrosGruposFiscais.class
 })
 
 public class AllTests {

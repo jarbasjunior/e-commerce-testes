@@ -79,6 +79,8 @@ public class TestCadastrosCores extends BaseTest{
 			pageCores.verificarOrtografiaPageCores();
 			pageCores.validarCorInserida(cor);
 		}
+		pageMenu.acessarMenuCadastrosCores();
+		pageCores.verificarOrtografiaPageCores();
 		pageCores.navegarParaPageInclusaoCores();
 		pageIncluirCores.verificarOrtografiaPageIncluirCores();
 		pageIncluirCores.incluirCor(cor, corHexa);

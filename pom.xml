@@ -32,7 +32,7 @@
 				<version>2.18.1</version>
 				<configuration>
 					<parallel>classes</parallel>
-					<threadCount>1</threadCount>
+					<threadCount>3</threadCount>
 				</configuration>
 			</plugin>
 			<plugin>
