@@ -15,6 +15,7 @@ import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosCores;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosFornecedores;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosFuncionarios;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosMarcas;
+import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosGruposFiscais;
 import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais;
 /**
  * Classe que agrupa todas as classes de teste, funcionando com uma suíte de regressão.
