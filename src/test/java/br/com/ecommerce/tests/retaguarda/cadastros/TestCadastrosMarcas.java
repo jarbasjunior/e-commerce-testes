@@ -28,7 +28,7 @@ public class TestCadastrosMarcas extends BaseTest{
 	
 	@Test
 	public void cadastrarMarcaComSucesso(){
-		String marca = Utils.geraMarca();
+		String marca = "Teste Marca "+Utils.geraSigla(3);
 		pageMenu.acessarMenuCadastrosMarcas();
 		pageMarca.verificarOrtografiaPageMarcas();
 		pageMarca.navegarParaPageInclusaoMarcas();
@@ -45,8 +45,8 @@ public class TestCadastrosMarcas extends BaseTest{
 		/*
 		 * Incluir marca
 		 */
-		String marca1 = Utils.geraMarca();
-		String marca2 = Utils.geraMarca();
+		String marca1 = "Teste Marca "+Utils.geraSigla(3);
+		String marca2 = "Teste Marca "+Utils.geraSigla(3);
 		pageMenu.acessarMenuCadastrosMarcas();
 		pageMarca.verificarOrtografiaPageMarcas();
 		pageMarca.navegarParaPageInclusaoMarcas();
@@ -75,7 +75,7 @@ public class TestCadastrosMarcas extends BaseTest{
 		/*
 		 * Incluir funcionário
 		 */
-		String marca = Utils.geraMarca();
+		String marca = "Teste Marca "+Utils.geraSigla(3);
 		pageMenu.acessarMenuCadastrosMarcas();
 		pageMarca.verificarOrtografiaPageMarcas();
 		pageMarca.navegarParaPageInclusaoMarcas();

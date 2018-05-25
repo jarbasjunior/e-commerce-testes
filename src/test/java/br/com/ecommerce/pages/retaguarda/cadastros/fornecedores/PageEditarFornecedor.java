@@ -57,6 +57,7 @@ public class PageEditarFornecedor extends BasePage {
 	}
 	
 	public void verificarOrtografiaPageEditarFornecedores(){
+		aguardarElementoVisivel(titleEditarFornecedor);
 		Log.info("Verificando ortografia da página de cadastro de fornecedores...");
 		Utils.assertEquals(getTextElement(titleEditarFornecedor), "Editar Fornecedor");
 		Utils.assertEquals(getTextElement(labelRazaoSocial)		, "Razão Social");

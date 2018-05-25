@@ -220,12 +220,8 @@ public abstract class Utils {
 		return random.nextInt((max - min) + 1) + min;
 	}
 	
-	public static String geraNumeroEntre11_86(){
-		return converteInteiroParaString(geraNumeroEntreIntervalo(11, 86));
-	}
-	
-	public static String geraNumeroEntre88000000_99999999(){
-		return converteInteiroParaString(geraNumeroEntreIntervalo(88000000, 99999999));
+	public static String geraNumeroEntre(int initalNumber, int finalNumber){
+		return converteInteiroParaString(geraNumeroEntreIntervalo(initalNumber, finalNumber));
 	}
 	
 	public static String geraSite(){
@@ -241,11 +237,6 @@ public abstract class Utils {
 	public static String geraNome(){
 		Faker fake = new Faker();
 		return fake.name().firstName();
-	}
-	
-	public static String geraMarca(){
-		Faker fake = new Faker();
-		return fake.beer().name();
 	}
 	
 	public static String geraSobrenome() {
@@ -338,13 +329,8 @@ public abstract class Utils {
 		       fake.address().country();
 	}
 	
-	public static String geraTelefoneEUA(){
-		Faker fake = new Faker();
-		return fake.phoneNumber().phoneNumber();
-	}
-	
 	public static String geraTelefoneBRA(){
-		return geraNumeroEntre11_86() + "9" + geraNumeroEntre88000000_99999999();
+		return geraNumeroEntre(11, 86) + "9" + geraNumeroEntre(88000000, 99999999);
 	}
 	
 	public static void retornarPageLogin(){
@@ -352,10 +338,11 @@ public abstract class Utils {
 		pageLoginRetagurada.driveNaPaginaLogin();
 	}
 	
-	public static void calculaTempoDoTest(Date tempoInicio, Date tempoFinal) {
-		long diferencaHoras    = (tempoFinal.getTime() - tempoInicio.getTime()) / (1000 * 60 * 60);
-		long diferencaMinutos  = (tempoFinal.getTime() - tempoInicio.getTime()) / (1000 * 60);
-		long diferencaSegundos = (tempoFinal.getTime() - tempoInicio.getTime()) / (1000);
-		Log.info("Tempo de execucao:"+ String.format("%02d:%02d:%02d ", diferencaHoras, diferencaMinutos, diferencaSegundos));
+	public static String precoVenda(String precoCompra){
+		Double d = Double.parseDouble(precoCompra); 
+		d = d + (d * 0.3);
+		String preco = String.valueOf(d)+"0"; 
+		return preco.replace(".", ",");
 	}
 }
+

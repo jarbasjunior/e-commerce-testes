@@ -1,5 +1,6 @@
 package br.com.ecommerce.config;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -28,7 +29,7 @@ import br.com.ecommerce.util.Utils;
 
 public class BasePage {
 
-	private int    LOAD_TIMEOUT                     = 14;
+	private int    LOAD_TIMEOUT                     = 20;
 	private int    INTERVALO_VERIFICACAO            = 2;
 	private String windowHandleJanelaInicial;
 	private final Wait<WebDriver> wait = new FluentWait<WebDriver>(DriverFactory.getDriver())
@@ -132,6 +133,17 @@ public class BasePage {
 			return false;
 		}
 		return true;
+	}
+	
+	public List<WebElement> getAllElementosCombo(WebElement element){
+		try{
+			Select select = new Select(element);
+			return select.getOptions();
+		}catch(NoSuchElementException e){
+			erroSelecaoTodosCombo(element);
+			Utils.takeScreenshot("SelecionarTodosValoresCombo");
+		}
+		return null;
 	}
 	
 	public void selecionarValorComboTexto(WebElement element, String textVisible){
@@ -346,6 +358,17 @@ public class BasePage {
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
 		Assert.fail("Erro ao selecionar elemento do combo: "+element.toString().substring(45, element.toString().length()-2)+"], com o valor: "+valor);
+	}
+	
+	public void erroSelecaoTodosCombo(WebElement element) {
+		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
+		erro();
+		Utils.takeScreenshot("erroAllCombo");
+		Log.erro("Erro ao selecionar todos elementos do combo: "+element.toString().substring(45, element.toString().length()-2)+"]");
+		pageHomeRetagurada.sairDoRetaguarda();
+		pageLoginRetagurada.driveNaPaginaLogin();
+		Assert.fail("Erro ao selecionar todos elemento do combo: "+element.toString().substring(45, element.toString().length()-2)+"]");
 	}
 	
 	public void erro() {

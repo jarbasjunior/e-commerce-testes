@@ -32,18 +32,17 @@ public class PageCores extends BasePage {
 	@FindBy(xpath = "//a[@class='btn btn-default'][contains(.,'Ativar')]")
 	private WebElement btAtivar;
 	
-	@FindBy(xpath = "//a[@class='btn btn-warning'][contains(.,'Editar')]")
+	@FindBy(xpath = "//tbody//../a[contains(.,'Editar')]")
 	private WebElement btEditar;
 	
-	@FindBy(xpath = "//*[@class='btn btn-danger'][contains(.,'Remover')]")
+	@FindBy(xpath = "//tbody//../a[contains(.,'Remover')]")
 	private WebElement btRemover;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]['×']")
 	private WebElement msgSucesso;
 
 	public void navegarParaPageInclusaoCores() {
-		aguardarElementoVisivel(btNovo);
-		click(btNovo);
+		getDriver().navigate().to(getDriver().getCurrentUrl()+"/new");
 	}
 	
 	public void validarCorInserida(String cor) {
@@ -88,8 +87,6 @@ public class PageCores extends BasePage {
 		Utils.assertEquals(getTextElement(labelTitutlo)      , "Título");
 		Utils.assertEquals(getTextElement(labelCor)          , "Cor");
 		Utils.assertEquals(getTextElement(btAtivar)         , "Ativar");
-		Utils.assertEquals(getTextElement(btEditar)         , "Editar");
-		Utils.assertEquals(getTextElement(btRemover)         , "Remover");
 		Log.info("Ortografia validada com sucesso.");
 	}
 }

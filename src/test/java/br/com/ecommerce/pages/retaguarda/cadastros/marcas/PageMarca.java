@@ -29,10 +29,10 @@ public class PageMarca extends BasePage {
 	@FindBy(xpath = "//th[text()='Descrição']")
 	private WebElement labelDescricao;
 	
-	@FindBy(xpath = "//a[@class='btn btn-danger']")
+	@FindBy(xpath = "//tbody//../a[contains(.,'Remover')]")
 	private WebElement btRemover;
 	
-	@FindBy(xpath = "//a[@class='btn btn-warning']")
+	@FindBy(xpath = "//tbody//../a[contains(.,'Editar')]")
 	private WebElement btEditar;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]['×']")
@@ -47,7 +47,7 @@ public class PageMarca extends BasePage {
 	public void navegarParaPaginaEdicaoMarca(String marca) {
 		aguardarElementoVisivel(btEditar);
 		pageDown(btNovo);
-		By b = By.xpath("//*[@class='table']//../tr/td[text()='"+marca+"']//..//a[@class='btn btn-warning']");
+		By b = By.xpath("//tbody//../tr/td[text()='"+marca+"']//..//td[contains(.,'Editar')]/a[1]");
 		click(getDriver().findElement(b));
 		Log.info("Redirecionando para página de edição da marca ["+marca+"]");
 	}
@@ -65,13 +65,16 @@ public class PageMarca extends BasePage {
 	}
 	
 	public void validarMarcaNaListagem(String marca) {
-		
 		Log.info("Conferindo dados da marca ["+marca+"] na tela...");
-		pageDown(btNovo);
-
-		WebElement fillMarca = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+marca+"')]//../td[2]"));
+		By by = By.xpath("//tbody//tr/td[contains(.,'"+marca+"')]//../td[2]");
+		if (isVisibility(by)) {	
+			if (!getDriver().findElement(by).isDisplayed()) {
+				pageDown(btNovo);
+			}
+		}
+		Utils.wait(1500);
+		WebElement fillMarca = getDriver().findElement(by);
 		Utils.assertEquals(getTextElement(fillMarca), marca);
-
 		Log.info("Dados da marca ["+marca+"] conferida com sucesso.");
 	}
 	
@@ -122,8 +125,6 @@ public class PageMarca extends BasePage {
 		Utils.assertEquals(getTextElement(labelCodigo)   , "Código");
 		Utils.assertEquals(getTextElement(labelDescricao), "Descrição");
 		Utils.assertEquals(getTextElement(btNovo)        , "Novo(a)");
-		Utils.assertEquals(getTextElement(btEditar)      , "Editar");
-		Utils.assertEquals(getTextElement(btRemover)     , "Remover");
 		Log.info("Ortografia validada com sucesso.");
 	}
 }
