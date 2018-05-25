@@ -69,7 +69,7 @@ public class PageEditarCategoria extends BasePage {
 		Utils.assertEquals(getTextElement(nameMenuPrincipal)      , "Menu Principal");
 		Utils.assertEquals(getTextElement(nameCategoriaAgrupadora), "Categoria agrupadora");
 		Utils.assertEquals(getTextElement(btCancelar)             , "Cancelar");
-		Utils.assertEquals(getTextValueAtributo(btSalvar)		      , "Salvar");
+		Utils.assertEquals(getTextValueAtributo(btSalvar)		  , "Salvar");
 		Log.info("Ortografia validada com sucesso.");
 	}
 

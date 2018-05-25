@@ -35,10 +35,10 @@ public class PageFuncionario extends BasePage {
 	@FindBy(xpath = "//th[text()='EMAIL']")
 	private WebElement labelEmail;
 	
-	@FindBy(xpath = "//a[@class='btn btn-danger']")
+	@FindBy(xpath = "//tbody//../a[contains(.,'Remover')]")
 	private WebElement btRemover;
 	
-	@FindBy(xpath = "//a[@class='btn btn-warning']")
+	@FindBy(xpath = "//tbody//../a[contains(.,'Editar')]")
 	private WebElement btEditar;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]['×']")
@@ -52,10 +52,18 @@ public class PageFuncionario extends BasePage {
 	
 	public void navegarParaPaginaEdicaoFuncionario(String funcionario) {
 		aguardarElementoVisivel(btEditar);
-		pageDown(btNovo);
-		By b = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+funcionario+"']//..//td[contains(.,'Editar')]/a");
-		click(getDriver().findElement(b));
+		By by = By.xpath("//tbody//../tr/td[text()='"+funcionario+"']//..//td[contains(.,'Editar')]/a[1]");
+		if (isVisibility(by)) {	
+			if (!getDriver().findElement(by).isDisplayed()) {
+				pageDown(btNovo);
+			}
+		}
+		click(getDriver().findElement(by));
 		Log.info("Redirecionando para página de edição do funcionario ["+funcionario+"]");
+	}
+	
+	public String getPrimeiroNomeLista(){
+		return getTextElement(getDriver().findElement(By.xpath("//tbody//../tr[1]/td[2]")));
 	}
 	
 	public void validarFuncionarioInserido(String funcionario) {
@@ -73,7 +81,12 @@ public class PageFuncionario extends BasePage {
 	public void validarFuncionarioNaListagem(String nome, String cpf, String email) {
 		
 		Log.info("Conferindo dados do funcionario ["+nome+"] na tela...");
-		pageDown(btNovo);
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[3]");
+		if (isVisibility(by)) {	
+			if (!getDriver().findElement(by).isDisplayed()) {
+				pageDown(btNovo);
+			}
+		}
 
 		WebElement fillCpf      = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[3]"));
 		WebElement fillNome     = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[2]"));
@@ -104,8 +117,12 @@ public class PageFuncionario extends BasePage {
 	
 	public void removerFuncionario(String funcionario) {
 		Log.info("Removendo funcionário ["+funcionario+"]...");
-		pageDown(btNovo);
 		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+funcionario+"']//../td/a[@data-method='delete']");
+		if (isVisibility(by)) {	
+			if (!getDriver().findElement(by).isDisplayed()) {
+				pageDown(btNovo);
+			}
+		}
 		WebElement removerFuncionario = getDriver().findElement(by);
 		click(removerFuncionario);
 		confirmarAlerta();
@@ -134,8 +151,6 @@ public class PageFuncionario extends BasePage {
 		Utils.assertEquals(getTextElement(labelNome)        , "NOME");
 		Utils.assertEquals(getTextElement(labelCpf)         , "CPF");
 		Utils.assertEquals(getTextElement(btNovo)           , "Novo");
-		Utils.assertEquals(getTextElement(btEditar)         , "Editar");
-		Utils.assertEquals(getTextElement(btRemover)        , "Remover");
 		Log.info("Ortografia validada com sucesso.");
 	}
 }

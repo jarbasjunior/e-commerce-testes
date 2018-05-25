@@ -32,7 +32,7 @@ public class TestDadosGerais extends BaseTest {
 		String nome     = Utils.geraNomeEmpresa();
 		String cnpj     = Utils.geraCNPJ();
 		String email    = Utils.geraEmail();
-		String telefone = Utils.geraTelefoneEUA();
+		String telefone = Utils.geraTelefoneBRA();
 		String endereco = Utils.geraEndereco();
 		pageMenu.acessarMenuDadosGeraisConfiguracoes();
 		pageConfiguracoes.conferirOrtografiaDeCamposTelaConfigurcoes();

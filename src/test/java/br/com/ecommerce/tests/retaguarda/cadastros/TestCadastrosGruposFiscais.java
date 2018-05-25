@@ -71,7 +71,7 @@ public class TestCadastrosGruposFiscais extends BaseTest{
 			pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
 			pageGruposFiscais.validarGrupoFiscalAtivoNaListagem(grupoFiscal);
 		}else{
-			grupoFiscal = pageGruposFiscais.getTerceiroGrupoFiscal();
+			grupoFiscal = pageGruposFiscais.getGrupoFiscalTeste();
 		}
 		pageGruposFiscais.removerGrupoFiscal(grupoFiscal);
 		pageMenu.acessarMenuCadastrosGruposFiscais();
@@ -103,7 +103,7 @@ public class TestCadastrosGruposFiscais extends BaseTest{
 	
 	@Test
 	public void ativarGrupoFiscalNaoTributado(){
-		String grupoFiscal = "Grupo Não Tributado";
+		String grupoFiscal = "Grupo Não tributado";
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
 		pageGruposFiscais.ativarGrupoFiscal(grupoFiscal);
@@ -114,7 +114,7 @@ public class TestCadastrosGruposFiscais extends BaseTest{
 	
 	@Test
 	public void inativarGrupoFiscalNaoTributado(){
-		String grupoFiscal = "Grupo Não Tributado";
+		String grupoFiscal = "Grupo Não tributado";
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
 		pageGruposFiscais.inativarGrupoFiscal(grupoFiscal);

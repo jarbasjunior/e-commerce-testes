@@ -45,12 +45,12 @@ public class TestCadastrosFuncionarios extends BaseTest{
 	
 	@Test
 	public void alterarDadosFuncionarioComSucesso(){
-		String cpf      = Utils.geraCPFSemFormato();
-		String nome     = "Teste";
-		String email    = Utils.geraEmail();
-		String telefone = Utils.formataTelefone(Utils.geraTelefoneBRA());
 		pageMenu.acessarMenuCadastrosFuncionarios();
 		pageFuncionario.verificarOrtografiaPageFuncionarios();
+		String cpf      = Utils.geraCPFSemFormato();
+		String nome     = pageFuncionario.getPrimeiroNomeLista();
+		String email    = Utils.geraEmail();
+		String telefone = Utils.formataTelefone(Utils.geraTelefoneBRA());
 		pageFuncionario.navegarParaPaginaEdicaoFuncionario(nome);
 		pageEditarFuncionario.verificarOrtografiaPageEditarFuncionarios();
 		pageEditarFuncionario.alterarFuncionario(nome, cpf, email, telefone);

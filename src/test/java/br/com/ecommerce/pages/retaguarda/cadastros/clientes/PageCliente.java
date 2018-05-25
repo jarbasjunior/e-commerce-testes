@@ -56,7 +56,7 @@ public class PageCliente extends BasePage {
 	public void navegarParaPaginaEdicaoCliente(String cliente) {
 		aguardarElementoVisivel(btEditar);
 		pageDown(btNovo);
-		By b = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+cliente+"']//..//td[contains(.,'Editar')]/a");
+		By b = By.xpath("//tbody//../tr/td[text()='"+cliente+"']//..//td[contains(.,'Editar')]/a[1]");
 		click(getDriver().findElement(b));
 		Log.info("Redirecionando para página de edição do cliente ["+cliente+"]");
 	}
@@ -119,8 +119,6 @@ public class PageCliente extends BasePage {
 		Utils.assertEquals(getTextElement(labelNome)     , "Nome");
 		Utils.assertEquals(getTextElement(labelEmail)    , "Email");
 		Utils.assertEquals(getTextElement(labelTelefone) , "Telefone");
-		Utils.assertEquals(getTextElement(btNovo)       , "Novo(a)");
-		Utils.assertEquals(getTextElement(btEditar)     , "Editar");
 		Log.info("Ortografia validada com sucesso.");
 	}
 }
