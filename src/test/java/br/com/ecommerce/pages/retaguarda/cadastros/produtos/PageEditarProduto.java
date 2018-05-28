@@ -17,61 +17,97 @@ public class PageEditarProduto extends BasePage {
 	}
 
 	@FindBy(xpath = "//h1")
-	private WebElement titleEditarFuncionario;
+	private WebElement titleEditarProduto;
 	
 	@FindBy(xpath = "//label[text()='Nome']")
 	private WebElement labelNome;
 	
-	@FindBy(xpath = "//label[text()='CPF']")
-	private WebElement labelCpf;
+	@FindBy(xpath = "//label[text()='Descrição']")
+	private WebElement labelDescricao;
 	
-	@FindBy(xpath = "//label[text()='Email']")
-	private WebElement labelEmail;
+	@FindBy(xpath = "//label[text()='Marca']")
+	private WebElement labelMarca;
 	
-	@FindBy(xpath = "//label[text()='Telefone']")
-	private WebElement labelTelefone;
+	@FindBy(xpath = "//label[text()='Unidade']")
+	private WebElement labelUnidade;
 	
-	@FindBy(id = "employee_name")
+	@FindBy(xpath = "//label[text()='Grupo Fiscal']")
+	private WebElement labelGrupoFical;
+	
+	@FindBy(xpath = "//label[text()='Preço de compra']")
+	private WebElement labelPrecoCompra;
+	
+	@FindBy(xpath = "//label[text()='Preço de venda']")
+	private WebElement labelPrecoVenda;
+	
+	@FindBy(xpath = "//label[text()='Preço promocional']")
+	private WebElement labelPrecoPromocional;
+
+	@FindBy(xpath = "//label[text()='Quantidade minima']")
+	private WebElement labelQtdMinima;
+	
+	@FindBy(xpath = "//label[text()='Código de barras']")
+	private WebElement labelCodBarras;
+	
+	@FindBy(id = "product_name")
 	private WebElement inputNome;
 	
-	@FindBy(id = "employee_cpf")
-	private WebElement inputCpf;
+	@FindBy(id = "product_description")
+	private WebElement inputDescricao;
 	
-	@FindBy(id = "employee_email")
-	private WebElement inputEmail;
+	@FindBy(id = "product_tax_group_id")
+	private WebElement comboGrupoFiscal;
 	
-	@FindBy(id = "employee_phone")
-	private WebElement inputTelefone;
+	@FindBy(id = "product_brand_id")
+	private WebElement comboMarca;
+	
+	@FindBy(id = "product_cost_price")
+	private WebElement inputPrecoCompra;
+	
+	@FindBy(id = "product_selling_price")
+	private WebElement inputPrecoVenda;
+
+	@FindBy(id = "product_minimum_quantity")
+	private WebElement inputQtdMinima;
+	
+	@FindBy(id = "product_barcode")
+	private WebElement inputCodBarras;
 
 	@FindBy(xpath = "//a[text()='Cancelar']")
 	private WebElement btCancelar;
 	
 	@FindBy(name = "commit")
-	private WebElement btAtualizarFuncionario;
+	private WebElement btSalvar;
 	
 	@FindBy(xpath = "//*[@id='main-content']/section/div[2]['×']")
 	private WebElement msgSucesso;
 
-	public void alterarFuncionario(String nome, String cpf, String email, String telefone) {
-		Log.info("Alterando dados do funcionário ["+nome+"]...");
+	public void alterarProduto(String produto, String descricao) {
+		Log.info("Alterando dados do produto para ["+produto+"]...");
 		aguardarElementoVisivel(inputNome);
-		preencherCampo(inputNome    , nome);
-		preencherCampo(inputCpf     , cpf);
-		preencherCampo(inputEmail   , email);
-		preencherCampo(inputTelefone, telefone);
-		click(btAtualizarFuncionario);
-		Log.info("Dados do funcionário ["+nome+"] alterados");
+		preencherCampo(inputNome     , produto);
+		preencherCampo(inputDescricao, descricao);
+		click(btSalvar);
+		Log.info("Dados produto ["+produto+"] alterados.");
 	}
 	
-	public void verificarOrtografiaPageEditarFuncionarios(){
-		Log.info("Verificando ortografia da página de cadastro de funcionários...");
-		Utils.assertEquals(getTextElement(titleEditarFuncionario)      , "Alterar Funcionário");
-		Utils.assertEquals(getTextElement(labelNome)		           , "Nome");
-		Utils.assertEquals(getTextElement(labelCpf)		               , "CPF");
-		Utils.assertEquals(getTextElement(labelEmail)                  , "Email");
-		Utils.assertEquals(getTextElement(labelTelefone)               , "Telefone");
-		Utils.assertEquals(getTextValueAtributo(btAtualizarFuncionario), "Atualizar Funcionário");
-		Utils.assertEquals(getTextElement(btCancelar)     		       , "Cancelar");
+	public void verificarOrtografiaPageEditarProduto(){
+		Log.info("Verificando ortografia da página de edição de produtos...");
+		Utils.assertEquals(getTextElement(titleEditarProduto)   , "Editar Produto");
+		Utils.assertEquals(getTextElement(labelNome)		    , "Nome");
+		Utils.assertEquals(getTextElement(labelDescricao)	    , "Descrição");
+		Utils.assertEquals(getTextElement(labelMarca)           , "Marca");
+		Utils.assertEquals(getTextElement(labelUnidade)         , "Unidade");
+		Utils.assertEquals(getTextElement(labelGrupoFical)      , "Grupo Fiscal");
+		Utils.assertEquals(getTextElement(labelPrecoCompra)     , "Preço de compra");
+		Utils.assertEquals(getTextElement(labelPrecoVenda)      , "Preço de venda");
+		Utils.assertEquals(getTextElement(labelPrecoPromocional), "Preço promocional");
+		Utils.assertEquals(getTextElement(labelQtdMinima)       , "Quantidade minima");
+		Utils.assertEquals(getTextElement(labelCodBarras)       , "Código de barras");
+		tab(inputCodBarras);
+		Utils.assertEquals(getTextElement(btCancelar)     	   	, "Cancelar");
+		Utils.assertEquals(getTextValueAtributo(btSalvar)       , "Salvar");
+		pageDown(btCancelar);
 		Log.info("Ortografia validada com sucesso.");
 	}
 }

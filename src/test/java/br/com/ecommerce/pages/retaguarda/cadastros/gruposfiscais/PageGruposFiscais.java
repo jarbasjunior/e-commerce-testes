@@ -46,8 +46,8 @@ public class PageGruposFiscais extends BasePage {
 	
 	public void navegarParaPaginaEdicaoFuncionario(String funcionario) {
 		aguardarElementoVisivel(btEditar);
-		pageDown(btNovo);
 		By b = By.xpath("//tbody//../tr/td[text()='"+funcionario+"']//..//td[contains(.,'Editar')]/a[1]");
+		exibeRegistroVisivel(b, btNovo);
 		click(getDriver().findElement(b));
 		Log.info("Redirecionando para página de edição do funcionario ["+funcionario+"]");
 	}
@@ -81,11 +81,7 @@ public class PageGruposFiscais extends BasePage {
 	public void validarGrupoFiscalAtivoNaListagem(String grupoFiscal) {
 		Log.info("Conferindo dados do grupo fiscal ["+grupoFiscal+"] na tela...");
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[1]");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
+		exibeRegistroVisivel(by, btNovo);
 		WebElement fillBtnActive = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]"));
 		WebElement fillDescricao = getDriver().findElement(by);
 		
@@ -99,11 +95,7 @@ public class PageGruposFiscais extends BasePage {
 	public void validarGrupoFiscalInativoNaListagem(String grupoFiscal) {
 		Log.info("Conferindo dados do grupo fiscal ["+grupoFiscal+"] na tela...");
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[1]");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
+		exibeRegistroVisivel(by, btNovo);
 		WebElement fillBtnActive = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]"));
 		WebElement fillDescricao = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[1]"));
 		Utils.assertEquals(getTextElement(fillDescricao), grupoFiscal);
@@ -164,66 +156,38 @@ public class PageGruposFiscais extends BasePage {
 	}
 	
 	public boolean existsGrupoFiscal(String grupoFiscal){
-		pageDown(btNovo);
 		Log.info("Verificando se o grupo fiscal ["+grupoFiscal+"] está cadastrado...");
 		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+grupoFiscal+"']");
+		exibeRegistroVisivel(by, btNovo);
 		return isVisibility(by);
 	}
 	
 	public void ativarGrupoFiscal(String grupoFiscal) {
 		WebElement fillBtnActive = null;
-		boolean ativo = isAtivo(grupoFiscal); 
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
-		if(ativo){
-			fillBtnActive = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]"));
-			Utils.assertEquals(getTextElement(fillBtnActive), "Desativar");
-			Utils.assertTrue("Grupo está inativo", ativo);
-			Log.info("Grupo fiscal ["+grupoFiscal+"] está ativo.");
-		}else{
-			fillBtnActive = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]"));
-			Log.info("Ativando grupo fiscal..");
-			click(fillBtnActive);
-			confirmarAlerta();
-			validaMsgAtivacao();
-		}
+		exibeRegistroVisivel(by, btNovo);
+		fillBtnActive = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]"));
+		Log.info("Ativando grupo fiscal..");
+		click(fillBtnActive);
+		confirmarAlerta();
+		validaMsgAtivacao();
 	}
 	
-	public void inativarGrupoFiscal(String grupoFiscal) {
+	public void desativarGrupoFiscal(String grupoFiscal) {
 		WebElement fillBtnInactive = null;
-		boolean ativo = !isAtivo(grupoFiscal);
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
-		if(ativo){
-			fillBtnInactive = getDriver().findElement(by);
-			Utils.assertEquals(getTextElement(fillBtnInactive), "Ativar");
-			Utils.assertTrue("Grupo está ativo", ativo);
-			Log.info("Grupo fiscal ["+grupoFiscal+"] está inativo.");
-		}else{
-			fillBtnInactive = getDriver().findElement(by);
-			Log.info("Inativando grupo fiscal..");
-			click(fillBtnInactive);
-			confirmarAlerta();
-			validaMsgInativacao();
-		}
+		exibeRegistroVisivel(by, btNovo);
+		fillBtnInactive = getDriver().findElement(by);
+		Log.info("Desativando grupo fiscal..");
+		click(fillBtnInactive);
+		confirmarAlerta();
+		validaMsgInativacao();
 	}
 	
 	public void verificarGrupoFiscalAtivo(String grupoFiscal) {
 		Log.info("Verificando ativação de grupo fiscal...");
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
+		exibeRegistroVisivel(by, btNovo);
 		WebElement fillBtnActive = getDriver().findElement(by);
 		Utils.assertTrue("Grupo não foi ativado", isAtivo(grupoFiscal));
 		Utils.assertEquals(getTextElement(fillBtnActive), "Desativar");
@@ -233,15 +197,11 @@ public class PageGruposFiscais extends BasePage {
 	public void verificarGrupoFiscalInativo(String grupoFiscal) {
 		Log.info("Verificando inativação de grupo fiscal");
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
+		exibeRegistroVisivel(by, btNovo);
 		WebElement fillBtnActive = getDriver().findElement(by);
 		Utils.assertFalse("Grupo não foi inativado", isAtivo(grupoFiscal));
 		Utils.assertEquals(getTextElement(fillBtnActive), "Ativar");
-		Log.info("Grupo fiscal inativo...");
+		Log.info("Grupo fiscal desativado...");
 	}
 
 	public void verificarOrtografiaPageGruposFiscais(){

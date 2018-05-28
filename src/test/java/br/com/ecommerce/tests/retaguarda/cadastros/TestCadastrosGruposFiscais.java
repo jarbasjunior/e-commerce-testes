@@ -84,6 +84,9 @@ public class TestCadastrosGruposFiscais extends BaseTest{
 		String grupoFiscal = "Grupo Tributado";
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
+		if (pageGruposFiscais.isAtivo(grupoFiscal)) {
+			pageGruposFiscais.desativarGrupoFiscal(grupoFiscal);
+		}
 		pageGruposFiscais.ativarGrupoFiscal(grupoFiscal);
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
@@ -91,11 +94,14 @@ public class TestCadastrosGruposFiscais extends BaseTest{
 	}
 	
 	@Test
-	public void inativarGrupoFiscalTributado(){
+	public void desativarGrupoFiscalTributado(){
 		String grupoFiscal = "Grupo Tributado";
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
-		pageGruposFiscais.inativarGrupoFiscal(grupoFiscal);
+		if (!pageGruposFiscais.isAtivo(grupoFiscal)) {
+			pageGruposFiscais.ativarGrupoFiscal(grupoFiscal);
+		}
+		pageGruposFiscais.desativarGrupoFiscal(grupoFiscal);
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
 		pageGruposFiscais.verificarGrupoFiscalInativo(grupoFiscal);
@@ -106,6 +112,9 @@ public class TestCadastrosGruposFiscais extends BaseTest{
 		String grupoFiscal = "Grupo Não tributado";
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
+		if (pageGruposFiscais.isAtivo(grupoFiscal)) {
+			pageGruposFiscais.desativarGrupoFiscal(grupoFiscal);
+		}
 		pageGruposFiscais.ativarGrupoFiscal(grupoFiscal);
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
@@ -113,11 +122,14 @@ public class TestCadastrosGruposFiscais extends BaseTest{
 	}
 	
 	@Test
-	public void inativarGrupoFiscalNaoTributado(){
+	public void desativarGrupoFiscalNaoTributado(){
 		String grupoFiscal = "Grupo Não tributado";
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
-		pageGruposFiscais.inativarGrupoFiscal(grupoFiscal);
+		if (!pageGruposFiscais.isAtivo(grupoFiscal)) {
+			pageGruposFiscais.ativarGrupoFiscal(grupoFiscal);
+		}
+		pageGruposFiscais.desativarGrupoFiscal(grupoFiscal);
 		pageMenu.acessarMenuCadastrosGruposFiscais();
 		pageGruposFiscais.verificarOrtografiaPageGruposFiscais();
 		pageGruposFiscais.verificarGrupoFiscalInativo(grupoFiscal);

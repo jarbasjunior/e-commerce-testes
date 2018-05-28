@@ -55,8 +55,8 @@ public class PageCliente extends BasePage {
 	
 	public void navegarParaPaginaEdicaoCliente(String cliente) {
 		aguardarElementoVisivel(btEditar);
-		pageDown(btNovo);
 		By b = By.xpath("//tbody//../tr/td[text()='"+cliente+"']//..//td[contains(.,'Editar')]/a[1]");
+		exibeRegistroVisivel(b, btNovo);
 		click(getDriver().findElement(b));
 		Log.info("Redirecionando para página de edição do cliente ["+cliente+"]");
 	}
@@ -78,7 +78,8 @@ public class PageCliente extends BasePage {
 		String telFormatado = Utils.formataTelefone(telefone);
 		
 		Log.info("Conferindo dados do cliente ["+nome+"] na tela...");
-		pageDown(btNovo);
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[2]");
+		exibeRegistroVisivel(by, btNovo);
 
 		WebElement fillCPF      = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[2]"));
 		WebElement fillNome     = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[3]"));

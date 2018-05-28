@@ -53,11 +53,7 @@ public class PageFuncionario extends BasePage {
 	public void navegarParaPaginaEdicaoFuncionario(String funcionario) {
 		aguardarElementoVisivel(btEditar);
 		By by = By.xpath("//tbody//../tr/td[text()='"+funcionario+"']//..//td[contains(.,'Editar')]/a[1]");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
+		exibeRegistroVisivel(by, btNovo);
 		click(getDriver().findElement(by));
 		Log.info("Redirecionando para página de edição do funcionario ["+funcionario+"]");
 	}

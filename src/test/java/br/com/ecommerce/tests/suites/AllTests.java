@@ -15,6 +15,7 @@ import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosCores;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosFornecedores;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosFuncionarios;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosMarcas;
+import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosProdutos;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosGruposFiscais;
 import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais;
 /**
@@ -31,7 +32,8 @@ import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais;
 	TestCadastrosFornecedores.class,
 	TestCadastrosFuncionarios.class,
 	TestCadastrosMarcas.class,
-	TestCadastrosGruposFiscais.class
+	TestCadastrosGruposFiscais.class,
+	TestCadastrosProdutos.class
 })
 
 public class AllTests {

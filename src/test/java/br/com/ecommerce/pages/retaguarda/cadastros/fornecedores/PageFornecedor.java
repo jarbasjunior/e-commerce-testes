@@ -50,11 +50,7 @@ public class PageFornecedor extends BasePage {
 	public void navegarParaPaginaEdicaoFornecedor(String fornecedor) {
 		aguardarElementoVisivel(btEditar);
 		By b = By.xpath("//tbody//../tr/td[text()='"+fornecedor+"']//..//td[contains(.,'Editar')]/a[1]");
-		if (isVisibility(b)) {	
-			if (!getDriver().findElement(b).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
+		exibeRegistroVisivel(b, btNovo);
 		click(getDriver().findElement(b));
 		Log.info("Redirecionando para página de edição do fornecedor ["+fornecedor+"]");
 	}
@@ -75,11 +71,7 @@ public class PageFornecedor extends BasePage {
 		
 		Log.info("Conferindo dados do fornecedor ["+razaoSocial+"] na tela...");
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+razaoSocial+"')]//../td[1]");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
+		exibeRegistroVisivel(by, btNovo);
 
 		WebElement fillNome     = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+razaoSocial+"')]//../td[1]"));
 		WebElement fillCnpj     = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+razaoSocial+"')]//../td[2]"));
@@ -110,8 +102,8 @@ public class PageFornecedor extends BasePage {
 	
 	public void removerFornecedor(String fornecedor) {
 		Log.info("Removendo fornecedor ["+fornecedor+"]...");
-		pageDown(btNovo);
 		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+fornecedor+"']//../td/a[@data-method='delete']");
+		exibeRegistroVisivel(by, btNovo);
 		WebElement removerFornecedor = getDriver().findElement(by);
 		click(removerFornecedor);
 		confirmarAlerta();
@@ -127,9 +119,9 @@ public class PageFornecedor extends BasePage {
 	}
 	
 	public boolean existsFornecedor(String fornecedor){
-		pageDown(btNovo);
 		Log.info("Verificando se o fornecedor ["+fornecedor+"] está cadastrado...");
 		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+fornecedor+"']");
+		exibeRegistroVisivel(by, btNovo);
 		return isVisibility(by);
 	}
 

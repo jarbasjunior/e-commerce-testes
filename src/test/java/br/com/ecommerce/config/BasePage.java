@@ -1,5 +1,7 @@
 package br.com.ecommerce.config;
 
+import static br.com.ecommerce.config.DriverFactory.getDriver;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -48,6 +50,15 @@ public class BasePage {
 			element.sendKeys(value);
 		} catch (WebDriverException e) {
 			erroPreenchimento(element, value);
+		}
+	}
+	
+	public void adicionarImagem(WebElement element, String value) {
+		try {
+			aguardarElementoVisivel(element);
+			element.sendKeys(Property.PATH_IMAGEM_COMPRA+value);
+		} catch (WebDriverException e) {
+			erroAnexoImagem(element, value);
 		}
 	}
 	
@@ -135,6 +146,14 @@ public class BasePage {
 		return true;
 	}
 	
+	public void exibeRegistroVisivel(By by, WebElement e){
+		if (isVisibility(by)) {	
+			if (!getDriver().findElement(by).isDisplayed()) {
+				pageDown(e);
+			}
+		}
+	}
+	
 	public List<WebElement> getAllElementosCombo(WebElement element){
 		try{
 			Select select = new Select(element);
@@ -168,14 +187,14 @@ public class BasePage {
 		for (int i = 0; i < 5; i++) {
 			e.sendKeys(Keys.PAGE_DOWN);
 		}
-		Utils.wait(1000);
+		Utils.wait(2000);
 	}
 	
 	public void pageUp(WebElement e){
 		for (int i = 0; i < 5; i++) {
 			e.sendKeys(Keys.PAGE_UP);
 		}
-		Utils.wait(500);
+		Utils.wait(1000);
 	}
 	
 	public void tab(WebElement e){
@@ -294,6 +313,16 @@ public class BasePage {
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
 		Assert.fail(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
+	}
+	
+	public void erroAnexoImagem(WebElement element, String value) {
+		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
+		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
+		erro();
+		Log.erro(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
+		pageHomeRetagurada.sairDoRetaguarda();
+		pageLoginRetagurada.driveNaPaginaLogin();
+		Assert.fail(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
 	}
 	public void erroEspera(WebElement element) {
 		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
