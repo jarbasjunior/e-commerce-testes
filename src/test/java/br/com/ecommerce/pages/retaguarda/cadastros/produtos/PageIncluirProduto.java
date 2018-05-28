@@ -4,6 +4,7 @@ import static br.com.ecommerce.config.DriverFactory.getDriver;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -89,12 +90,14 @@ public class PageIncluirProduto extends BasePage {
 			                   String precoVenda, String qtdMinima, String codBarras) {
 		aguardarElementoVisivel(inputNome);
 		Log.info("Inserindo dados do produto ["+nome+"]...");
-		List<WebElement> listaGruposFiscais = getAllElementosCombo(comboGrupoFiscal);
-		List<WebElement> listaMarcas        = getAllElementosCombo(comboMarca);
+		List<WebElement> listaDeMarcas = getAllElementosCombo(comboMarca);
+		String grupoFiscal = getTextElement(getDriver().findElement(By.xpath("//*[@id='product_tax_group_id']/option[2]")));
+		String indiceMarca = Utils.geraNumeroEntre(1, listaDeMarcas.size());
+		String marca       = getTextElement(getDriver().findElement(By.xpath("//*[@id='product_brand_id']/option["+indiceMarca+"]")));
 		preencherCampo(inputNome       , nome);
 		preencherCampo(inputDescricao  , descricao);
-		selecionarValorComboValue(comboGrupoFiscal, getTextValueAtributo(listaGruposFiscais.get(1)));
-		selecionarValorComboValue(comboMarca      , getTextValueAtributo(listaMarcas.get(Utils.geraNumeroEntreIntervalo(1, listaMarcas.size()))));
+		selecionarValorComboTexto(comboGrupoFiscal, grupoFiscal);
+		selecionarValorComboTexto(comboMarca      , marca);
 		preencherCampo(inputPrecoCompra, precoCompra);
 		preencherCampo(inputPrecoVenda , precoVenda);
 		preencherCampo(inputQtdMinima  , qtdMinima);

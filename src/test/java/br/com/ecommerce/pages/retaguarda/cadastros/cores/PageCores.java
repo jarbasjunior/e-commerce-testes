@@ -56,16 +56,16 @@ public class PageCores extends BasePage {
 	}
 	
 	public boolean existsColor(String str){
-		pageDown(btNovo);
 		Log.info("Verificando se cor ["+str+"] está cadastrada...");
 		By cor = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+str+"']");
+		exibeRegistroVisivel(cor, btNovo);
 		return isVisibility(cor);
 	}
 
 	public void removerCor(String cor) {
 		Log.info("Removendo cor ["+cor+"]...");
-		pageDown(btNovo);
 		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+cor+"']//../td/a[@data-method='delete']");
+		exibeRegistroVisivel(by, btNovo);
 		WebElement removerCor = getDriver().findElement(by);
 		click(removerCor);
 		confirmarAlerta();

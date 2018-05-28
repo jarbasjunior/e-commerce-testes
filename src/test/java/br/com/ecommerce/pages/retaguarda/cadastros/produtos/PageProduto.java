@@ -53,17 +53,77 @@ public class PageProduto extends BasePage {
 		Log.info("Redirecionando para página de inclusão de produto");
 	}
 	
+	public void navegarParaPageCategoriaProduto(String produto) {
+		aguardarElementoVisivel(btNovo);
+		By by = By.xpath("//tbody//../tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Categorias')]");
+		click(getDriver().findElement(by));
+		Log.info("Redirecionando para página de categorias de produto");
+	}
+	
+	public void navegarParaPageUnidadeProduto(String produto) {
+		aguardarElementoVisivel(btNovo);
+		By by = By.xpath("//tbody//../tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Unidades')]");
+		exibeRegistroVisivel(by, btNovo);
+		click(getDriver().findElement(by));
+		Log.info("Redirecionando para página de unidade de produto");
+	}
+	
 	public void navegarParaPaginaEdicaoProduto(String produto) {
 		aguardarElementoVisivel(btEditar);
-		pageDown(btNovo);
-		By b = By.xpath("//tbody//../tr/td[text()='"+produto+"']//..//td[contains(.,'Editar')]/a[1]");
-		click(getDriver().findElement(b));
+		By by = By.xpath("//tbody//../tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Editar')]");
+		exibeRegistroVisivel(by, btNovo);
+		click(getDriver().findElement(by));
 		Log.info("Redirecionando para página de edição do produto ["+produto+"]");
 	}
 	
-	public void validarFuncionarioInserido(String produto) {
-		Utils.assertTrue("Funcionario ["+produto+"] não está sendo exibido na listagem de produtos", existsProdutos(produto));
-		Log.info("Funcionario ["+produto+"] inserido com sucesso");
+	public void ativarProduto(String produto) {
+		WebElement fillBtnInactive = null;
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Ativar')]");
+		exibeRegistroVisivel(by, btNovo);
+		fillBtnInactive = getDriver().findElement(by);
+		Log.info("Ativando produto..");
+		click(fillBtnInactive);
+		validaMsgAtivacao();
+	}
+	
+	public void desativarProduto(String produto) {
+		WebElement fillBtnInactive = null;
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Desativar')]");
+		exibeRegistroVisivel(by, btNovo);
+		fillBtnInactive = getDriver().findElement(by);
+		Log.info("Desativando produto..");
+		click(fillBtnInactive);
+		validaMsgInativacao();
+	}
+	
+	public void irParaPageImagensProduto(String produto) {
+		WebElement btImagem = null;
+		By by = By.xpath("//tbody//../td[contains(.,'"+produto+"')]//../td/a[contains(.,'Imagens')]");
+		btImagem = getDriver().findElement(by);
+		click(btImagem);
+		Log.info("Redirecionando para página de edição de imagens do produto produto..");
+	}
+	
+	public void validaMsgAtivacao(){
+		Log.info("Validando mensagem de feedback de ativação...");
+		aguardarElementoVisivel(msgSucesso);
+		Utils.assertEquals(getTextElement(msgSucesso).replace("×", "").trim(), "Produto ativado com sucesso!");
+		Log.info("Mensagem de feedback validada.");
+	}
+	
+	public void validaMsgInativacao(){
+		Log.info("Validando mensagem de feedback de inativação...");
+		aguardarElementoVisivel(msgSucesso);
+		Utils.assertEquals(getTextElement(msgSucesso).replace("×", "").trim(), "Produto desativado com sucesso!");
+		Log.info("Mensagem de feedback validada.");
+	}
+	
+	public boolean isAtivo(String produto){
+		return isVisibility(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Desativar')]"));
+	}
+	
+	public boolean isInativo(String produto){
+		return isVisibility(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Ativar')]"));
 	}
 	
 	public void validaMsgSucessoInclusao(){
@@ -76,8 +136,8 @@ public class PageProduto extends BasePage {
 	public void validarProdutoNaListagem(String nome, String descricao) {
 		
 		Log.info("Conferindo dados do produto ["+nome+"] na tela...");
-		pageDown(btNovo);
-
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]");
+		exibeRegistroVisivel(by, btNovo);
 		WebElement fillNome      = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[1]"));
 		WebElement fillDescricao = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[2]"));
 
@@ -87,28 +147,72 @@ public class PageProduto extends BasePage {
 		Log.info("Dados do produto ["+nome+"] conferidos com sucesso.");
 	}
 	
+	public boolean isProdutoTesteAtivo(){
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'Teste Produto')]//../td/a[contains(.,'Desativar')]");
+		if (isProdutoTeste()) {
+			if (isAtivo("Teste Produto")) {
+				if (!getDriver().findElement(by).isDisplayed()) {
+					pageDown(btNovo);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isProdutoTesteInativo(){
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'Teste Produto')]//../td/a[contains(.,'Ativar')]");
+		if (isProdutoTeste()) {
+			if (isInativo("Teste Produto")) {
+				if (!getDriver().findElement(by).isDisplayed()) {
+					pageDown(btNovo);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean isProdutoTeste(){
 		return isVisibility(By.xpath("//*[@id='main-content']//tr/td[contains(.,'Teste Produto')]//../td[2]"));
+	}
+	
+	public String getProdutoTesteAtivo(){
+		return getTextElement(getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'Teste Produto')]//../td[1]//../td/a[contains(.,'Desativar')]//../../td[1]"))).trim();
+	}
+	
+	public String getProdutoTesteDesativado(){
+		return getTextElement(getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'Teste Produto')]//../td[1]//../td/a[contains(.,'Ativar')]//../../td[1]"))).trim();
 	}
 	
 	public String getProdutoTeste(){
 		return getTextElement(getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'Teste Produto')]//../td[1]"))).trim();
 	}
 	
+	public String getDescricaoProdutoTeste(){
+		return getTextElement(getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+getProdutoTeste()+"')]//../td[2]"))).trim();
+	}
+	
 	public void validaMsgSucessoAlteracao(){
 		Log.info("Validando mensagem de feedback de sucesso...");
 		aguardarElementoVisivel(msgSucesso);
-		Utils.assertEquals(getTextElement(msgSucesso).replace("×", "").trim(), "Produto atualizado com sucesso");
+		Utils.assertEquals(getTextElement(msgSucesso).replace("×", "").trim(), "Produto atualizado com sucesso.");
 		Log.info("Mensagem de feedback validada.");
 	}
 	
-	public boolean isMensagemSucessoAlteracao(){
-		return getTextElement(msgSucesso).replace("×", "").trim().equals("Produto atualizado com sucesso.");
-	}
-	
-	public void validarFuncionarioRemovido(String produto) {
+	public void validarProdutoRemovido(String produto) {
 		Utils.assertFalse("Produto ["+produto+"] ainda está sendo exibida na listagem de produtos", existsProdutos(produto));
 		Log.info("Produto ["+produto+"] removido com sucesso");
+	}
+	
+	public void validarProdutoDesativado(String produto) {
+		Utils.assertFalse("Produto ["+produto+"] não foi desativado", isAtivo(produto));
+		Log.info("Produto ["+produto+"] desativado com sucesso");
+	}
+	
+	public void validarProdutoAtivado(String produto) {
+		Utils.assertTrue("Produto ["+produto+"] não foi ativado", isAtivo(produto));
+		Log.info("Produto ["+produto+"] ativado com sucesso");
 	}
 	
 	public void removerProduto(String produto) {
@@ -135,7 +239,7 @@ public class PageProduto extends BasePage {
 		By by = By.xpath("//tbody//../tr/td[contains(.,'"+produto+"')]");
 		return isVisibility(by);
 	}
-
+	
 	public void verificarOrtografiaPageProdutos(){
 		Log.info("Verificando ortografia da página produtos...");
 		Utils.assertEquals(getTextElement(titleProdutos) , "Produtos");
