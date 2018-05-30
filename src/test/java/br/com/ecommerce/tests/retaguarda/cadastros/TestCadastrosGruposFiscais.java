@@ -3,16 +3,14 @@ package br.com.ecommerce.tests.retaguarda.cadastros;
 import org.junit.Test;
 
 import br.com.ecommerce.config.BaseTest;
-import br.com.ecommerce.pages.lojavirtual.PageHomeLojaVirtual;
 import br.com.ecommerce.pages.retaguarda.cadastros.gruposfiscais.PageGruposFiscais;
 import br.com.ecommerce.pages.retaguarda.cadastros.gruposfiscais.PageIncluirGruposFiscais;
-import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
 import br.com.ecommerce.util.Utils;
 
 /**
  * 
- * Classe de testes com cenários relacionados ao menu DADOS GERAIS
+ * Classe de testes com cenários relacionados ao Cadastros >> Grupos Fiscais
  * @author Jarbas
  * 
  * */
@@ -20,8 +18,6 @@ public class TestCadastrosGruposFiscais extends BaseTest{
 
 	PageMenu                 pageMenu               = new PageMenu();
 	PageGruposFiscais        pageGruposFiscais		= new PageGruposFiscais();
-	PageHomeRetaguarda       pageHomeRetaguarda     = new PageHomeRetaguarda();
-	PageHomeLojaVirtual      pageHomeLojaVirtual    = new PageHomeLojaVirtual();
 	PageIncluirGruposFiscais pageIncluirGrupoFiscal = new PageIncluirGruposFiscais();
 	
 	@Test

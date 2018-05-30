@@ -166,7 +166,7 @@ public class PageGruposFiscais extends BasePage {
 		WebElement fillBtnActive = null;
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]");
 		exibeRegistroVisivel(by, btNovo);
-		fillBtnActive = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]"));
+		fillBtnActive = getDriver().findElement(by);
 		Log.info("Ativando grupo fiscal..");
 		click(fillBtnActive);
 		confirmarAlerta();
