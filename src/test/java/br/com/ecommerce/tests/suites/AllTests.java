@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import br.com.ecommerce.config.Property;
+import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosTipoConta;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosCategorias;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosClientes;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosCores;
@@ -33,6 +34,7 @@ import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais;
 	TestCadastrosTamanho.class,
 	TestCadastrosClientes.class,
 	TestCadastrosProdutos.class,
+	TestCadastrosTipoConta.class,
 	TestCadastrosCategorias.class,
 	TestCadastrosFornecedores.class,
 	TestCadastrosFuncionarios.class,

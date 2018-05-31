@@ -3,7 +3,7 @@ package br.com.ecommerce.tests.retaguarda.cadastros;
 import org.junit.Test;
 
 import br.com.ecommerce.config.BaseTest;
-import br.com.ecommerce.pages.retaguarda.cadastros.TiposPagamento.PageTiposPagamento;
+import br.com.ecommerce.pages.retaguarda.cadastros.tipospagamento.PageTiposPagamento;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
 
 /**
@@ -14,8 +14,8 @@ import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
  * */
 public class TestCadastrosTiposPagamento extends BaseTest{
 
-	PageMenu                 pageMenu               = new PageMenu();
-	PageTiposPagamento       pageTiposPagamento		= new PageTiposPagamento();
+	PageMenu           pageMenu           = new PageMenu();
+	PageTiposPagamento pageTiposPagamento = new PageTiposPagamento();
 	
 	@Test
 	public void ativarTipoPagamentoBoleto(){

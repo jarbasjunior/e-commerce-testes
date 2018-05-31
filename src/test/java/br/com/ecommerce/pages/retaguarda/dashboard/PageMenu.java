@@ -2,6 +2,7 @@ package br.com.ecommerce.pages.retaguarda.dashboard;
 
 import static br.com.ecommerce.config.DriverFactory.getDriver;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -157,6 +158,7 @@ public class PageMenu extends BasePage {
 			Utils.assertFail("Erro ao acessar menu. Favor verificar em: ["+Property.EVIDENCIAS_TESTE_PATH+"]");
 		}
 		for(WebElement element: elements){
+			aguardarElementoVisivel(element);
 			click(element);
 		}
 	}
@@ -226,7 +228,11 @@ public class PageMenu extends BasePage {
 	}
 	
 	public void acessarMenuCadastrosTiposDeConta(){
-		acessarMenu(menuCadastros, cadastroTiposDeContas);
+		click(menuCadastros);
+		Utils.wait(1000);
+		((JavascriptExecutor) getDriver()).executeScript(
+	            "arguments[0].scrollIntoView();", cadastroTiposDeContas);
+		click(cadastroTiposDeContas);
 	}
 	
 	public void acessarMenuCadastrosTiposDeEntrada(){

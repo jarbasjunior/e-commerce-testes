@@ -31,7 +31,7 @@ import br.com.ecommerce.util.Utils;
 
 public class BasePage {
 
-	private int    LOAD_TIMEOUT                     = 20;
+	private int    LOAD_TIMEOUT                     = 30;
 	private int    INTERVALO_VERIFICACAO            = 2;
 	private String windowHandleJanelaInicial;
 	private final Wait<WebDriver> wait = new FluentWait<WebDriver>(DriverFactory.getDriver())
@@ -152,6 +152,7 @@ public class BasePage {
 				pageDown(e);
 			}
 		}
+		Utils.wait(1000);
 	}
 	
 	public List<WebElement> getAllElementosCombo(WebElement element){

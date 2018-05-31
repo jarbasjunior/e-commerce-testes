@@ -1,4 +1,4 @@
-package br.com.ecommerce.pages.retaguarda.cadastros.TiposPagamento;
+package br.com.ecommerce.pages.retaguarda.cadastros.tipospagamento;
 
 import static br.com.ecommerce.config.DriverFactory.getDriver;
 
