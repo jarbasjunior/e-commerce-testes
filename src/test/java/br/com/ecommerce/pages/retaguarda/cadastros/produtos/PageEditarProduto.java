@@ -2,6 +2,7 @@ package br.com.ecommerce.pages.retaguarda.cadastros.produtos;
 
 import static br.com.ecommerce.config.DriverFactory.getDriver;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -87,6 +88,8 @@ public class PageEditarProduto extends BasePage {
 		aguardarElementoVisivel(inputNome);
 		preencherCampo(inputNome     , produto);
 		preencherCampo(inputDescricao, descricao);
+		String grupoFiscal = getTextElement(getDriver().findElement(By.xpath("//*[@id='product_tax_group_id']/option[2]")));
+		selecionarValorComboTexto(comboGrupoFiscal, grupoFiscal);
 		click(btSalvar);
 		Log.info("Dados produto ["+produto+"] alterados.");
 	}

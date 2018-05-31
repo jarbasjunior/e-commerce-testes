@@ -18,7 +18,7 @@ import br.com.ecommerce.util.Utils;
 
 /**
  * 
- * Classe de testes com cenários relacionados ao menu DADOS GERAIS
+ * Classe de testes com cenários relacionados ao Cadastros >> Produtos
  * @author Jarbas
  * 
  * */

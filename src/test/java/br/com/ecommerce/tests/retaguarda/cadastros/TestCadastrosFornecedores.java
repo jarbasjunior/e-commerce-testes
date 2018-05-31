@@ -3,17 +3,15 @@ package br.com.ecommerce.tests.retaguarda.cadastros;
 import org.junit.Test;
 
 import br.com.ecommerce.config.BaseTest;
-import br.com.ecommerce.pages.lojavirtual.PageHomeLojaVirtual;
 import br.com.ecommerce.pages.retaguarda.cadastros.fornecedores.PageEditarFornecedor;
 import br.com.ecommerce.pages.retaguarda.cadastros.fornecedores.PageFornecedor;
 import br.com.ecommerce.pages.retaguarda.cadastros.fornecedores.PageIncluirFornecedor;
-import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
 import br.com.ecommerce.util.Utils;
 
 /**
  * 
- * Classe de testes com cenários relacionados ao menu DADOS GERAIS
+ * Classe de testes com cenários relacionados ao Cadastros >> Fornecedores
  * @author Jarbas
  * 
  * */
@@ -21,8 +19,6 @@ public class TestCadastrosFornecedores extends BaseTest{
 
 	PageMenu              pageMenu              = new PageMenu();
 	PageFornecedor 		  pageFornecedor		= new PageFornecedor();
-	PageHomeRetaguarda    pageHomeRetaguarda    = new PageHomeRetaguarda();
-	PageHomeLojaVirtual   pageHomeLojaVirtual   = new PageHomeLojaVirtual();
 	PageEditarFornecedor  pageEditarFornecedor  = new PageEditarFornecedor();
 	PageIncluirFornecedor pageIncluirFornecedor = new PageIncluirFornecedor();
 	

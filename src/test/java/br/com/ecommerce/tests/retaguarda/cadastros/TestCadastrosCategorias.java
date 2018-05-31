@@ -10,14 +10,13 @@ import br.com.ecommerce.pages.lojavirtual.PageHomeLojaVirtual;
 import br.com.ecommerce.pages.retaguarda.cadastros.categorias.PageCategorias;
 import br.com.ecommerce.pages.retaguarda.cadastros.categorias.PageEditarCategoria;
 import br.com.ecommerce.pages.retaguarda.cadastros.categorias.PageIncluirCategoria;
-import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
 import br.com.ecommerce.util.Log;
 import br.com.ecommerce.util.Utils;
 
 /**
  * 
- * Classe de testes com cenários relacionados ao menu DADOS GERAIS
+ * Classe de testes com cenários relacionados ao Cadastros >> Categorias
  * @author Jarbas
  * 
  * */
@@ -25,7 +24,6 @@ public class TestCadastrosCategorias extends BaseTest{
 
 	PageMenu             pageMenu             = new PageMenu();
 	PageCategorias       pageCategorias       = new PageCategorias();
-	PageHomeRetaguarda   pageHomeRetaguarda   = new PageHomeRetaguarda();
 	PageHomeLojaVirtual  pageHomeLojaVirtual  = new PageHomeLojaVirtual();
 	PageEditarCategoria  pageEditarCategoria  = new PageEditarCategoria();
 	PageIncluirCategoria pageIncluirCategoria = new PageIncluirCategoria();

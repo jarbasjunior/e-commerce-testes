@@ -3,17 +3,15 @@ package br.com.ecommerce.tests.retaguarda.cadastros;
 import org.junit.Test;
 
 import br.com.ecommerce.config.BaseTest;
-import br.com.ecommerce.pages.lojavirtual.PageHomeLojaVirtual;
 import br.com.ecommerce.pages.retaguarda.cadastros.cores.PageCores;
 import br.com.ecommerce.pages.retaguarda.cadastros.cores.PageIncluirCores;
-import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
 import br.com.ecommerce.util.Log;
 import br.com.ecommerce.util.Utils;
 
 /**
  * 
- * Classe de testes com cenários relacionados ao menu DADOS GERAIS
+ * Classe de testes com cenários relacionados ao Cadastros >> Cores
  * @author Jarbas
  * 
  * */
@@ -22,8 +20,6 @@ public class TestCadastrosCores extends BaseTest{
 	PageMenu             pageMenu             = new PageMenu();
 	PageCores			 pageCores			  = new PageCores();
 	PageIncluirCores     pageIncluirCores     = new PageIncluirCores();
-	PageHomeRetaguarda   pageHomeRetaguarda   = new PageHomeRetaguarda();
-	PageHomeLojaVirtual  pageHomeLojaVirtual  = new PageHomeLojaVirtual();
 	
 	@Test
 	public void cadastrarCorComSucesso(){

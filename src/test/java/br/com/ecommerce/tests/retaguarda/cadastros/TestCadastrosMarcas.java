@@ -3,17 +3,15 @@ package br.com.ecommerce.tests.retaguarda.cadastros;
 import org.junit.Test;
 
 import br.com.ecommerce.config.BaseTest;
-import br.com.ecommerce.pages.lojavirtual.PageHomeLojaVirtual;
 import br.com.ecommerce.pages.retaguarda.cadastros.marcas.PageEditarMarca;
 import br.com.ecommerce.pages.retaguarda.cadastros.marcas.PageIncluirMarca;
 import br.com.ecommerce.pages.retaguarda.cadastros.marcas.PageMarca;
-import br.com.ecommerce.pages.retaguarda.dashboard.PageHomeRetaguarda;
 import br.com.ecommerce.pages.retaguarda.dashboard.PageMenu;
 import br.com.ecommerce.util.Utils;
 
 /**
  * 
- * Classe de testes com cenários relacionados ao menu DADOS GERAIS
+ * Classe de testes com cenários relacionados ao Cadastros >> Marcas
  * @author Jarbas
  * 
  * */
@@ -23,8 +21,6 @@ public class TestCadastrosMarcas extends BaseTest{
 	PageMarca 	        pageMarca		    = new PageMarca();
 	PageEditarMarca     pageEditarMarca     = new PageEditarMarca();
 	PageIncluirMarca    pageIncluirMarca    = new PageIncluirMarca();
-	PageHomeRetaguarda  pageHomeRetaguarda  = new PageHomeRetaguarda();
-	PageHomeLojaVirtual pageHomeLojaVirtual = new PageHomeLojaVirtual();
 	
 	@Test
 	public void cadastrarMarcaComSucesso(){
