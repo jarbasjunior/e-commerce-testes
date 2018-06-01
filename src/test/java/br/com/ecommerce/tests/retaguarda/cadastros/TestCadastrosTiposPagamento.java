@@ -28,7 +28,7 @@ public class TestCadastrosTiposPagamento extends BaseTest{
 		pageTiposPagamento.ativarTipoPagamento(tipoPagamento);
 		pageMenu.acessarMenuCadastrosTiposDePagamentos();
 		pageTiposPagamento.verificarOrtografiaPageTiposPagamento();
-		pageTiposPagamento.verificarGrupoFiscalAtivo(tipoPagamento);
+		pageTiposPagamento.verificarTipoPagamentoAtivo(tipoPagamento);
 	}
 	
 	@Test
@@ -56,7 +56,7 @@ public class TestCadastrosTiposPagamento extends BaseTest{
 		pageTiposPagamento.ativarTipoPagamento(tipoPagamento);
 		pageMenu.acessarMenuCadastrosTiposDePagamentos();
 		pageTiposPagamento.verificarOrtografiaPageTiposPagamento();
-		pageTiposPagamento.verificarGrupoFiscalAtivo(tipoPagamento);
+		pageTiposPagamento.verificarTipoPagamentoAtivo(tipoPagamento);
 	}
 	
 	@Test

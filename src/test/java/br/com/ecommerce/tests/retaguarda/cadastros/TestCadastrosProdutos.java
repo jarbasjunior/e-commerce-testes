@@ -216,6 +216,7 @@ public class TestCadastrosProdutos extends BaseTest{
 		/*
 		 * Adiciona imagem
 		 */
+		pageMenu.acessarMenuCadastrosProdutos();
 		pageProduto.irParaPageImagensProduto(produto);
 		pageImagensProdutos.verificarOrtografiaPageEditarImagemProduto(produto);
 		pageImagensProdutos.irParaPageAdicionarImagensProduto();
@@ -259,6 +260,7 @@ public class TestCadastrosProdutos extends BaseTest{
 		/*
 		 * Adiciona categoria
 		 */
+		pageMenu.acessarMenuCadastrosProdutos();
 		pageProduto.navegarParaPageCategoriaProduto(produto);
 		pageCategoriaProduto.verificarOrtografiaPageCategoriaProduto(produto);
 		pageCategoriaProduto.adicionaCategoriaMulheres(categoria);
@@ -297,6 +299,7 @@ public class TestCadastrosProdutos extends BaseTest{
 		/*
 		 * Adiciona unidade
 		 */
+		pageMenu.acessarMenuCadastrosProdutos();
 		pageProduto.navegarParaPageUnidadeProduto(produto);
 		pageUnidadeProduto.verificarOrtografiaPageUnidadeProduto(produto);
 		pageUnidadeProduto.navegarParaPageIncluirUnidadeProduto();

@@ -185,7 +185,7 @@ public class BasePage {
 	}
 	
 	public void pageDown(WebElement e){
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 10; i++) {
 			e.sendKeys(Keys.PAGE_DOWN);
 		}
 		Utils.wait(2000);

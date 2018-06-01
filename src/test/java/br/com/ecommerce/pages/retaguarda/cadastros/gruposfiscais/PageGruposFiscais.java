@@ -20,7 +20,7 @@ public class PageGruposFiscais extends BasePage {
 	@FindBy(xpath = "//h1")
 	private WebElement titleGruposFiscais;
 	
-	@FindBy(xpath = "//*[@class='btn btn-default'][contains(.,'Novo')]")
+	@FindBy(xpath = "//*[@href='/admin/tax_groups/new']")
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//th[text()='Descrição']")
@@ -87,6 +87,7 @@ public class PageGruposFiscais extends BasePage {
 		
 		Utils.assertEquals(getTextElement(fillDescricao), grupoFiscal);
 		Utils.assertTrue("Listagem exibe grupo fiscal INATIVO", isAtivo(grupoFiscal));
+		Utils.wait(1000);
 		Utils.assertEquals(getTextElement(fillBtnActive), "Desativar");
 		
 		Log.info("Dados do funcionário ["+grupoFiscal+"] conferidos com sucesso.");
@@ -100,6 +101,7 @@ public class PageGruposFiscais extends BasePage {
 		WebElement fillDescricao = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[1]"));
 		Utils.assertEquals(getTextElement(fillDescricao), grupoFiscal);
 		Utils.assertFalse("Listagem exibe grupo fiscal ATIVO", isAtivo(grupoFiscal));
+		Utils.wait(1000);
 		Utils.assertEquals(getTextElement(fillBtnActive), "Ativar");
 		
 		Log.info("Dados do funcionário ["+grupoFiscal+"] conferidos com sucesso.");

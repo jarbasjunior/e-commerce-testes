@@ -49,88 +49,12 @@ public class PageTiposPagamento extends BasePage {
 		Log.info("Mensagem de feedback validada.");
 	}
 	
-	public void validarGrupoFiscalAtivoNaListagem(String tipoPagamento) {
-		Log.info("Conferindo dados do tipo pagamento ["+tipoPagamento+"] na tela...");
-		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+tipoPagamento+"')]//../td[1]");
-		exibeRegistroVisivel(by, btNovo);
-		WebElement fillBtnActive = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+tipoPagamento+"')]//../td[3]/a[2]"));
-		WebElement fillDescricao = getDriver().findElement(by);
-		
-		Utils.assertEquals(getTextElement(fillDescricao), tipoPagamento);
-		Utils.assertTrue("Listagem exibe tipo pagamento INATIVO", isAtivo(tipoPagamento));
-		Utils.assertEquals(getTextElement(fillBtnActive), "Desativar");
-		
-		Log.info("Dados do funcionário ["+tipoPagamento+"] conferidos com sucesso.");
-	}
-	
-	public void validarGrupoFiscalInativoNaListagem(String tipoPagamento) {
-		Log.info("Conferindo dados do tipo pagamento ["+tipoPagamento+"] na tela...");
-		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+tipoPagamento+"')]//../td[1]");
-		exibeRegistroVisivel(by, btNovo);
-		WebElement fillBtnActive = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+tipoPagamento+"')]//../td[3]/a[2]"));
-		WebElement fillDescricao = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+tipoPagamento+"')]//../td[1]"));
-		Utils.assertEquals(getTextElement(fillDescricao), tipoPagamento);
-		Utils.assertFalse("Listagem exibe tipo pagamento ATIVO", isAtivo(tipoPagamento));
-		Utils.assertEquals(getTextElement(fillBtnActive), "Ativar");
-		
-		Log.info("Dados do funcionário ["+tipoPagamento+"] conferidos com sucesso.");
-	}
-	
 	public boolean isAtivo(String tipoPagamento){
 		WebElement fillBtnActive = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+tipoPagamento+"')]//../td[2]"));
 		if (getTextElement(fillBtnActive).equalsIgnoreCase("Sim")) {
 			return true;
 		}else
 			return false;
-	}
-	
-	public void validaMsgSucessoAlteracao(){
-		Log.info("Validando mensagem de feedback de sucesso...");
-		aguardarElementoVisivel(msgSucesso);
-		Utils.assertEquals(getTextElement(msgSucesso).replace("×", "").trim(), "Funcionário atualizado com sucesso");
-		Log.info("Mensagem de feedback validada.");
-	}
-	
-	public boolean isMensagemSucessoAlteracao(){
-		return getTextElement(msgSucesso).replace("×", "").trim().equals("Grupo fiscal atualizado com sucesso.");
-	}
-	
-	public void validarGrupoFiscalRemovido(String tipoPagamento) {
-		Utils.assertFalse("Grupo fiscal ["+tipoPagamento+"] ainda está sendo exibido na listagem de tipos pagamentos", existsGrupoFiscal(tipoPagamento));
-		Log.info("Grupo fiscal ["+tipoPagamento+"] removido com sucesso");
-	}
-	
-	public void removerGrupoFiscal(String tipoPagamento) {
-		Log.info("Removendo tipo pagamento ["+tipoPagamento+"]...");
-		By by = By.xpath("//tbody//../tr/td[text()='"+tipoPagamento+"']//../td/a[contains(.,'Remover')]");
-		WebElement removerGrupoFiscal = getDriver().findElement(by);
-		click(removerGrupoFiscal);
-		confirmarAlerta();
-		validarMsgSucessoExclusao();
-		Log.info("Grupo fiscal ["+tipoPagamento+"] removido...");
-	}
-	
-	public void validarMsgSucessoExclusao(){
-		Log.info("Validando mensagem de feedback de sucesso...");
-		aguardarElementoVisivel(msgSucesso);
-		Utils.assertEquals(getTextElement(msgSucesso).replace("×", "").trim(), "Grupo Fiscal removido com sucesso.");
-		Log.info("Mensagem de feedback validada.");
-	}
-	
-	public boolean existsTerceiroGrupoFiscal(){
-		By terceiraLinha = By.xpath("//tbody/tr[3]");
-		return isVisibility(terceiraLinha);
-	}
-	
-	public String getGrupoFiscalTeste(){
-		return getTextElement(getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'Fiscal Teste')]//../td[1]"))).trim();
-	}
-	
-	public boolean existsGrupoFiscal(String tipoPagamento){
-		Log.info("Verificando se o tipo pagamento ["+tipoPagamento+"] está cadastrado...");
-		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+tipoPagamento+"']");
-		exibeRegistroVisivel(by, btNovo);
-		return isVisibility(by);
 	}
 	
 	public void ativarTipoPagamento(String tipoPagamento) {
@@ -153,7 +77,7 @@ public class PageTiposPagamento extends BasePage {
 		validaMsgDesativacao();
 	}
 	
-	public void verificarGrupoFiscalAtivo(String tipoPagamento) {
+	public void verificarTipoPagamentoAtivo(String tipoPagamento) {
 		Log.info("Verificando ativação de tipo pagamento...");
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+tipoPagamento+"')]//../td[3]/a[2]");
 		exibeRegistroVisivel(by, btNovo);

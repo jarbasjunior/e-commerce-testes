@@ -20,7 +20,7 @@ public class PageFuncionario extends BasePage {
 	@FindBy(xpath = "//h1")
 	private WebElement titleFuncionarios;
 	
-	@FindBy(xpath = "//*[@class='btn btn-default'][contains(.,'Novo')]")
+	@FindBy(xpath = "//*[@href='/admin/employees/new']")
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//th[text()='ID']")

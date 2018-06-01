@@ -20,7 +20,7 @@ public class PageCliente extends BasePage {
 	@FindBy(xpath = "//h1")
 	private WebElement titleClientes;
 	
-	@FindBy(xpath = "//*[@class='btn btn-default'][contains(.,'Novo')]")
+	@FindBy(xpath = "//*[@href='https://ecommerce-rails-matheus.herokuapp.com/admin/clients/new']")
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//span[text()='Id']")

@@ -20,7 +20,7 @@ public class PageProduto extends BasePage {
 	@FindBy(xpath = "//h1")
 	private WebElement titleProdutos;
 	
-	@FindBy(xpath = "//*[@class='btn btn-default'][contains(.,'Novo')]")
+	@FindBy(xpath = "//*[@href='/admin/products/new']")
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//th[text()='Descrição']")
