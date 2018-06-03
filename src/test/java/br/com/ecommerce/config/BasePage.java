@@ -152,7 +152,6 @@ public class BasePage {
 				pageDown(e);
 			}
 		}
-		Utils.wait(1000);
 	}
 	
 	public List<WebElement> getAllElementosCombo(WebElement element){

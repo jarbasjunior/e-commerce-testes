@@ -169,7 +169,7 @@ public class PageGruposFiscais extends BasePage {
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]");
 		exibeRegistroVisivel(by, btNovo);
 		fillBtnActive = getDriver().findElement(by);
-		Log.info("Ativando grupo fiscal..");
+		Log.info("Ativando grupo fiscal...");
 		click(fillBtnActive);
 		confirmarAlerta();
 		validaMsgAtivacao();
@@ -180,7 +180,7 @@ public class PageGruposFiscais extends BasePage {
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+grupoFiscal+"')]//../td[3]/a[2]");
 		exibeRegistroVisivel(by, btNovo);
 		fillBtnInactive = getDriver().findElement(by);
-		Log.info("Desativando grupo fiscal..");
+		Log.info("Desativando grupo fiscal...");
 		click(fillBtnInactive);
 		confirmarAlerta();
 		validaMsgInativacao();
