@@ -56,7 +56,7 @@ public class BasePage {
 	public void adicionarImagem(WebElement element, String value) {
 		try {
 			aguardarElementoVisivel(element);
-			element.sendKeys(Property.PATH_IMAGEM_COMPRA+value);
+			element.sendKeys(Property.PATH_IMAGENS+value);
 		} catch (WebDriverException e) {
 			erroAnexoImagem(element, value);
 		}
@@ -319,10 +319,10 @@ public class BasePage {
 		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
 		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
-		Log.erro(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
+		Log.erro(element.toString().substring(45, element.toString().length()-1)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
+		Assert.fail(element.toString().substring(45, element.toString().length()-1)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
 	}
 	public void erroEspera(WebElement element) {
 		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();

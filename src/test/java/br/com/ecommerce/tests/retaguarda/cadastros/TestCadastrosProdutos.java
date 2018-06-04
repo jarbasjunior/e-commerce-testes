@@ -89,18 +89,19 @@ public class TestCadastrosProdutos extends BaseTest{
 	
 	@Test
 	public void removerProdutoComSucesso(){
+		String nome        = null;
+		String qtdMinima   = Utils.geraNumeroEntre(1, 100);
+		String codBarras   = Utils.geraNumeroEntre(555555555, 999999999);
+		String descricao   = "Teste " + nome;
+		String precoCompra = Utils.geraNumeroEntre(1, 599);
+		String precoVenda  = Utils.precoVenda(precoCompra);
 		pageMenu.acessarMenuCadastrosProdutos();
 		pageProduto.verificarOrtografiaPageProdutos();
 		/*
 		 * Inclui produto caso não exista
 		 */
 		if (!pageProduto.isProdutoTeste()) {
-			String nome        = "Produto "+Utils.geraSigla(4);
-			String qtdMinima   = Utils.geraNumeroEntre(1, 100);
-			String codBarras   = Utils.geraNumeroEntre(555555555, 999999999);
-			String descricao   = "Teste " + nome;
-			String precoCompra = Utils.geraNumeroEntre(1, 599);
-			String precoVenda  = Utils.precoVenda(precoCompra);
+			nome        = "Produto "+Utils.geraSigla(4);
 			pageProduto.navegarParaPageInclusaoProdutos();
 			pageIncluirProduto.verificarOrtografiaPageIncluirProduto();
 			pageIncluirProduto.incluirProduto(nome, descricao, precoCompra+",00", precoVenda, qtdMinima, codBarras);
@@ -108,11 +109,12 @@ public class TestCadastrosProdutos extends BaseTest{
 			pageMenu.acessarMenuCadastrosProdutos();
 			pageProduto.verificarOrtografiaPageProdutos();
 			pageProduto.validarProdutoNaListagem(nome, descricao);
-		}
+		}else
+			nome = pageProduto.getProdutoTeste();
 		/*
 		 * Remove produto
 		 */
-		pageProduto.removerProduto(pageProduto.getProdutoTeste());
+		pageProduto.removerProduto(nome);
 		pageMenu.acessarMenuCadastrosProdutos();
 		pageProduto.verificarOrtografiaPageProdutos();
 		pageProduto.validarProdutoRemovido(pageProduto.getProdutoTeste());

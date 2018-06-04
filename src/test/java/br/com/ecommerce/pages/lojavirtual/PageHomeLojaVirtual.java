@@ -29,7 +29,7 @@ public class PageHomeLojaVirtual extends BasePage {
 	@FindBy(xpath = "//*[@id='header']/div[2]/div/div/div[1]/div/a/img")
 	private WebElement logoCompanhia;
 	
-	public void conferirDadosCompanhiaNaLojaVirtual(String telefone, String endereco, String email) {
+	public void validarDadosCompanhiaNaLojaVirtual(String telefone, String endereco, String email) {
 		aguardarElementoVisivel(logoCompanhia);
 		
 		Log.info("Conferindo alterações de configurações na home page da loja virtual...");
@@ -40,7 +40,7 @@ public class PageHomeLojaVirtual extends BasePage {
 		Log.info("Alterações validadas com sucesso na loja virtual.");
 	}
 	
-	public void conferirCategoriaPrincipalNaLojaVirtual(String categoria) {
+	public void validarCategoriaPrincipalNaLojaVirtual(String categoria) {
 		aguardarElementoVisivel(logoCompanhia);
 		
 		WebElement categoriaPrincipal = getDriver().findElement(By.xpath("//*[@id='header']//a[text()='"+categoria+"']"));
@@ -49,7 +49,7 @@ public class PageHomeLojaVirtual extends BasePage {
 		Log.info("Inclusão de categoria principal validada com sucesso na loja virtual.");
 	}
 	
-	public void conferirExclusaoCategoriaNaLojaVirtual(String categoria) {
+	public void validarExclusaoCategoriaNaLojaVirtual(String categoria) {
 		aguardarElementoVisivel(logoCompanhia);
 		Log.info("Conferindo exclusão de categoria na home page da loja virtual...");
 		By by = By.xpath("//*[@id='header']//a[text()='"+categoria+"']");
@@ -57,7 +57,7 @@ public class PageHomeLojaVirtual extends BasePage {
 		Log.info("Exclusão de categoria validada com sucesso na loja virtual.");
 	}
 	
-	public void conferirExclusaoSubategoriaNaLojaVirtual(String categoria, String subcategoria) {
+	public void validarExclusaoSubategoriaNaLojaVirtual(String categoria, String subcategoria) {
 		aguardarElementoVisivel(logoCompanhia);
 		Log.info("Conferindo exclusão de categoria na home page da loja virtual...");
 		By categoriaFilho     = By.xpath("//*/a[text()='"+subcategoria+"']");
@@ -68,7 +68,7 @@ public class PageHomeLojaVirtual extends BasePage {
 		Log.info("Exclusão de categoria validada com sucesso na loja virtual.");
 	}
 	
-	public void conferirSubcategoriaNaLojaVirtual(String categoria, String subcategoria) {
+	public void validarSubcategoriaNaLojaVirtual(String categoria, String subcategoria) {
 		aguardarElementoVisivel(logoCompanhia);
 		
 		WebElement categoriaFilho     = getDriver().findElement(By.xpath("//*/a[text()='"+subcategoria+"']"));
@@ -78,5 +78,67 @@ public class PageHomeLojaVirtual extends BasePage {
 		Utils.wait(2000);		
 		Utils.assertEquals(getTextElement(categoriaFilho), subcategoria);
 		Log.info("Inclusão de subcategoria validada com sucesso na loja virtual.");
+	}
+	
+	public boolean validarSlideNaLojaVirtual(String titulo, String descricao, String labelBotao, String urlBotao){
+		urlBotao = "https://ecommerce-rails-matheus.herokuapp.com" + urlBotao;
+		int     slide       = 1;
+		int     qtdSlides   = 0;
+		boolean achouSlide  = false;
+		String  url         = null;
+		String  title       = null;
+		String  button      = null;
+		String  description = null;
+
+		while(isVisibility(By.xpath("//*[@id='slider-carousel']//../li["+slide+"]"))){
+			qtdSlides++;
+			slide++;
+		}
+		slide = 1;
+		while(qtdSlides > 0){
+			click(getDriver().findElement(By.xpath("//*[@id='slider-carousel']//../li["+slide+"]")));
+			Utils.wait(500);
+			title       = getTextElement(getDriver().findElement(By.xpath("//h1[text()='"+titulo+"']")));
+			description = getTextElement(getDriver().findElement(By.xpath("//h1[text()='"+titulo+"']//../p")));
+			button      = getTextElement(getDriver().findElement(By.xpath("//h1[text()='"+titulo+"']//../a")));
+			url         = getDriver().findElement(By.xpath("//h1[text()='"+titulo+"']//../a")).getAttribute("href");
+			if (titulo.equals(title)     && descricao.equals(description) && 
+				labelBotao.equals(button) && urlBotao.equals(url)){
+				achouSlide = true;
+				qtdSlides = 0;
+			}else{
+				qtdSlides--;
+				slide++;
+			}
+		}
+		return achouSlide;
+	}
+	
+	public boolean validarSlideRemovidoNaLojaVirtual(String titulo){
+		int     slide       = 1;
+		int     qtdSlides   = 0;
+		boolean achouSlide  = false;
+		String  title       = null;
+		
+		while(isVisibility(By.xpath("//*[@id='slider-carousel']//../li["+slide+"]"))){
+			qtdSlides++;
+			slide++;
+		}
+		slide = 1;
+		while(qtdSlides > 0){
+			click(getDriver().findElement(By.xpath("//*[@id='slider-carousel']//../li["+slide+"]")));
+			Utils.wait(500);
+			if (isVisibility(By.xpath("//h1[text()='"+titulo+"']"))) {
+				title = getTextElement(getDriver().findElement(By.xpath("//h1[text()='"+titulo+"']")));
+			}
+			if (titulo.equals(title)){
+				achouSlide = true;
+				qtdSlides = 0;
+			}else{
+				qtdSlides--;
+				slide++;
+			}
+		}
+		return achouSlide;
 	}
 }

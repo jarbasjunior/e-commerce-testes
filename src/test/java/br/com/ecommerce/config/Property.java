@@ -23,7 +23,7 @@ public abstract class Property {
 	public static final String FIREFOX_DRIVE_PATH;
 	public static final String EVIDENCIAS_TESTE_PATH;
 
-	public static final String PATH_IMAGEM_COMPRA;
+	public static final String PATH_IMAGENS;
 	public static final String IMAGEM_COMPRA;
 	
 	/*
@@ -39,7 +39,7 @@ public abstract class Property {
 		CHROME_DRIVE_PATH                        = new File("").getAbsolutePath() + "\\src\\test\\resources\\drivers\\chromedriver.exe";
 		FIREFOX_DRIVE_PATH                       = new File("").getAbsolutePath() + "\\src\\test\\resources\\drivers\\geckodriver.exe";
 		EVIDENCIAS_TESTE_PATH                    = new File("").getAbsolutePath() + "\\src\\test\\resources\\evidencias\\";
-		PATH_IMAGEM_COMPRA                       = new File("").getAbsolutePath() + "\\src\\test\\resources\\imagens\\";
+		PATH_IMAGENS                             = new File("").getAbsolutePath() + "\\src\\test\\resources\\imagens\\";
 		IMAGEM_COMPRA                            = get("imagem.produto");
 		USR                                      = get("usr");
 		EMAIL                                    = get("email");

@@ -43,7 +43,7 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+		pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class TestCadastrosCategorias extends BaseTest{
 			pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 			Log.info("Navegando para home page da loja virtual...");
 			getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-			pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+			pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
 			getDriver().navigate().to(Property.URL_RETAGUARDA);
 			pageMenu.acessarMenuCadastrosCategorias();
 			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
@@ -83,7 +83,7 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoria);
+		pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoria);
 	}
 	
 	@Test
@@ -105,7 +105,7 @@ public class TestCadastrosCategorias extends BaseTest{
 			pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 			Log.info("Navegando para home page da loja virtual...");
 			getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-			pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+			pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
 			getDriver().navigate().to(Property.URL_RETAGUARDA);
 			pageMenu.acessarMenuCadastrosCategorias();
 			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
@@ -126,7 +126,7 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(novaCategoria);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(novaCategoria);
+		pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(novaCategoria);
 	}
 	
 	@Test
@@ -153,7 +153,7 @@ public class TestCadastrosCategorias extends BaseTest{
 				pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 				Log.info("Navegando para home page da loja virtual...");
 				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-				pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+				pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
 				getDriver().navigate().to(Property.URL_RETAGUARDA);
 				pageMenu.acessarMenuCadastrosCategorias();
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
@@ -168,7 +168,7 @@ public class TestCadastrosCategorias extends BaseTest{
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 				pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAnterior);
 				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-				pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoriaAnterior);
+				pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoriaAnterior);
 				getDriver().navigate().to(Property.URL_RETAGUARDA);
 				pageMenu.acessarMenuCadastrosCategorias();
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
@@ -185,7 +185,7 @@ public class TestCadastrosCategorias extends BaseTest{
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 				pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAnterior);
 				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-				pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoriaAnterior);
+				pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoriaAnterior);
 				getDriver().navigate().to(Property.URL_RETAGUARDA);
 				pageMenu.acessarMenuCadastrosCategorias();
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
@@ -205,7 +205,7 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAtual);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoriaAtual);
+		pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoriaAtual);
 	}
 	
 	@Test
@@ -232,7 +232,7 @@ public class TestCadastrosCategorias extends BaseTest{
 			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 			pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 			getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-			pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+			pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
 			getDriver().navigate().to(Property.URL_RETAGUARDA);
 			pageMenu.acessarMenuCadastrosCategorias();
 			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
@@ -246,7 +246,7 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.excluirCategoria(categoria);
 		pageCategorias.validarMsgFeedbackExclusaoSucesso();
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirExclusaoCategoriaNaLojaVirtual(categoria);
+		pageHomeLojaVirtual.validarExclusaoCategoriaNaLojaVirtual(categoria);
 	}
 	
 	@Test
@@ -269,7 +269,7 @@ public class TestCadastrosCategorias extends BaseTest{
 				pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 				Log.info("Navegando para home page da loja virtual...");
 				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-				pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+				pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
 				getDriver().navigate().to(Property.URL_RETAGUARDA);
 				pageMenu.acessarMenuCadastrosCategorias();
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
@@ -284,7 +284,7 @@ public class TestCadastrosCategorias extends BaseTest{
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 				pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
 				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-				pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoria);
+				pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoria);
 				getDriver().navigate().to(Property.URL_RETAGUARDA);
 				pageMenu.acessarMenuCadastrosCategorias();
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
@@ -301,7 +301,7 @@ public class TestCadastrosCategorias extends BaseTest{
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 				pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
 				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-				pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoria);
+				pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoria);
 				getDriver().navigate().to(Property.URL_RETAGUARDA);
 				pageMenu.acessarMenuCadastrosCategorias();
 				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
@@ -317,6 +317,6 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.excluirCategoria(subcategoria);
 		pageCategorias.validarMsgFeedbackExclusaoSucesso();
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirExclusaoSubategoriaNaLojaVirtual(categoria, subcategoria);
+		pageHomeLojaVirtual.validarExclusaoSubategoriaNaLojaVirtual(categoria, subcategoria);
 	}
 }

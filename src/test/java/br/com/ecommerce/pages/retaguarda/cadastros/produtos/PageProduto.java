@@ -217,8 +217,8 @@ public class PageProduto extends BasePage {
 	
 	public void removerProduto(String produto) {
 		Log.info("Removendo produto ["+produto+"]...");
-		pageDown(btNovo);
 		By by = By.xpath("//tbody//../tr/td[contains(.,'"+produto+"')]//../td[@class='last']/a[6]");
+		exibeRegistroVisivel(by, btNovo);
 		WebElement removerFuncionario = getDriver().findElement(by);
 		click(removerFuncionario);
 		confirmarAlerta();
@@ -234,9 +234,9 @@ public class PageProduto extends BasePage {
 	}
 	
 	public boolean existsProdutos(String produto){
-		pageDown(btNovo);
 		Log.info("Verificando se o produto ["+produto+"] está cadastrado...");
 		By by = By.xpath("//tbody//../tr/td[contains(.,'"+produto+"')]");
+		exibeRegistroVisivel(by, btNovo);
 		return isVisibility(by);
 	}
 	
