@@ -309,10 +309,10 @@ public class BasePage {
 		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
 		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
-		Log.erro(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
+		Log.erro(element.toString().substring(45, element.toString().length()-1)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
+		Assert.fail(element.toString().substring(45, element.toString().length()-1)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
 	}
 	
 	public void erroAnexoImagem(WebElement element, String value) {

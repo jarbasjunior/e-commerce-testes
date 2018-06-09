@@ -208,6 +208,7 @@ public class PageGruposFiscais extends BasePage {
 
 	public void verificarOrtografiaPageGruposFiscais(){
 		Log.info("Verificando ortografia da página grupos fiscais...");
+		aguardarElementoVisivel(btNovo);
 		Utils.assertEquals(getTextElement(titleGruposFiscais), "Grupos Fiscais");
 		Utils.assertEquals(getTextElement(labelDescricao)    , "Descrição");
 		Utils.assertEquals(getTextElement(labelAtivo)        , "Ativo?");

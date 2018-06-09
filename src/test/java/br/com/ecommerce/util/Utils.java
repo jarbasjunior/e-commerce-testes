@@ -163,13 +163,41 @@ public abstract class Utils {
 		}
 	}
 	
+	public static String getDiaAnterior() {
+		try {
+			SimpleDateFormat formatDate = new SimpleDateFormat("ddMMyyyy");
+			Calendar calendar = new GregorianCalendar();
+			Date d1 = new Date();
+			calendar.setTime(d1);
+			calendar.add(Calendar.DATE, -1);
+			Date d2 = calendar.getTime();
+			return formatDate.format(d2);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public static String getDiaSeguinte() {
+		try {
+			SimpleDateFormat formatDate = new SimpleDateFormat("ddMMyyyy");
+			Calendar calendar = new GregorianCalendar();
+			Date d1 = new Date();
+			calendar.setTime(d1);
+			calendar.add(Calendar.DATE, +1);
+			Date d2 = calendar.getTime();
+			return formatDate.format(d2);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	public static String getAnoAnterior() {
 		try {
 			SimpleDateFormat formatDate = new SimpleDateFormat("ddMMyyyy");
 			Calendar calendar = new GregorianCalendar();
 			Date d1 = new Date();
 			calendar.setTime(d1);
-			calendar.add(Calendar.DATE, -600);
+			calendar.add(Calendar.DATE, -365);
 			Date d2 = calendar.getTime();
 			return formatDate.format(d2);
 		} catch (Exception e) {
@@ -277,6 +305,13 @@ public abstract class Utils {
 		sb.insert(3 , ".");
 		sb.insert(7 , ".");
 		sb.insert(11, "-");
+		return sb.toString();
+	}
+	
+	public static String formataData(String data){
+		StringBuilder sb = new StringBuilder(data);
+		sb.insert(2 , "/");
+		sb.insert(5 , "/");
 		return sb.toString();
 	}
 	

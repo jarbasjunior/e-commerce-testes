@@ -24,15 +24,19 @@ import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosTipoConta;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosTipoEntrada;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosTiposPagamento;
 import br.com.ecommerce.tests.retaguarda.cadastros.TestCadastrosUnidades;
+import br.com.ecommerce.tests.retaguarda.contas.TestContasPagar;
 import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais;
 /**
  * Classe que agrupa todas as classes de teste, funcionando com uma suíte de regressão.
  * @author Jarbas
  *
  */
+import br.com.ecommerce.tests.retaguarda.estoque.TestEstoqueCompraProdutos;
+
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	TestDadosGerais.class,
+	TestContasPagar.class,
 	TestCadastrosCores.class,
 	TestCadastrosMarcas.class,
 	TestCadastrosSlides.class,
@@ -43,6 +47,7 @@ import br.com.ecommerce.tests.retaguarda.dadosgerais.TestDadosGerais;
 	TestCadastrosTipoConta.class,
 	TestCadastrosCategorias.class,
 	TestCadastrosTipoEntrada.class,
+	TestEstoqueCompraProdutos.class,
 	TestCadastrosFornecedores.class,
 	TestCadastrosFuncionarios.class,
 	TestCadastrosGruposFiscais.class,
