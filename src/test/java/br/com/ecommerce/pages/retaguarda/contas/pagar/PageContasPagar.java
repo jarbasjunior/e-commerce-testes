@@ -2,7 +2,11 @@ package br.com.ecommerce.pages.retaguarda.contas.pagar;
 
 import static br.com.ecommerce.config.DriverFactory.getDriver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -25,6 +29,9 @@ public class PageContasPagar extends BasePage {
 	
 	@FindBy(xpath = "//input[@value='Atualizar']")
 	private WebElement btAtualizar;
+	
+	@FindBy(name = "exibicao")
+	private WebElement comboExibir;
 	
 	@FindBy(xpath = "//th[text()='Tipo de Conta']")
 	private WebElement labelTipoConta;
@@ -79,7 +86,126 @@ public class PageContasPagar extends BasePage {
 		By by = By.xpath("//tbody//../tr/td[contains(.,'"+notaFiscal+"')]//../td/a[contains(.,'Editar')]");
 		exibeRegistroVisivel(by, btNovo);
 		click(getDriver().findElement(by));
-		Log.info("Redirecionando para página de edição de contas a pagar...");
+		Log.info("Redirecionando para página de edição de contas à pagar...");
+	}
+	
+	public void verificaFiltroContasAPagar(List<String> notasFiscais){
+		aguardarElementoVisivel(btNovo);
+		for (int i = 0; i < notasFiscais.size(); i++) {
+			int linha = 1;
+			while(isVisibility(By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]//../td[9]"))){
+				By by = By.xpath("//tbody/tr[contains(.,'"+notasFiscais.get(i)+"')]/td[9]");
+				Utils.assertTrue("Conta está exibindo data pagamento da nota fiscal ["+notasFiscais.get(i)+"]", isVisibility(by));
+				Utils.assertFalse("Check está marcando a nota fiscal ["+notasFiscais.get(i)+"] como paga]", isContaPaga(notasFiscais.get(i)));
+				linha++;
+			}
+		}
+		Log.info("Filtro contas à pagar verificado com sucesso.");
+	}
+	
+	public void verificaFiltroContasPagas(List<String> notasFiscais){
+		aguardarElementoVisivel(btNovo);
+		for (int i = 0; i < notasFiscais.size(); i++) {
+			int linha = 1;
+			while(isVisibility(By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]//../td[9]"))){
+				By by = By.xpath("//tbody/tr[contains(.,'"+notasFiscais.get(i)+"')]/td[9]");
+				Utils.assertFalse("Conta NÃO está exibindo data pagamento da nota fiscal ["+notasFiscais.get(i)+"]", isContaPagar(by));
+				Utils.assertTrue("Check NÃO está marcando a nota fiscal ["+notasFiscais.get(i)+"] como paga]", isContaPaga(notasFiscais.get(i)));
+				linha++;
+			}
+		}
+		Log.info("Filtro contas à pagar verificado com sucesso.");
+	}
+	
+	public List<String> getNotasContasAPagar(){
+		Log.info("Buscando notas fiscais de contas à pagar...");
+		List<String> notasFiscais = new ArrayList<>();
+		int linha = 1;
+		while(isVisibility(By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]"))){
+			By by = By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]//../td[9]");
+			if (isContaPagar(by)) {
+				WebElement e = getDriver().findElement(By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]//../td[5]"));
+				notasFiscais.add(getTextElement(e));
+			}
+			linha++;
+		}
+		Log.info("Notas capturadas.");
+		return notasFiscais;
+	}
+	
+	public List<String> getNotasContasPagas(){
+		Log.info("Buscando notas fiscais de contas pagas...");
+		List<String> notasFiscais = new ArrayList<>();
+		int linha = 1;
+		while(isVisibility(By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]"))){
+			By by = By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]//../td[9]");
+			if (!isContaPagar(by)) {
+				WebElement e = getDriver().findElement(By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]//../td[5]"));
+				notasFiscais.add(getTextElement(e));
+			}
+			linha++;
+		}
+		Log.info("Notas capturadas.");
+		return notasFiscais;
+	}
+	
+	public boolean existsContaAPagar(){
+		Log.info("Verificando se há contas à pagar na listagem...");
+		int linha = 1;
+		boolean existeContaAPagar = false;
+		while(isVisibility(By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]"))){
+			By by = By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]//../td[9]");
+			if (isContaPagar(by)) {
+				existeContaAPagar = true;
+				break;
+			}
+			linha++;
+		}
+		return existeContaAPagar;
+	}
+	
+	public boolean existsContaPaga(){
+		Log.info("Verificando se há contas pagas na listagem...");
+		int linha = 1;
+		boolean existeContaPaga = false;
+		while(isVisibility(By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]"))){
+			By by = By.xpath("//tbody/tr["+linha+"][not(contains(.,'Total'))]//../td[9]");
+			if (!isContaPagar(by)) {
+				existeContaPaga = true;
+				break;
+			}
+			linha++;
+		}
+		return existeContaPaga;
+	}
+	
+	public boolean isContaPagar(By by){
+		WebElement e = getDriver().findElement(by);
+		if (getTextElement(e).equals("--")) {
+			return true;
+		}else
+			return false;
+	}
+	
+	public void filtrarContasAPagar(){
+		aguardarElementoVisivel(comboExibir);
+		selecionarValorComboTexto(comboExibir, "À pagar");
+		click(btAtualizar);
+		Log.info("Filtrando busca por contas À PAGAR...");
+	}
+	
+	public void filtrarContasPagas(){
+		aguardarElementoVisivel(comboExibir);
+		selecionarValorComboTexto(comboExibir, "Pagas");
+		click(btAtualizar);
+		Log.info("Filtrando busca por contas PAGAS...");
+	}
+	
+	public void filtrarContasVencidas(){
+		aguardarElementoVisivel(comboExibir);
+		selecionarValorComboTexto(comboExibir, "Pagas");
+		click(btAtualizar);
+		Log.info("Filtrando busca por contas PAGAS...");
 	}
 	
 	public void validaMsgSucessoInclusao(){
@@ -97,7 +223,7 @@ public class PageContasPagar extends BasePage {
 		}
 		Log.info("Conferindo dados da conta à pagar...");
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+notaFiscal+"')]");
-		exibeRegistroVisivel(by, btNovo);
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
 		
 		WebElement fillData 	  = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+notaFiscal+"')]//../td[2]"));
 		WebElement fillValor      = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+notaFiscal+"')]//../td[6]"));
@@ -145,7 +271,7 @@ public class PageContasPagar extends BasePage {
 		return isVisibility(By.xpath("//tbody/tr/td[5]"));
 	}
 	
-	public String getNotaFiscalCompra(){
+	public String getNotaFiscalConta(){
 		return getTextElement(getDriver().findElement(By.xpath("//tbody/tr/td[5]"))).trim();
 	}
 	
@@ -181,7 +307,7 @@ public class PageContasPagar extends BasePage {
 	}
 	
 	public void validarContaPagarRemovida(String notaFiscal) {
-		Utils.assertFalse("Conta de nota fiscal ["+notaFiscal+"] ainda está sendo exibida na listagem de contas a pagar", existsCompraProdutos(notaFiscal));
+		Utils.assertFalse("Conta de nota fiscal ["+notaFiscal+"] ainda está sendo exibida na listagem de contas a pagar", existsContaPagar(notaFiscal));
 		Log.info("Conta de nota fiscal ["+notaFiscal+"] removida com sucesso");
 	}
 	
@@ -193,7 +319,7 @@ public class PageContasPagar extends BasePage {
 		click(removerConta);
 		confirmarAlerta();
 		validarMsgSucessoExclusao();
-		Log.info("Conta a pagar de nota fiscal ["+notaFiscal+"] removida...");
+		Log.info("Conta à pagar de nota fiscal ["+notaFiscal+"] removida...");
 	}
 	
 	public void validarMsgSucessoExclusao(){
@@ -203,7 +329,7 @@ public class PageContasPagar extends BasePage {
 		Log.info("Mensagem de feedback validada.");
 	}
 	
-	public boolean existsCompraProdutos(String notaFiscal){
+	public boolean existsContaPagar(String notaFiscal){
 		Log.info("Verificando se conta de nota fiscal ["+notaFiscal+"] não está cadastrada...");
 		By by = By.xpath("//tbody//../tr/td[contains(.,'"+notaFiscal+"')]");
 		exibeRegistroVisivel(by, btNovo);

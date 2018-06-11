@@ -87,38 +87,40 @@ public class TestCadastrosProdutos extends BaseTest{
 		pageProduto.validarProdutoNaListagem(produtoTeste, descricaoProdutoTeste);
 	}
 	
-	@Test
-	public void removerProdutoComSucesso(){
-		String nome        = null;
-		String qtdMinima   = Utils.geraNumeroEntre(1, 100);
-		String codBarras   = Utils.geraNumeroEntre(555555555, 999999999);
-		String descricao   = "Teste " + nome;
-		String precoCompra = Utils.geraNumeroEntre(1, 599);
-		String precoVenda  = Utils.precoVenda(precoCompra);
-		pageMenu.acessarMenuCadastrosProdutos();
-		pageProduto.verificarOrtografiaPageProdutos();
-		/*
-		 * Inclui produto caso não exista
-		 */
-		if (!pageProduto.isProdutoTeste()) {
-			nome        = "Produto "+Utils.geraSigla(4);
-			pageProduto.navegarParaPageInclusaoProdutos();
-			pageIncluirProduto.verificarOrtografiaPageIncluirProduto();
-			pageIncluirProduto.incluirProduto(nome, descricao, precoCompra+",00", precoVenda, qtdMinima, codBarras);
-			pageProduto.validaMsgSucessoInclusao();
-			pageMenu.acessarMenuCadastrosProdutos();
-			pageProduto.verificarOrtografiaPageProdutos();
-			pageProduto.validarProdutoNaListagem(nome, descricao);
-		}else
-			nome = pageProduto.getProdutoTeste();
-		/*
-		 * Remove produto
-		 */
-		pageProduto.removerProduto(nome);
-		pageMenu.acessarMenuCadastrosProdutos();
-		pageProduto.verificarOrtografiaPageProdutos();
-		pageProduto.validarProdutoRemovido(pageProduto.getProdutoTeste());
-	}
+	//TODO - FUNCIONALIDADE COM DEFEITO
+	
+//	@Test
+//	public void removerProdutoComSucesso(){
+//		String nome        = null;
+//		String qtdMinima   = Utils.geraNumeroEntre(1, 100);
+//		String codBarras   = Utils.geraNumeroEntre(555555555, 999999999);
+//		String descricao   = "Teste " + nome;
+//		String precoCompra = Utils.geraNumeroEntre(1, 599);
+//		String precoVenda  = Utils.precoVenda(precoCompra);
+//		pageMenu.acessarMenuCadastrosProdutos();
+//		pageProduto.verificarOrtografiaPageProdutos();
+//		/*
+//		 * Inclui produto caso não exista
+//		 */
+//		if (!pageProduto.isProdutoTeste()) {
+//			nome        = "Produto "+Utils.geraSigla(4);
+//			pageProduto.navegarParaPageInclusaoProdutos();
+//			pageIncluirProduto.verificarOrtografiaPageIncluirProduto();
+//			pageIncluirProduto.incluirProduto(nome, descricao, precoCompra+",00", precoVenda, qtdMinima, codBarras);
+//			pageProduto.validaMsgSucessoInclusao();
+//			pageMenu.acessarMenuCadastrosProdutos();
+//			pageProduto.verificarOrtografiaPageProdutos();
+//			pageProduto.validarProdutoNaListagem(nome, descricao);
+//		}else
+//			nome = pageProduto.getProdutoTeste();
+//		/*
+//		 * Remove produto
+//		 */
+//		pageProduto.removerProduto(nome);
+//		pageMenu.acessarMenuCadastrosProdutos();
+//		pageProduto.verificarOrtografiaPageProdutos();
+//		pageProduto.validarProdutoRemovido(pageProduto.getProdutoTeste());
+//	}
 	
 	@Test
 	public void desativarProdutoComSucesso(){

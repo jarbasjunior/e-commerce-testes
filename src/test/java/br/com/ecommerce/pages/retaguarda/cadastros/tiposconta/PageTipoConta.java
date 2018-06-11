@@ -3,6 +3,7 @@ package br.com.ecommerce.pages.retaguarda.cadastros.tiposconta;
 import static br.com.ecommerce.config.DriverFactory.getDriver;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -153,7 +154,11 @@ public class PageTipoConta extends BasePage {
 	public boolean existsTipoConta(String tipoConta){
 		Log.info("Verificando se o tipo conta ["+tipoConta+"] está cadastrada...");
 		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+tipoConta+"']");
-		exibeRegistroVisivel(by, btNovo);
+		if (isVisibility(by)) {
+			if (!getDriver().findElement(by).isDisplayed()) {
+				((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
+			}
+		}
 		return isVisibility(by);
 	}
 	
@@ -190,7 +195,11 @@ public class PageTipoConta extends BasePage {
 	
 	public boolean isDespesa(String tipoConta){
 		By isDespesa = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+tipoConta+"')]//../td[2]");
-		exibeRegistroVisivel(isDespesa, btNovo);
+		if (isVisibility(isDespesa)) {
+			if (!getDriver().findElement(isDespesa).isDisplayed()) {
+				((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(isDespesa));
+			}
+		}
 		return getTextElement(getDriver().findElement(isDespesa)).equalsIgnoreCase("S");
 	}
 	

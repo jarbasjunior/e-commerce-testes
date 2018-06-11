@@ -86,7 +86,7 @@ public class PageIncluirContasPagar extends BasePage {
 		
 		List<String> tipoConta_E_Fornecedor = new ArrayList<>();
 		aguardarElementoVisivel(btSalvar);
-		Log.info("Inserindo dados da conta a pagar...");
+		Log.info("Inserindo dados da conta à pagar...");
 		
 		List<WebElement> listaDeContasPagar  = getAllElementosCombo(comboTipoConta);
 		String           indiceContasPagar   = Utils.geraNumeroEntre(1, listaDeContasPagar.size());
@@ -105,12 +105,12 @@ public class PageIncluirContasPagar extends BasePage {
 		tab(inputDataPagto);
 		preencherCampo(inputValorTotal    , valorTotal);
 		click(btSalvar);
-		Log.info("Dados da compra inseridos");
+		Log.info("Dados da conta à pagar inseridos");
 		return tipoConta_E_Fornecedor;
 	}
 	
 	public void verificarOrtografiaPageIncluirContasPagar(){
-		Log.info("Verificando ortografia da página de cadastro de produto...");
+		Log.info("Verificando ortografia da página de cadastro de contas à pagar...");
 		Utils.assertEquals(getTextElement(titleAdicionarContaPagar) , "Adicionar Conta à Pagar");
 		Utils.assertEquals(getTextElement(labelTipoConta)           , "Tipo de Conta:");
 		Utils.assertEquals(getTextElement(labelQtdParcelas)         , "Quantidade de Parcelas:");

@@ -82,7 +82,6 @@ public class PageIncluirCompraProduto extends BasePage {
 
 	public void incluirCompraProduto(String notaFiscal, String data, String parcelas, String dataVencimento, 
 			                         String desconto,   String outrasDespesas, boolean compraPaga) {
-		
 		aguardarElementoVisivel(btSalvar);
 		Log.info("Inserindo dados da compra de produto...");
 		
@@ -121,3 +120,4 @@ public class PageIncluirCompraProduto extends BasePage {
 		Log.info("Ortografia validada com sucesso.");
 	}
 }
+

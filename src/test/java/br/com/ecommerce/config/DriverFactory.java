@@ -39,7 +39,12 @@ public class DriverFactory {
 		
 			if (Browser.CHROME.equals(browser)) {
 				ChromeOptions chromeOptions = new ChromeOptions();
-				chromeOptions.addArguments("--start-maximized");
+				if (Property.CHROME_HEADLESS.equalsIgnoreCase("sim")) {
+					chromeOptions.addArguments("--window-size=1366x768");
+					chromeOptions.setHeadless(true);
+				}else{
+					chromeOptions.addArguments("--start-maximized");
+				}
 				File file = new File(Property.CHROME_DRIVE_PATH);
 				System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
 				driver = new ChromeDriver(chromeOptions);
@@ -58,7 +63,9 @@ public class DriverFactory {
 				firefoxOptions.setCapability(CapabilityType.PROXY, proxy);
 				firefoxOptions.setCapability("pdfjs.disabled", false);
 				//Rodar sem abrir o navegador = true, com o navegador = false
-				firefoxOptions.setHeadless(false);
+				if (Property.FIREFOX_HEADLESS.equalsIgnoreCase("sim")) {
+					firefoxOptions.setHeadless(true);
+				}
 				//firefoxOptions.setProfile(getProfileFireFox(firefoxProfile));
 				driver = new FirefoxDriver(firefoxOptions);
 			}

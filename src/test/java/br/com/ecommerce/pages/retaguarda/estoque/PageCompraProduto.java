@@ -3,6 +3,7 @@ package br.com.ecommerce.pages.retaguarda.estoque;
 import static br.com.ecommerce.config.DriverFactory.getDriver;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -77,8 +78,8 @@ public class PageCompraProduto extends BasePage {
 			dataCompra = Utils.formataData(dataCompra);
 		}
 		Log.info("Conferindo dados da compra do produto...");
-		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+notaFiscal+"')]");
-		exibeRegistroVisivel(by, btNovo);
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+notaFiscal+"')]//../td[3]");
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
 		
 		WebElement fillData 	  = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+notaFiscal+"')]//../td[3]"));
 		WebElement fillNotaFiscal = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+notaFiscal+"')]//../td[2]"));

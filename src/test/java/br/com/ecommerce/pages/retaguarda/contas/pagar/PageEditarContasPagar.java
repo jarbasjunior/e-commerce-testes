@@ -84,19 +84,6 @@ public class PageEditarContasPagar extends BasePage {
 		Log.info("Nota alterada para ["+notaFiscal2+"].");
 	}
 	
-	public void alterarStatusCompraProduto(String notaFiscal, boolean compraPaga) {
-		aguardarElementoVisivel(checkCompraPaga);
-		if (compraPaga) {
-			desmarcarCheckbox(checkCompraPaga);
-			Log.info("Alterando status pagamento da nota fiscal ["+notaFiscal+"] de PAGA para PENDENTE DE PAGAMENTO...");
-		}else{
-			marcarCheckbox(checkCompraPaga);
-			Log.info("Alterando status pagamento da nota fiscal ["+notaFiscal+"] de PENDENTE DE PAGAMENTO para PAGA...");
-		}
-		click(btSalvar);
-		Log.info("Status do pagamento da compra alterado");
-	}
-	
 	public void verificarOrtografiaPageEditarContasPagar(){
 		Log.info("Verificando ortografia da página de edição de contas à pagar...");
 		Utils.assertEquals(getTextElement(titleEditarContasPagar) , "Editar Conta à Pagar");

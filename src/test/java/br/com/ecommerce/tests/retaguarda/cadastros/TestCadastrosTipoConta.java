@@ -39,6 +39,22 @@ public class TestCadastrosTipoConta extends BaseTest{
 	}
 	
 	@Test
+	public void cadastrarContaReceitaDesativadaComSucesso(){
+		String  conta     = "Conta teste "+Utils.geraSigla(3)+" à receber";
+		boolean isAtiva   = false;
+		boolean isDespesa = false;
+		pageMenu.acessarMenuCadastrosTiposDeConta();
+		pageTipoConta.verificarOrtografiaPageTiposDeConta();
+		pageTipoConta.navegarParaPaginaIncluirTipoDeConta();
+		pageIncluirTipoConta.verificarOrtografiaPageIncluirTipoConta();
+		pageIncluirTipoConta.incluirTipoConta(conta);
+		pageTipoConta.validaMsgSucessoInclusao();
+		pageMenu.acessarMenuCadastrosTiposDeConta();
+		pageTipoConta.verificarOrtografiaPageTiposDeConta();
+		pageTipoConta.validarTipoContaInserido(conta, isDespesa, isAtiva);
+	}
+	
+	@Test
 	public void cadastrarContaDespesaAtivadaComSucesso(){
 		String  conta     = "Conta teste "+Utils.geraSigla(3)+" à pagar";
 		boolean isAtiva   = true;
@@ -56,7 +72,24 @@ public class TestCadastrosTipoConta extends BaseTest{
 	}
 	
 	@Test
-	public void alterarContaTesteComSucesso(){
+	public void cadastrarContaReceitaAtivadaComSucesso(){
+		String  conta     = "Conta teste "+Utils.geraSigla(3)+" à receber";
+		boolean isAtiva   = true;
+		boolean isDespesa = false;
+		pageMenu.acessarMenuCadastrosTiposDeConta();
+		pageTipoConta.verificarOrtografiaPageTiposDeConta();
+		pageTipoConta.navegarParaPaginaIncluirTipoDeConta();
+		pageIncluirTipoConta.verificarOrtografiaPageIncluirTipoConta();
+		pageIncluirTipoConta.incluirTipoConta(conta);
+		pageTipoConta.validaMsgSucessoInclusao();
+		pageTipoConta.ativarTipoConta(conta);
+		pageMenu.acessarMenuCadastrosTiposDeConta();
+		pageTipoConta.verificarOrtografiaPageTiposDeConta();
+		pageTipoConta.validarTipoContaInserido(conta, isDespesa, isAtiva);
+	}
+	
+	@Test
+	public void alterarContaTesteAPagarComSucesso(){
 		boolean isAtiva    = false;
 		boolean isDespesa  = true;
 		String  contaAtual = null;
@@ -71,11 +104,10 @@ public class TestCadastrosTipoConta extends BaseTest{
 			pageMenu.acessarMenuCadastrosTiposDeConta();
 			pageTipoConta.verificarOrtografiaPageTiposDeConta();
 			pageTipoConta.validarTipoContaInserido(contaAtual, isDespesa, isAtiva);
-		}else
+		}else{
 			contaAtual = pageTipoConta.getTipoContaTeste();
-		
-		isAtiva   = pageTipoConta.isAtivo(contaAtual);
-		isDespesa = pageTipoConta.isDespesa(contaAtual);
+			isAtiva    = pageTipoConta.isAtivo(contaAtual);
+		}
 		pageTipoConta.navegarParaPaginaEdicaoTipoDeConta(contaAtual);
 		pageEditarTipoConta.verificarOrtografiaPageEditarTipoConta();
 		pageEditarTipoConta.alterarTipoConta(novaConta);
@@ -86,7 +118,36 @@ public class TestCadastrosTipoConta extends BaseTest{
 	}
 	
 	@Test
-	public void removerContaTesteComSucesso(){
+	public void alterarContaTesteAReceberComSucesso(){
+		boolean isAtiva    = false;
+		boolean isDespesa  = false;
+		String  contaAtual = null;
+		String  novaConta  = "Conta teste "+Utils.geraSigla(3)+" à receber";
+		pageMenu.acessarMenuCadastrosTiposDeConta();
+		pageTipoConta.verificarOrtografiaPageTiposDeConta();
+		if (!pageTipoConta.existsTipoContaTeste()) {
+			contaAtual = "Conta teste "+Utils.geraSigla(3)+" à receber";
+			pageTipoConta.navegarParaPaginaIncluirTipoDeConta();
+			pageIncluirTipoConta.incluirTipoConta(contaAtual);
+			pageTipoConta.validaMsgSucessoInclusao();
+			pageMenu.acessarMenuCadastrosTiposDeConta();
+			pageTipoConta.verificarOrtografiaPageTiposDeConta();
+			pageTipoConta.validarTipoContaInserido(contaAtual, isDespesa, isAtiva);
+		}else{
+			contaAtual = pageTipoConta.getTipoContaTeste();
+			isAtiva    = pageTipoConta.isAtivo(contaAtual);
+		}
+		pageTipoConta.navegarParaPaginaEdicaoTipoDeConta(contaAtual);
+		pageEditarTipoConta.verificarOrtografiaPageEditarTipoConta();
+		pageEditarTipoConta.alterarTipoConta(novaConta);
+		pageTipoConta.validaMsgSucessoAlteracao();
+		pageMenu.acessarMenuCadastrosTiposDeConta();
+		pageTipoConta.verificarOrtografiaPageTiposDeConta();
+		pageTipoConta.validarTipoContaInserido(novaConta, isDespesa, isAtiva);
+	}
+	
+	@Test
+	public void removerContaTesteDespesaComSucesso(){
 		boolean isAtiva    = false;
 		boolean isDespesa  = true;
 		String  conta = null;
@@ -94,6 +155,30 @@ public class TestCadastrosTipoConta extends BaseTest{
 		pageTipoConta.verificarOrtografiaPageTiposDeConta();
 		if (!pageTipoConta.existsTipoContaTeste()) {
 			conta = "Conta teste "+Utils.geraSigla(3)+" à pagar";
+			pageTipoConta.navegarParaPaginaIncluirTipoDeConta();
+			pageIncluirTipoConta.incluirTipoConta(conta);
+			pageTipoConta.validaMsgSucessoInclusao();
+			pageMenu.acessarMenuCadastrosTiposDeConta();
+			pageTipoConta.verificarOrtografiaPageTiposDeConta();
+			pageTipoConta.validarTipoContaInserido(conta, isDespesa, isAtiva);
+		}else
+			conta = pageTipoConta.getTipoContaTeste();
+		
+		pageTipoConta.removerTipoConta(conta);
+		pageMenu.acessarMenuCadastrosTiposDeConta();
+		pageTipoConta.verificarOrtografiaPageTiposDeConta();
+		pageTipoConta.validarTipoContaRemovido(conta);
+	}
+	
+	@Test
+	public void removerContaTesteReceitaComSucesso(){
+		boolean isAtiva    = false;
+		boolean isDespesa  = true;
+		String  conta = null;
+		pageMenu.acessarMenuCadastrosTiposDeConta();
+		pageTipoConta.verificarOrtografiaPageTiposDeConta();
+		if (!pageTipoConta.existsTipoContaTeste()) {
+			conta = "Conta teste "+Utils.geraSigla(3)+" à receber";
 			pageTipoConta.navegarParaPaginaIncluirTipoDeConta();
 			pageIncluirTipoConta.incluirTipoConta(conta);
 			pageTipoConta.validaMsgSucessoInclusao();

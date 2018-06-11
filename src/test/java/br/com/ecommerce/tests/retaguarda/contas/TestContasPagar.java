@@ -24,19 +24,9 @@ public class TestContasPagar extends BaseTest{
 	PageContasPagar        pageContasPagar		  = new PageContasPagar();
 	PageEditarContasPagar  pageEditarContasPagar  = new PageEditarContasPagar();
 	PageIncluirContasPagar pageIncluirContasPagar = new PageIncluirContasPagar();
-	/*
-	 * Cadastrar conta vencida e paga         - ok
-	 * Cadastrar conta vencida e não paga     - ok
-	 * Cadastrar conta não vencida e paga     - ok
-	 * Cadastrar conta não vencida e não paga - ok
-	 * Editar conta teste                     - ok
-	 * Remover conta teste                    - ok
-	 * Filtrar contas pagas
-	 * Filtrar contas à pagar
-	 * Filtra contas vencidas
-	 */
+
 	@Test
-	public void cadastrarContaVencidaPagaComSucesso(){
+	public void cadastrarContaDebitoVencidaPagaComSucesso(){
 		String  dataPagto   = Utils.getDataAtual();
 		String  vencimento  = Utils.formataData(Utils.getDiaAnterior());
 		String  notaFiscal  = Utils.geraNumeroEntre(000000001, 999999999);
@@ -57,7 +47,7 @@ public class TestContasPagar extends BaseTest{
 	}
 	
 	@Test
-	public void cadastrarContaVencidaNaoPagaComSucesso(){
+	public void cadastrarContaDebitoVencidaNaoPagaComSucesso(){
 		String  dataPagto   = "--";
 		String  vencimento  = Utils.formataData(Utils.getDiaAnterior());
 		String  notaFiscal  = Utils.geraNumeroEntre(000000001, 999999999);
@@ -78,7 +68,7 @@ public class TestContasPagar extends BaseTest{
 	}
 	
 	@Test
-	public void cadastrarContaNaoVencidaPagaComSucesso(){
+	public void cadastrarContaDebitoNaoVencidaPagaComSucesso(){
 		String  dataPagto   = Utils.getDataAtual();
 		String  vencimento  = Utils.formataData(Utils.getDiaSeguinte());
 		String  notaFiscal  = Utils.geraNumeroEntre(000000001, 999999999);
@@ -99,7 +89,7 @@ public class TestContasPagar extends BaseTest{
 	}
 	
 	@Test
-	public void cadastrarContaNaoVencidaNaoPagaComSucesso(){
+	public void cadastrarContaDebitoNaoVencidaNaoPagaComSucesso(){
 		String  dataPagto   = "--";
 		String  vencimento  = Utils.formataData(Utils.getDiaSeguinte());
 		String  notaFiscal  = Utils.geraNumeroEntre(000000001, 999999999);
@@ -120,7 +110,7 @@ public class TestContasPagar extends BaseTest{
 	}
 	
 	@Test
-	public void alterarNotaFiscalContaPagarComSucesso(){
+	public void alterarNotaFiscalContaDebitoComSucesso(){
 		String  dataPagto   = "--";
 		String  vencimento  = Utils.getDataAtual();
 		String  notaFiscal  = Utils.geraNumeroEntre(000000001, 999999999);
@@ -145,7 +135,7 @@ public class TestContasPagar extends BaseTest{
 			pageContasPagar.validarContaPagarNaListagem(contaPaga, tipoConta_E_Fornecedor.get(0), tipoConta_E_Fornecedor.get(1), 
 					notaFiscal, valorTotal, qtdParcelas, vencimento, dataPagto);
 		}else{
-			notaFiscal  = pageContasPagar.getNotaFiscalCompra();
+			notaFiscal  = pageContasPagar.getNotaFiscalConta();
 			contaPaga   = pageContasPagar.isContaPaga(notaFiscal);
 			dataPagto   = pageContasPagar.getDataPagamento(notaFiscal);
 			vencimento  = pageContasPagar.getVencimento(notaFiscal);
@@ -164,9 +154,8 @@ public class TestContasPagar extends BaseTest{
 				notaFiscal2, valorTotal, qtdParcelas, vencimento, dataPagto);
 	}
 	
-	
 	@Test
-	public void removerContaPagarComSucesso(){
+	public void removerContaDebitoComSucesso(){
 		String  dataPagto   = "--";
 		String  vencimento  = Utils.getDataAtual();
 		String  notaFiscal  = Utils.geraNumeroEntre(000000001, 999999999);
@@ -190,7 +179,7 @@ public class TestContasPagar extends BaseTest{
 			pageContasPagar.validarContaPagarNaListagem(contaPaga, tipoConta_E_Fornecedor.get(0), tipoConta_E_Fornecedor.get(1), 
 					notaFiscal, valorTotal, qtdParcelas, vencimento, dataPagto);
 		}else{
-			notaFiscal  = pageContasPagar.getNotaFiscalCompra();
+			notaFiscal  = pageContasPagar.getNotaFiscalConta();
 			contaPaga   = pageContasPagar.isContaPaga(notaFiscal);
 			dataPagto   = pageContasPagar.getDataPagamento(notaFiscal);
 			vencimento  = pageContasPagar.getVencimento(notaFiscal);
@@ -206,5 +195,59 @@ public class TestContasPagar extends BaseTest{
 		pageMenu.acessarMenuContasApagar();
 		pageContasPagar.verificarOrtografiaPageContasPagar();
 		pageContasPagar.validarContaPagarRemovida(notaFiscal);
+	}
+	
+	@Test
+	public void listarContasAPagarComSucesso(){
+		List<String> notasFiscaisAPagar = new ArrayList<>();
+		pageMenu.acessarMenuContasApagar();
+		pageContasPagar.verificarOrtografiaPageContasPagar();
+		if (!pageContasPagar.existsContaAPagar()) {
+			String  dataPagto   = "--";
+			String  vencimento  = Utils.formataData(Utils.getDiaSeguinte());
+			String  notaFiscal  = Utils.geraNumeroEntre(000000001, 999999999);
+			String  valorTotal  = Utils.geraNumeroEntre(1, 999)+".0";
+			String  qtdParcelas = "1";
+			boolean contaPaga   = false; 
+			List<String> tipoConta_E_Fornecedor = new ArrayList<>();
+			pageContasPagar.navegarParaPageInclusaoContasPagar();
+			pageIncluirContasPagar.verificarOrtografiaPageIncluirContasPagar();
+			tipoConta_E_Fornecedor = pageIncluirContasPagar.incluirContasPagar(qtdParcelas, vencimento.substring(0, 2), notaFiscal, dataPagto, valorTotal);
+			pageContasPagar.validaMsgSucessoInclusao();
+			pageMenu.acessarMenuContasApagar();
+			pageContasPagar.verificarOrtografiaPageContasPagar();
+			pageContasPagar.validarContaPagarNaListagem(contaPaga, tipoConta_E_Fornecedor.get(0), tipoConta_E_Fornecedor.get(1), 
+					notaFiscal, valorTotal, qtdParcelas, vencimento, dataPagto);
+		}
+		notasFiscaisAPagar = pageContasPagar.getNotasContasAPagar();
+		pageContasPagar.filtrarContasAPagar();
+		pageContasPagar.verificaFiltroContasAPagar(notasFiscaisAPagar);
+	}
+	
+	@Test
+	public void listarContasPagasComSucesso(){
+		List<String> notasFiscaisPagas = new ArrayList<>();
+		pageMenu.acessarMenuContasApagar();
+		pageContasPagar.verificarOrtografiaPageContasPagar();
+		if (!pageContasPagar.existsContaPaga()) {
+			String  dataPagto   = Utils.getDataAtual();
+			String  vencimento  = Utils.formataData(Utils.getDiaSeguinte());
+			String  notaFiscal  = Utils.geraNumeroEntre(000000001, 999999999);
+			String  valorTotal  = Utils.geraNumeroEntre(1, 999)+".0";
+			String  qtdParcelas = "1";
+			boolean contaPaga   = true; 
+			List<String> tipoConta_E_Fornecedor = new ArrayList<>();
+			pageContasPagar.navegarParaPageInclusaoContasPagar();
+			pageIncluirContasPagar.verificarOrtografiaPageIncluirContasPagar();
+			tipoConta_E_Fornecedor = pageIncluirContasPagar.incluirContasPagar(qtdParcelas, vencimento.substring(0, 2), notaFiscal, dataPagto, valorTotal);
+			pageContasPagar.validaMsgSucessoInclusao();
+			pageMenu.acessarMenuContasApagar();
+			pageContasPagar.verificarOrtografiaPageContasPagar();
+			pageContasPagar.validarContaPagarNaListagem(contaPaga, tipoConta_E_Fornecedor.get(0), tipoConta_E_Fornecedor.get(1), 
+					notaFiscal, valorTotal, qtdParcelas, vencimento, dataPagto);
+		}
+		notasFiscaisPagas = pageContasPagar.getNotasContasPagas();
+		pageContasPagar.filtrarContasPagas();
+		pageContasPagar.verificaFiltroContasPagas(notasFiscaisPagas);
 	}
 }
