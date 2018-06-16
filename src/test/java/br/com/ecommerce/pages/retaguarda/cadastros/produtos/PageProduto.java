@@ -80,9 +80,11 @@ public class PageProduto extends BasePage {
 		WebElement fillBtnInactive = null;
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Ativar')]");
 		exibeRegistroVisivel(by, btNovo);
+		Utils.wait(1000);
 		fillBtnInactive = getDriver().findElement(by);
 		Log.info("Ativando produto..");
 		click(fillBtnInactive);
+		Utils.wait(1000);
 		validaMsgAtivacao();
 	}
 	
@@ -90,9 +92,11 @@ public class PageProduto extends BasePage {
 		WebElement fillBtnInactive = null;
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Desativar')]");
 		exibeRegistroVisivel(by, btNovo);
+		Utils.wait(1000);
 		fillBtnInactive = getDriver().findElement(by);
 		Log.info("Desativando produto..");
 		click(fillBtnInactive);
+		Utils.wait(1000);
 		validaMsgInativacao();
 	}
 	
@@ -165,7 +169,7 @@ public class PageProduto extends BasePage {
 		if (isProdutoTeste()) {
 			if (isInativo("Teste Produto")) {
 				if (!getDriver().findElement(by).isDisplayed()) {
-					pageDown(btNovo);
+					exibeRegistroVisivel(by, btNovo);
 				}
 				return true;
 			}

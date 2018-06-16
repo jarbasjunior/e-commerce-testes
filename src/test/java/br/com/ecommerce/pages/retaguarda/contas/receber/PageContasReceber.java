@@ -224,7 +224,7 @@ public class PageContasReceber extends BasePage {
 		if (!valor.contains("R$")) {
 			valor = "R$"+valor;
 		}
-		Log.info("Conferindo dados da conta à pagar...");
+		Log.info("Conferindo dados da conta à receber...");
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+notaFiscal+"')]");
 		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
 		

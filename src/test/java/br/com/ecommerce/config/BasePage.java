@@ -147,11 +147,18 @@ public class BasePage {
 	}
 	
 	public void exibeRegistroVisivel(By by, WebElement e){
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(e);
-			}
-		}
+		boolean naoAchou = true;
+		do {
+			if (isVisibility(by)) {	
+				if (!getDriver().findElement(by).isDisplayed()) {
+					e.sendKeys(Keys.PAGE_DOWN);
+					Utils.wait(1000);
+				}else{
+					naoAchou = false;
+				}
+			}else
+				naoAchou = false; 
+		} while (naoAchou);
 	}
 	
 	public List<WebElement> getAllElementosCombo(WebElement element){

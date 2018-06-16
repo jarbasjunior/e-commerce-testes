@@ -82,7 +82,7 @@ public class PageContasPagar extends BasePage {
 	}
 	
 	public void navegarParaPaginaEdicaoContasPagar(String notaFiscal) {
-		aguardarElementoVisivel(btEditar);
+		aguardarElementoVisivel(btNovo);
 		By by = By.xpath("//tbody//../tr/td[contains(.,'"+notaFiscal+"')]//../td/a[contains(.,'Editar')]");
 		exibeRegistroVisivel(by, btNovo);
 		click(getDriver().findElement(by));
@@ -215,9 +215,9 @@ public class PageContasPagar extends BasePage {
 		Log.info("Mensagem de feedback validada.");
 	}
 	
-	public void validarContaPagarNaListagem(boolean contaPaga, String tipoConta, String fornecedor, String notaFiscal,  
+	public void validarContaPagarNaListagem(boolean contaPaga, String data, String tipoConta, String fornecedor, String notaFiscal,  
 			                                String valor, String parcela, String vencimento, String dataPagto) {
-		aguardarElementoVisivel(btNovo);
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", btNovo);
 		if (!valor.contains("R$")) {
 			valor = "R$"+valor;
 		}
@@ -240,7 +240,7 @@ public class PageContasPagar extends BasePage {
 			Utils.assertFalse("Compra está sendo exibida como paga", isContaPaga(notaFiscal));
 		}
 		
-		Utils.assertEquals(getTextElement(fillData).substring(0, 10), Utils.getDataAtual());
+		Utils.assertEquals(getTextElement(fillData).substring(0, 10), data);
 		Utils.assertEquals(getTextElement(fillTipoConta)      		, tipoConta);
 		Utils.assertEquals(getTextElement(fillFornecedor)      		, fornecedor);
 		Utils.assertEquals(getTextElement(fillNotaFiscal)      		, notaFiscal);
@@ -275,27 +275,45 @@ public class PageContasPagar extends BasePage {
 		return getTextElement(getDriver().findElement(By.xpath("//tbody/tr/td[5]"))).trim();
 	}
 	
+	public String getData(String notaFiscal){
+		By by = By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[2]");
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
+		return getTextElement(getDriver().findElement(by)).substring(0, 10);
+	}
+	
 	public String getDataPagamento(String notaFiscal){
+		By by = By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[9]");
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
 		return getTextElement(getDriver().findElement(By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[9]"))).trim();
 	}
 	
 	public String getVencimento(String notaFiscal){
+		By by = By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[8]");
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
 		return getTextElement(getDriver().findElement(By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[8]"))).trim();
 	}
 	
 	public String getValor(String notaFiscal){
+		By by = By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[6]");
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
 		return getTextElement(getDriver().findElement(By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[6]"))).trim();
 	}
 	
 	public String getValorQtdParcelas(String notaFiscal){
+		By by = By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[7]");
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
 		return getTextElement(getDriver().findElement(By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[7]"))).trim();
 	}
 	
 	public String getTipoConta(String notaFiscal){
+		By by = By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[9]");
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
 		return getTextElement(getDriver().findElement(By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[3]"))).trim();
 	}
 	
 	public String getFornecedor(String notaFiscal){
+		By by = By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[4]");
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView();", getDriver().findElement(by));
 		return getTextElement(getDriver().findElement(By.xpath("//tbody/tr/td[contains(.,'"+notaFiscal+"')]//../td[4]"))).trim();
 	}
 	
