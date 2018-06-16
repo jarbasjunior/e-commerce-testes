@@ -2,6 +2,8 @@ package br.com.ecommerce.tests.retaguarda.cadastros;
 
 import static br.com.ecommerce.config.DriverFactory.getDriver;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import br.com.ecommerce.config.BaseTest;
@@ -30,7 +32,7 @@ public class TestCadastrosCategorias extends BaseTest{
 	
 	@Test
 	public void cadastrarCategoriaComSucesso(){
-		String categoria = Utils.geraCategoria();
+		String categoria = "Teste " + Utils.geraCategoria();
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
@@ -41,34 +43,38 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+		pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
 	}
 
 	@Test
 	public void cadastrarSubCategoriaComSucesso(){
-		String categoria    = Utils.geraCategoria();
-		String subcategoria = Utils.geraCategoria();
+		String categoria    = "Teste " + Utils.geraCategoria();
+		String subcategoria = "Teste " + Utils.geraCategoria();
 		/*
-		 * Incluir categoria
+		 * Incluir categoria teste caso não exista
 		 */
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
-		pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
-		pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
-		pageCategorias.validarMsgFeedbackInclusaoSucesso();
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
-		Log.info("Navegando para home page da loja virtual...");
-		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+		if (!pageCategorias.existsCategoriaTeste()) {
+			pageCategorias.navegarParaPaginaInclusaoDeCategoria();
+			pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
+			pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
+			pageCategorias.validarMsgFeedbackInclusaoSucesso();
+			pageMenu.acessarMenuCadastrosCategorias();
+			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+			pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
+			Log.info("Navegando para home page da loja virtual...");
+			getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+			pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
+			getDriver().navigate().to(Property.URL_RETAGUARDA);
+			pageMenu.acessarMenuCadastrosCategorias();
+			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+		}else{
+			categoria = pageCategorias.getCategoriaTeste();
+		}
 		/*
 		 * Incluir subcategoria
 		 */
-		getDriver().navigate().to(Property.URL_RETAGUARDA);
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
 		pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
 		pageIncluirCategoria.incluirSubCategoria(categoria, subcategoria);
@@ -77,33 +83,41 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoria);
+		pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoria);
 	}
 	
 	@Test
 	public void alterarNomeCategoriaComSucesso(){
-		String categoria     = Utils.geraCategoria();
-		String novaCategoria = Utils.geraCategoria();
+		String categoria     = "Teste " + Utils.geraCategoria();
+		String novaCategoria = "Teste " + Utils.geraCategoria();
 		/*
-		 * Incluir categoria
+		 * Incluir categoria teste caso não exista
 		 */
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
-		pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
-		pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
-		pageCategorias.validarMsgFeedbackInclusaoSucesso();
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
-		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+		if (!pageCategorias.existsCategoriaTeste()) {
+			pageCategorias.navegarParaPaginaInclusaoDeCategoria();
+			pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
+			pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
+			pageCategorias.validarMsgFeedbackInclusaoSucesso();
+			pageMenu.acessarMenuCadastrosCategorias();
+			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+			pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
+			Log.info("Navegando para home page da loja virtual...");
+			getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+			pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
+			getDriver().navigate().to(Property.URL_RETAGUARDA);
+			pageMenu.acessarMenuCadastrosCategorias();
+			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+			getDriver().navigate().to(Property.URL_RETAGUARDA);
+			pageMenu.acessarMenuCadastrosCategorias();
+			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+		}else{
+			categoria = pageCategorias.getCategoriaTeste();
+		}
 		/*
 		 * Alterar categoria
 		 */
-		getDriver().navigate().to(Property.URL_RETAGUARDA);
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.navegarParaPaginaEdicaoDeCategoria(categoria);
 		pageEditarCategoria.validarOrtografiaDeCamposTelaEditarCategoria(categoria);
 		pageEditarCategoria.editarNomeCategoria(categoria, novaCategoria);
@@ -112,52 +126,78 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeCategoriaPrincipal(novaCategoria);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(novaCategoria);
+		pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(novaCategoria);
 	}
 	
 	@Test
 	public void alterarNomeSubCategoriaComSucesso(){
-		
-		String categoria            = Utils.geraCategoria();
-		String subcategoriaAtual    = Utils.geraCategoria();
-		String subcategoriaAnterior = Utils.geraCategoria();
+		String categoria            = "Teste " + Utils.geraCategoria();
+		String subcategoriaAtual    = "Teste " + Utils.geraCategoria();
+		String subcategoriaAnterior = "Teste " + Utils.geraCategoria();
 		/*
-		 * Incluir categoria
+		 * Incluir categoria e subcategoria caso não existam
 		 */
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
-		pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
-		pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
-		pageCategorias.validarMsgFeedbackInclusaoSucesso();
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
-		Log.info("Navegando para home page da loja virtual...");
-		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
-		/*
-		 * Incluir subcategoria
-		 */
-		getDriver().navigate().to(Property.URL_RETAGUARDA);
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
-		pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
-		pageIncluirCategoria.incluirSubCategoria(categoria, subcategoriaAnterior);
-		pageCategorias.validarMsgFeedbackInclusaoSucesso();
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAnterior);
-		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoriaAnterior);
+		if (!pageCategorias.existsSubCategoriaTeste()) {
+			if (!pageCategorias.existsCategoriaTeste()) {
+				/*
+				 * Incluir categoria
+				 */
+				pageCategorias.navegarParaPaginaInclusaoDeCategoria();
+				pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
+				pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
+				pageCategorias.validarMsgFeedbackInclusaoSucesso();
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+				pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
+				Log.info("Navegando para home page da loja virtual...");
+				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+				pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
+				getDriver().navigate().to(Property.URL_RETAGUARDA);
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+				/*
+				 * Inclui subcategoria
+				 */
+				pageCategorias.navegarParaPaginaInclusaoDeCategoria();
+				pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
+				pageIncluirCategoria.incluirSubCategoria(categoria, subcategoriaAnterior);
+				pageCategorias.validarMsgFeedbackInclusaoSucesso();
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+				pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAnterior);
+				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+				pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoriaAnterior);
+				getDriver().navigate().to(Property.URL_RETAGUARDA);
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+			}else{
+				/*
+				 * Inclui subcategoria
+				 */
+				categoria = pageCategorias.getCategoriaTeste();
+				pageCategorias.navegarParaPaginaInclusaoDeCategoria();
+				pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
+				pageIncluirCategoria.incluirSubCategoria(categoria, subcategoriaAnterior);
+				pageCategorias.validarMsgFeedbackInclusaoSucesso();
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+				pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAnterior);
+				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+				pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoriaAnterior);
+				getDriver().navigate().to(Property.URL_RETAGUARDA);
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+			}
+		}else{
+			categoria            = pageCategorias.getCategoriaTeste();
+			subcategoriaAnterior = pageCategorias.getSubCategoriaTeste(categoria);
+		}
 		/*
 		 * Alterar subcategoria
 		 */
-		getDriver().navigate().to(Property.URL_RETAGUARDA);
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.navegarParaPaginaEdicaoDeCategoria(subcategoriaAnterior);
+		pageCategorias.navegarParaPaginaEdicaoDeSubCategoria(subcategoriaAnterior);
 		pageEditarCategoria.validarOrtografiaDeCamposTelaEditarCategoria(subcategoriaAnterior);
 		pageEditarCategoria.editarNomeCategoria(subcategoriaAnterior, subcategoriaAtual);
 		pageCategorias.validarMsgFeedbackEdicaoSucesso();
@@ -165,85 +205,118 @@ public class TestCadastrosCategorias extends BaseTest{
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoriaAtual);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoriaAtual);
+		pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoriaAtual);
 	}
 	
 	@Test
 	public void excluirCategoriaComSucesso(){
-		String categoria = Utils.geraCategoria();
+		String categoria = "Teste " + Utils.geraCategoria();
 		/*
-		 * Incluir categoria
+		 * Incluir categoria teste caso não exista
 		 */
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
-		pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
-		pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
-		pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
-		pageCategorias.validarMsgFeedbackInclusaoSucesso();
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
-		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
+		List<String> categoriasSemSubcategorias = pageCategorias.categoriasTesteSemSubcategorias();
+		/*
+		 * Verifica se existe categorias sem subcategorias, caso exista, o teste cria uma
+		 * nova para ser excluída posteriormente
+		 */
+		if (categoriasSemSubcategorias.size() == 0) {
+			pageMenu.acessarMenuCadastrosCategorias();
+			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+			pageCategorias.navegarParaPaginaInclusaoDeCategoria();
+			pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
+			pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
+			pageCategorias.validarMsgFeedbackInclusaoSucesso();
+			pageMenu.acessarMenuCadastrosCategorias();
+			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+			pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
+			getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+			pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
+			getDriver().navigate().to(Property.URL_RETAGUARDA);
+			pageMenu.acessarMenuCadastrosCategorias();
+			pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+		}else{
+			int indexCategoriaSemPai = Utils.geraNumeroEntreIntervalo(0, categoriasSemSubcategorias.size()-1);
+			categoria = categoriasSemSubcategorias.get(indexCategoriaSemPai);
+		}
 		/*
 		 * Excluir categoria
 		 */
-		getDriver().navigate().to(Property.URL_RETAGUARDA);
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.excluirCategoria(categoria);
 		pageCategorias.validarMsgFeedbackExclusaoSucesso();
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirExclusaoCategoriaNaLojaVirtual(categoria);
+		pageHomeLojaVirtual.validarExclusaoCategoriaNaLojaVirtual(categoria);
 	}
 	
 	@Test
 	public void excluirSubCategoriaComSucesso(){
-		String categoria    = Utils.geraCategoria();
-		String subcategoria = Utils.geraCategoria();
-		/*
-		 * Incluir categoria
-		 */
+		String categoria    = "Teste " + Utils.geraCategoria();
+		String subcategoria = "Teste " + Utils.geraCategoria();
 		pageMenu.acessarMenuCadastrosCategorias();
 		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
-		pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
-		pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
-		pageCategorias.validarMsgFeedbackInclusaoSucesso();
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
-		Log.info("Navegando para home page da loja virtual...");
-		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirCategoriaPrincipalNaLojaVirtual(categoria);
-		/*
-		 * Incluir subcategoria
-		 */
-		getDriver().navigate().to(Property.URL_RETAGUARDA);
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.navegarParaPaginaInclusaoDeCategoria();
-		pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
-		pageIncluirCategoria.incluirSubCategoria(categoria, subcategoria);
-		pageCategorias.validarMsgFeedbackInclusaoSucesso();
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
-		pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
-		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirSubcategoriaNaLojaVirtual(categoria, subcategoria);
+		if (!pageCategorias.existsSubCategoriaTeste()) {
+			if (!pageCategorias.existsCategoriaTeste()) {
+				/*
+				 * Incluir categoria
+				 */
+				pageCategorias.navegarParaPaginaInclusaoDeCategoria();
+				pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
+				pageIncluirCategoria.incluirCategoriaPrincipal(categoria);
+				pageCategorias.validarMsgFeedbackInclusaoSucesso();
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+				pageCategorias.conferirInclusaoDeCategoriaPrincipal(categoria);
+				Log.info("Navegando para home page da loja virtual...");
+				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+				pageHomeLojaVirtual.validarCategoriaPrincipalNaLojaVirtual(categoria);
+				getDriver().navigate().to(Property.URL_RETAGUARDA);
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+				/*
+				 * Inclui subcategoria
+				 */
+				pageCategorias.navegarParaPaginaInclusaoDeCategoria();
+				pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
+				pageIncluirCategoria.incluirSubCategoria(categoria, subcategoria);
+				pageCategorias.validarMsgFeedbackInclusaoSucesso();
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+				pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
+				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+				pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoria);
+				getDriver().navigate().to(Property.URL_RETAGUARDA);
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+			}else{
+				/*
+				 * Inclui subcategoria
+				 */
+				categoria = pageCategorias.getCategoriaTeste();
+				pageCategorias.navegarParaPaginaInclusaoDeCategoria();
+				pageIncluirCategoria.validarOrtografiaDeCamposTelaIncluirCategoria();
+				pageIncluirCategoria.incluirSubCategoria(categoria, subcategoria);
+				pageCategorias.validarMsgFeedbackInclusaoSucesso();
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+				pageCategorias.conferirInclusaoDeSubCategoria(categoria, subcategoria);
+				getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
+				pageHomeLojaVirtual.validarSubcategoriaNaLojaVirtual(categoria, subcategoria);
+				getDriver().navigate().to(Property.URL_RETAGUARDA);
+				pageMenu.acessarMenuCadastrosCategorias();
+				pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
+			}
+		}else{
+			categoria    = pageCategorias.getCategoriaTesteComFilho();
+			subcategoria = pageCategorias.getSubCategoriaTeste(categoria);
+			categoria    = categoria.substring(categoria.length()-10, categoria.length());
+		}
 		/*
 		 * Excluir subcategoria
 		 */
-		getDriver().navigate().to(Property.URL_RETAGUARDA);
-		pageMenu.acessarMenuCadastrosCategorias();
-		pageCategorias.validarOrtografiaDeCamposTelaCategoriaDeProdutos();
 		pageCategorias.excluirCategoria(subcategoria);
 		pageCategorias.validarMsgFeedbackExclusaoSucesso();
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirExclusaoSubategoriaNaLojaVirtual(categoria, subcategoria);
+		pageHomeLojaVirtual.validarExclusaoSubategoriaNaLojaVirtual(categoria, subcategoria);
 	}
 }

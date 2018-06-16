@@ -20,7 +20,7 @@ public class PageMarca extends BasePage {
 	@FindBy(xpath = "//h1")
 	private WebElement titleMarcas;
 	
-	@FindBy(xpath = "//*[@class='btn btn-default'][contains(.,'Novo')]")
+	@FindBy(xpath = "//*[@href='/admin/brands/new']")
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//th[text()='Código']")
@@ -81,6 +81,14 @@ public class PageMarca extends BasePage {
 		Log.info("Mensagem de feedback validada.");
 	}
 	
+	public boolean isMarcaTeste(){
+		return isVisibility(By.xpath("//tbody//td[contains(.,'Teste')]"));
+	}
+	
+	public String getMarcaTeste(){
+		return getTextElement(getDriver().findElement(By.xpath("//tbody//td[contains(.,'Teste')]")));
+	}
+	
 	public boolean isMensagemSucessoAlteracao(){
 		return getTextElement(msgSucesso).replace("×", "").trim().equals("Tipo de Marca atualizado com sucesso.");
 	}
@@ -91,6 +99,7 @@ public class PageMarca extends BasePage {
 	}
 	
 	public void removerMarca(String marca) {
+		aguardarElementoVisivel(btNovo);
 		Log.info("Removendo marca ["+marca+"]...");
 		By by = By.xpath("//*[@class='table']//../tr/td[text()='"+marca+"']//../td/a[@class='btn btn-danger']");
 		exibeRegistroVisivel(by, btNovo);

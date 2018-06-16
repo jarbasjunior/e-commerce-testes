@@ -20,7 +20,7 @@ public class PageProduto extends BasePage {
 	@FindBy(xpath = "//h1")
 	private WebElement titleProdutos;
 	
-	@FindBy(xpath = "//*[@class='btn btn-default'][contains(.,'Novo')]")
+	@FindBy(xpath = "//*[@href='/admin/products/new']")
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//th[text()='Descrição']")
@@ -80,9 +80,11 @@ public class PageProduto extends BasePage {
 		WebElement fillBtnInactive = null;
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Ativar')]");
 		exibeRegistroVisivel(by, btNovo);
+		Utils.wait(1000);
 		fillBtnInactive = getDriver().findElement(by);
 		Log.info("Ativando produto..");
 		click(fillBtnInactive);
+		Utils.wait(1000);
 		validaMsgAtivacao();
 	}
 	
@@ -90,9 +92,11 @@ public class PageProduto extends BasePage {
 		WebElement fillBtnInactive = null;
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+produto+"')]//../td/a[contains(.,'Desativar')]");
 		exibeRegistroVisivel(by, btNovo);
+		Utils.wait(1000);
 		fillBtnInactive = getDriver().findElement(by);
 		Log.info("Desativando produto..");
 		click(fillBtnInactive);
+		Utils.wait(1000);
 		validaMsgInativacao();
 	}
 	
@@ -165,7 +169,7 @@ public class PageProduto extends BasePage {
 		if (isProdutoTeste()) {
 			if (isInativo("Teste Produto")) {
 				if (!getDriver().findElement(by).isDisplayed()) {
-					pageDown(btNovo);
+					exibeRegistroVisivel(by, btNovo);
 				}
 				return true;
 			}
@@ -217,8 +221,8 @@ public class PageProduto extends BasePage {
 	
 	public void removerProduto(String produto) {
 		Log.info("Removendo produto ["+produto+"]...");
-		pageDown(btNovo);
 		By by = By.xpath("//tbody//../tr/td[contains(.,'"+produto+"')]//../td[@class='last']/a[6]");
+		exibeRegistroVisivel(by, btNovo);
 		WebElement removerFuncionario = getDriver().findElement(by);
 		click(removerFuncionario);
 		confirmarAlerta();
@@ -234,9 +238,9 @@ public class PageProduto extends BasePage {
 	}
 	
 	public boolean existsProdutos(String produto){
-		pageDown(btNovo);
 		Log.info("Verificando se o produto ["+produto+"] está cadastrado...");
 		By by = By.xpath("//tbody//../tr/td[contains(.,'"+produto+"')]");
+		exibeRegistroVisivel(by, btNovo);
 		return isVisibility(by);
 	}
 	

@@ -56,7 +56,7 @@ public class BasePage {
 	public void adicionarImagem(WebElement element, String value) {
 		try {
 			aguardarElementoVisivel(element);
-			element.sendKeys(Property.PATH_IMAGEM_COMPRA+value);
+			element.sendKeys(Property.PATH_IMAGENS+value);
 		} catch (WebDriverException e) {
 			erroAnexoImagem(element, value);
 		}
@@ -147,12 +147,18 @@ public class BasePage {
 	}
 	
 	public void exibeRegistroVisivel(By by, WebElement e){
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(e);
-			}
-		}
-		Utils.wait(1000);
+		boolean naoAchou = true;
+		do {
+			if (isVisibility(by)) {	
+				if (!getDriver().findElement(by).isDisplayed()) {
+					e.sendKeys(Keys.PAGE_DOWN);
+					Utils.wait(1000);
+				}else{
+					naoAchou = false;
+				}
+			}else
+				naoAchou = false; 
+		} while (naoAchou);
 	}
 	
 	public List<WebElement> getAllElementosCombo(WebElement element){
@@ -310,20 +316,20 @@ public class BasePage {
 		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
 		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
-		Log.erro(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
+		Log.erro(element.toString().substring(45, element.toString().length()-1)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
+		Assert.fail(element.toString().substring(45, element.toString().length()-1)+"]. não encontrado, valor ["+value+"] não pôde ser preenchido.");
 	}
 	
 	public void erroAnexoImagem(WebElement element, String value) {
 		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();
 		PageLoginRetaguarda pageLoginRetagurada = new PageLoginRetaguarda();
 		erro();
-		Log.erro(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
+		Log.erro(element.toString().substring(45, element.toString().length()-1)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
 		pageHomeRetagurada.sairDoRetaguarda();
 		pageLoginRetagurada.driveNaPaginaLogin();
-		Assert.fail(element.toString().substring(45, element.toString().length()-2)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
+		Assert.fail(element.toString().substring(45, element.toString().length()-1)+"]. não encontrado, imagem ["+value+"] não pôde ser anexada.");
 	}
 	public void erroEspera(WebElement element) {
 		PageHomeRetaguarda  pageHomeRetagurada  = new PageHomeRetaguarda();

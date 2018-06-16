@@ -20,7 +20,7 @@ public class PageFuncionario extends BasePage {
 	@FindBy(xpath = "//h1")
 	private WebElement titleFuncionarios;
 	
-	@FindBy(xpath = "//*[@class='btn btn-default'][contains(.,'Novo')]")
+	@FindBy(xpath = "//*[@href='/admin/employees/new']")
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//th[text()='ID']")
@@ -78,11 +78,7 @@ public class PageFuncionario extends BasePage {
 		
 		Log.info("Conferindo dados do funcionario ["+nome+"] na tela...");
 		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[3]");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
+		exibeRegistroVisivel(by, btNovo);
 
 		WebElement fillCpf      = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[3]"));
 		WebElement fillNome     = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+nome+"')]//../td[2]"));
@@ -114,11 +110,7 @@ public class PageFuncionario extends BasePage {
 	public void removerFuncionario(String funcionario) {
 		Log.info("Removendo funcionário ["+funcionario+"]...");
 		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+funcionario+"']//../td/a[@data-method='delete']");
-		if (isVisibility(by)) {	
-			if (!getDriver().findElement(by).isDisplayed()) {
-				pageDown(btNovo);
-			}
-		}
+		exibeRegistroVisivel(by, btNovo);
 		WebElement removerFuncionario = getDriver().findElement(by);
 		click(removerFuncionario);
 		confirmarAlerta();
@@ -138,6 +130,18 @@ public class PageFuncionario extends BasePage {
 		Log.info("Verificando se o funcionario ["+funcionario+"] está cadastrado...");
 		By by = By.xpath("//*[@class='table table-striped']//../tr/td[text()='"+funcionario+"']");
 		return isVisibility(by);
+	}
+	
+	public boolean existsFuncionarioTeste(){
+		Log.info("Verificando se existe funcionário teste cadastrado...");
+		By by = By.xpath("//tbody//../td[contains(.,'Teste')]");
+		exibeRegistroVisivel(by, btNovo);
+		return isVisibility(by);
+	}
+	
+	public String getFuncionarioTeste(){
+		Log.info("Capturando nome de funcionário teste...");
+		return getTextElement(getDriver().findElement(By.xpath("//tbody//../td[contains(.,'Teste')]//../td[2]"))).trim();
 	}
 
 	public void verificarOrtografiaPageFuncionarios(){

@@ -20,7 +20,7 @@ public class PageTamanhos extends BasePage {
 	@FindBy(xpath = "//h1")
 	private WebElement titleTamanhos;
 	
-	@FindBy(xpath = "//*[@class='btn btn-default'][contains(.,'Novo')]")
+	@FindBy(xpath = "//*[@href='/admin/sizes/new']")
 	private WebElement btNovo;
 	
 	@FindBy(xpath = "//span[text()='Tamanho']")

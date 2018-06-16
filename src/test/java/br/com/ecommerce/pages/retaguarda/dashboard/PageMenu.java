@@ -158,7 +158,7 @@ public class PageMenu extends BasePage {
 			Utils.assertFail("Erro ao acessar menu. Favor verificar em: ["+Property.EVIDENCIAS_TESTE_PATH+"]");
 		}
 		for(WebElement element: elements){
-			aguardarElementoVisivel(element);
+			Utils.wait(500);
 			click(element);
 		}
 	}

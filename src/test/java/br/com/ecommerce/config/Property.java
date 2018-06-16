@@ -18,12 +18,14 @@ public abstract class Property {
 	public static final String PASSWORD;
 	public static final String BROWSER_NAME;
 	public static final String URL_RETAGUARDA;
+	public static final String CHROME_HEADLESS;
+	public static final String FIREFOX_HEADLESS;
 	public static final String URL_LOJA_VIRTUAL;
 	public static final String CHROME_DRIVE_PATH;
 	public static final String FIREFOX_DRIVE_PATH;
 	public static final String EVIDENCIAS_TESTE_PATH;
 
-	public static final String PATH_IMAGEM_COMPRA;
+	public static final String PATH_IMAGENS;
 	public static final String IMAGEM_COMPRA;
 	
 	/*
@@ -39,13 +41,15 @@ public abstract class Property {
 		CHROME_DRIVE_PATH                        = new File("").getAbsolutePath() + "\\src\\test\\resources\\drivers\\chromedriver.exe";
 		FIREFOX_DRIVE_PATH                       = new File("").getAbsolutePath() + "\\src\\test\\resources\\drivers\\geckodriver.exe";
 		EVIDENCIAS_TESTE_PATH                    = new File("").getAbsolutePath() + "\\src\\test\\resources\\evidencias\\";
-		PATH_IMAGEM_COMPRA                       = new File("").getAbsolutePath() + "\\src\\test\\resources\\imagens\\";
+		PATH_IMAGENS                             = new File("").getAbsolutePath() + "\\src\\test\\resources\\imagens\\";
 		IMAGEM_COMPRA                            = get("imagem.produto");
 		USR                                      = get("usr");
 		EMAIL                                    = get("email");
 		PASSWORD                                 = get("password");
 		BROWSER_NAME                             = get("browser.name");
 		URL_RETAGUARDA                           = get("site.address.retaguarda");
+		CHROME_HEADLESS							 = get("chrome.headless");
+		FIREFOX_HEADLESS					     = get("firefox.headless");
 		URL_LOJA_VIRTUAL                         = get("site.address.loja.virtual");
 		ARQUIVO_TESTE_XLS                        = get("arquivo.teste.xls");
 		PATH_ARQUIVO_TESTE                       = get("path.arquivo.xls");

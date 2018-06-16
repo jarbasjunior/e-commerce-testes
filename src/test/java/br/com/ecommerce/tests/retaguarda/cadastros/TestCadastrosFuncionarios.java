@@ -25,7 +25,7 @@ public class TestCadastrosFuncionarios extends BaseTest{
 	@Test
 	public void cadastrarFuncionarioComSucesso(){
 		String cpf      = Utils.geraCPFSemFormato();
-		String nome     = Utils.geraNome();
+		String nome     = Utils.geraNome() + " Teste";
 		String email    = Utils.geraEmail();
 		String telefone = Utils.formataTelefone(Utils.geraTelefoneBRA());
 		pageMenu.acessarMenuCadastrosFuncionarios();
@@ -41,39 +41,57 @@ public class TestCadastrosFuncionarios extends BaseTest{
 	
 	@Test
 	public void alterarDadosFuncionarioComSucesso(){
-		pageMenu.acessarMenuCadastrosFuncionarios();
-		pageFuncionario.verificarOrtografiaPageFuncionarios();
 		String cpf      = Utils.geraCPFSemFormato();
-		String nome     = pageFuncionario.getPrimeiroNomeLista();
+		String nome     = Utils.geraNome() + " Teste";
+		String novoNome = Utils.geraNome() + " Teste";
 		String email    = Utils.geraEmail();
 		String telefone = Utils.formataTelefone(Utils.geraTelefoneBRA());
+		pageMenu.acessarMenuCadastrosFuncionarios();
+		pageFuncionario.verificarOrtografiaPageFuncionarios();
+		/*
+		 * Inclui funcionário caso não exista, para ser alterado posteriormente
+		 */
+		if (!pageFuncionario.existsFuncionarioTeste()) {
+			pageFuncionario.navegarParaPageInclusaoFuncionarios();
+			pageIncluirFuncionario.verificarOrtografiaPageIncluirFuncionarios();
+			pageIncluirFuncionario.incluirFuncionario(nome, cpf, email, telefone);
+			pageFuncionario.validaMsgSucessoInclusao();
+			pageMenu.acessarMenuCadastrosFuncionarios();
+			pageFuncionario.verificarOrtografiaPageFuncionarios();
+			pageFuncionario.validarFuncionarioNaListagem(nome, cpf, email);
+		}else
+			nome = pageFuncionario.getFuncionarioTeste();
+		
 		pageFuncionario.navegarParaPaginaEdicaoFuncionario(nome);
 		pageEditarFuncionario.verificarOrtografiaPageEditarFuncionarios();
-		pageEditarFuncionario.alterarFuncionario(nome, cpf, email, telefone);
+		pageEditarFuncionario.alterarFuncionario(novoNome, cpf, email, telefone);
 		pageFuncionario.validaMsgSucessoAlteracao();
 		pageMenu.acessarMenuCadastrosFuncionarios();
 		pageFuncionario.verificarOrtografiaPageFuncionarios();
-		pageFuncionario.validarFuncionarioNaListagem(nome, cpf, email);
+		pageFuncionario.validarFuncionarioNaListagem(novoNome, cpf, email);
 	}
 	
 	@Test
 	public void removerFuncionarioComSucesso(){
-		/*
-		 * Incluir funcionário
-		 */
 		String cpf      = Utils.geraCPFSemFormato();
-		String nome     = Utils.geraNome();
+		String nome     = Utils.geraNome() + " Teste";
 		String email    = Utils.geraEmail();
 		String telefone = Utils.formataTelefone(Utils.geraTelefoneBRA());
 		pageMenu.acessarMenuCadastrosFuncionarios();
 		pageFuncionario.verificarOrtografiaPageFuncionarios();
-		pageFuncionario.navegarParaPageInclusaoFuncionarios();
-		pageIncluirFuncionario.verificarOrtografiaPageIncluirFuncionarios();
-		pageIncluirFuncionario.incluirFuncionario(nome, cpf, email, telefone);
-		pageFuncionario.validaMsgSucessoInclusao();
-		pageMenu.acessarMenuCadastrosFuncionarios();
-		pageFuncionario.verificarOrtografiaPageFuncionarios();
-		pageFuncionario.validarFuncionarioNaListagem(nome, cpf, email);
+		/*
+		 * Inclui funcionário caso não exista, para ser excluído posteriormente
+		 */
+		if (!pageFuncionario.existsFuncionarioTeste()) {
+			pageFuncionario.navegarParaPageInclusaoFuncionarios();
+			pageIncluirFuncionario.verificarOrtografiaPageIncluirFuncionarios();
+			pageIncluirFuncionario.incluirFuncionario(nome, cpf, email, telefone);
+			pageFuncionario.validaMsgSucessoInclusao();
+			pageMenu.acessarMenuCadastrosFuncionarios();
+			pageFuncionario.verificarOrtografiaPageFuncionarios();
+			pageFuncionario.validarFuncionarioNaListagem(nome, cpf, email);
+		}else
+			nome = pageFuncionario.getFuncionarioTeste();
 		/*
 		 * Remover funcionário
 		 */

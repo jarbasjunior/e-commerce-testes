@@ -20,7 +20,7 @@ public class PageIncluirProduto extends BasePage {
 	}
 
 	@FindBy(xpath = "//h1")
-	private WebElement titleNovoFuncionario;
+	private WebElement titleNovoProduto;
 	
 	@FindBy(xpath = "//label[text()='Descrição']")
 	private WebElement labelDescricao;
@@ -119,7 +119,7 @@ public class PageIncluirProduto extends BasePage {
 	
 	public void verificarOrtografiaPageIncluirProduto(){
 		Log.info("Verificando ortografia da página de cadastro de produto...");
-		Utils.assertEquals(getTextElement(titleNovoFuncionario) , "Novo(a) Produto");
+		Utils.assertEquals(getTextElement(titleNovoProduto)     , "Novo(a) Produto");
 		Utils.assertEquals(getTextElement(labelNome)            , "Nome");
 		Utils.assertEquals(getTextElement(labelDescricao)	    , "Descrição");
 		Utils.assertEquals(getTextElement(labelMarca)           , "Marca");

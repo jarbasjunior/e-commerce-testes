@@ -42,6 +42,6 @@ public class TestDadosGerais extends BaseTest {
 		pageMenu.acessarMenuDadosGeraisConfiguracoes();
 		pageConfiguracoes.conferirAlteracaoDaCompanhia(nome, email, telefone, endereco, cnpj);
 		getDriver().navigate().to(Property.URL_LOJA_VIRTUAL);
-		pageHomeLojaVirtual.conferirDadosCompanhiaNaLojaVirtual(telefone, endereco, email);
+		pageHomeLojaVirtual.validarDadosCompanhiaNaLojaVirtual(telefone, endereco, email);
 	}
 }

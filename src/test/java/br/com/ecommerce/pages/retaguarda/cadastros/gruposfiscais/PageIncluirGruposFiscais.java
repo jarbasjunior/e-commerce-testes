@@ -55,6 +55,7 @@ public class PageIncluirGruposFiscais extends BasePage {
 		preencherCampo(inputDescricao, grupoFiscal);
 		marcarCheckbox(checkAtivo);
 		click(btSalvar);
+		Utils.wait(1000);
 		Log.info("Dados do grupo fiscal ["+grupoFiscal+"] inseridos");
 	}
 	

@@ -2,13 +2,16 @@ package br.com.ecommerce.pages.retaguarda.cadastros.categorias;
 
 import static br.com.ecommerce.config.DriverFactory.getDriver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import br.com.ecommerce.config.BasePage;
-import br.com.ecommerce.config.Property;
 import br.com.ecommerce.util.Log;
 import br.com.ecommerce.util.Utils;
 
@@ -47,11 +50,93 @@ public class PageCategorias extends BasePage {
 		click(btNovaCategoria);
 	}
 	
+	public String getCategoriaTeste(){
+		return getTextElement(getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'Teste')]//../td[2]//../td[4][(contains(.,'Sim'))]//../td[2]"))).trim();
+	}
+	
+	public String getCategoriaTesteComFilho() {
+		return getTextElement(getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[5][contains(.,'Teste')]"))).trim();
+	}
+
+	public String getSubCategoriaTeste(String categoriaPai){
+		String siglaCategoria = categoriaPai.substring(categoriaPai.length()-4, categoriaPai.length());
+		return getTextElement(getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+siglaCategoria+"')]//../td[2]//../td[4][(contains(.,'Não'))]//../td[2]"))).trim();
+	}
+	
+	public boolean existsCategoriaTeste(){
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'Teste')]//../td[2]//../td[4][(contains(.,'Sim'))]//../td[2]");
+		exibeRegistroVisivel(by, btNovaCategoria);
+		return isVisibility(by);
+	}
+	
+	public boolean existsCategoriaTesteComFilho(){
+		By by = By.xpath("//*[@id='main-content']//tr/td[5][contains(.,'Teste')]");
+		exibeRegistroVisivel(by, btNovaCategoria);
+		return isVisibility(by);
+	}
+	
+	public List<String> categoriasTesteSemSubcategorias(){
+		List<String> categoriasTeste = new ArrayList<String>();
+		int linha = 1;
+		boolean achouFilho = false;
+		while (isVisibility(By.xpath("//tbody/tr["+linha+"]"))) {
+			if (isVisibility(By.xpath("//tbody/tr["+linha+"]/td[contains(.,'Teste')]"))) {
+				By by = By.xpath("//tbody/tr["+linha+"]");
+				exibeRegistroVisivel(by, btNovaCategoria);
+				WebElement element = getDriver().findElement(By.xpath("//tbody/tr["+linha+"]/td[4]"));
+				if (getTextElement(element).equalsIgnoreCase("Sim")) {
+					String categoriaPai = getTextElement(getDriver().findElement(By.xpath("//tbody/tr["+linha+"]/td[2]")));
+					categoriasTeste.add(categoriaPai);
+				}
+			}
+			linha++;
+		}
+		((JavascriptExecutor) getDriver()).executeScript(
+	            "arguments[0].scrollIntoView();", btNovaCategoria);
+		List<String> paisSemFilhos = new ArrayList<String>();
+		linha = 1;
+		if (categoriasTeste.size() > 0) {
+			for (int i = 0; i < categoriasTeste.size(); i++) {
+				while (isVisibility(By.xpath("//tbody/tr["+linha+"]"))) {
+					By by = By.xpath("//tbody/tr["+linha+"]");
+					exibeRegistroVisivel(by, btNovaCategoria);
+					WebElement element = getDriver().findElement(By.xpath("//tbody/tr["+linha+"]/td[5]"));
+					if (getTextElement(element).contains(categoriasTeste.get(i))) {
+						achouFilho = true;
+						break;
+					}
+					linha++;
+				}
+				if (!achouFilho) {
+					paisSemFilhos.add(categoriasTeste.get(i));
+				}
+				linha = 1;
+				achouFilho = false;
+			}
+		}
+		return paisSemFilhos;
+	}
+	
+	public boolean existsSubCategoriaTeste(){
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'Teste')]//../td[2]//../td[4][(contains(.,'Não'))]");
+		exibeRegistroVisivel(by, btNovaCategoria);
+		return isVisibility(by);
+	}
+	
+	
 	public void navegarParaPaginaEdicaoDeCategoria(String categoria) {
-		By xpath = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+categoria+"')]//../td[1]");
-		pageDown(btNovaCategoria);
-		String idCategoria = getTextElement(getDriver().findElement(xpath));
-		getDriver().navigate().to(Property.URL_RETAGUARDA+"/categories/"+idCategoria+"/edit");
+		String siglaCategoria = categoria.replace("Teste ", "");
+		By xpath = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+siglaCategoria+"')]//../td[2]//../td[4][(contains(.,'Sim'))]//../td/a[contains(.,'Editar')]");
+		exibeRegistroVisivel(xpath, btNovaCategoria);
+		click(getDriver().findElement(xpath));
+		Log.info("Navegando para página de edição de categoria de produtos...");
+	}
+	
+	public void navegarParaPaginaEdicaoDeSubCategoria(String subcategoria) {
+		String siglaCategoria = subcategoria.replace("Teste ", "");
+		By xpath = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+siglaCategoria+"')]//../td[2]//../td[4][(contains(.,'Não'))]//../td/a[contains(.,'Editar')]");
+		exibeRegistroVisivel(xpath, btNovaCategoria);
+		click(getDriver().findElement(xpath));
 		Log.info("Navegando para página de edição de categoria de produtos...");
 	}
 	
@@ -70,12 +155,13 @@ public class PageCategorias extends BasePage {
 	public void conferirInclusaoDeCategoriaPrincipal(String novaCategoria){
 		
 		Log.info("Conferindo listagem da nova categoria ["+novaCategoria+"] na tela...");
-		pageDown(btNovaCategoria);
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+novaCategoria+"')]//../td[2]//../td[4][(contains(.,'Sim'))]");
+		exibeRegistroVisivel(by, btNovaCategoria);
 		
-		WebElement fillAtiva         = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+novaCategoria+"')]//../td[3]"));
-		WebElement fillCategoria     = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+novaCategoria+"')]//../td[2]"));
-		WebElement fillCategoriaPai  = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+novaCategoria+"')]//../td[5]"));
-		WebElement fillMenuPrincipal = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+novaCategoria+"')]//../td[4]"));
+		WebElement fillAtiva         = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+novaCategoria+"')]//../td[2]//../td[4][(contains(.,'Sim'))]//../td[3]"));
+		WebElement fillCategoria     = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+novaCategoria+"')]//../td[2]//../td[4][(contains(.,'Sim'))]//../td[2]"));
+		WebElement fillCategoriaPai  = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+novaCategoria+"')]//../td[2]//../td[4][(contains(.,'Sim'))]//../td[5]"));
+		WebElement fillMenuPrincipal = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+novaCategoria+"')]//../td[2]//../td[4][(contains(.,'Sim'))]//../td[4]"));
 		
 		Utils.assertEquals(getTextElement(fillCategoria)    , novaCategoria);
 		Utils.assertEquals(getTextElement(fillAtiva)        , "Sim");
@@ -88,7 +174,8 @@ public class PageCategorias extends BasePage {
 	public void conferirInclusaoDeSubCategoria(String categoria, String subcategoria){
 		
 		Log.info("Conferindo listagem da subcategoria ["+subcategoria+"] na tela...");
-		pageDown(btNovaCategoria);
+		By by = By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+subcategoria+"')]//../td[2]");
+		exibeRegistroVisivel(by, btNovaCategoria);
 		
 		WebElement fillAtiva          = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+subcategoria+"')]//../td[3]"));
 		WebElement fillCategoria      = getDriver().findElement(By.xpath("//*[@id='main-content']//tr/td[contains(.,'"+subcategoria+"')]//../td[2]"));

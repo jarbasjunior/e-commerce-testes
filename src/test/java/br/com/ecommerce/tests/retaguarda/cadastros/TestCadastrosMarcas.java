@@ -38,20 +38,24 @@ public class TestCadastrosMarcas extends BaseTest{
 	
 	@Test
 	public void alterarDadosMarcaComSucesso(){
-		/*
-		 * Incluir marca
-		 */
 		String marca1 = "Teste Marca "+Utils.geraSigla(3);
 		String marca2 = "Teste Marca "+Utils.geraSigla(3);
 		pageMenu.acessarMenuCadastrosMarcas();
 		pageMarca.verificarOrtografiaPageMarcas();
-		pageMarca.navegarParaPageInclusaoMarcas();
-		pageIncluirMarca.verificarOrtografiaPageIncluirMarcas();
-		pageIncluirMarca.incluirMarca(marca1);
-		pageMarca.validaMsgSucessoInclusao();
-		pageMenu.acessarMenuCadastrosMarcas();
-		pageMarca.verificarOrtografiaPageMarcas();
-		pageMarca.validarMarcaNaListagem(marca1);
+		/*
+		 * Incluir marca
+		 */
+		if (!pageMarca.isMarcaTeste()) {
+			pageMarca.navegarParaPageInclusaoMarcas();
+			pageIncluirMarca.verificarOrtografiaPageIncluirMarcas();
+			pageIncluirMarca.incluirMarca(marca1);
+			pageMarca.validaMsgSucessoInclusao();
+			pageMenu.acessarMenuCadastrosMarcas();
+			pageMarca.verificarOrtografiaPageMarcas();
+			pageMarca.validarMarcaNaListagem(marca1);
+		}else{
+			marca1 = pageMarca.getMarcaTeste();
+		}
 		/*
 		 * Alterar marca
 		 */
@@ -68,21 +72,25 @@ public class TestCadastrosMarcas extends BaseTest{
 	
 	@Test
 	public void removerMarcaComSucesso(){
-		/*
-		 * Incluir funcionário
-		 */
 		String marca = "Teste Marca "+Utils.geraSigla(3);
 		pageMenu.acessarMenuCadastrosMarcas();
 		pageMarca.verificarOrtografiaPageMarcas();
-		pageMarca.navegarParaPageInclusaoMarcas();
-		pageIncluirMarca.verificarOrtografiaPageIncluirMarcas();
-		pageIncluirMarca.incluirMarca(marca);
-		pageMarca.validaMsgSucessoInclusao();
-		pageMenu.acessarMenuCadastrosMarcas();
-		pageMarca.verificarOrtografiaPageMarcas();
-		pageMarca.validarMarcaNaListagem(marca);
 		/*
-		 * Remover funcionário
+		 * Incluir marca
+		 */
+		if (!pageMarca.isMarcaTeste()) {
+			pageMarca.navegarParaPageInclusaoMarcas();
+			pageIncluirMarca.verificarOrtografiaPageIncluirMarcas();
+			pageIncluirMarca.incluirMarca(marca);
+			pageMarca.validaMsgSucessoInclusao();
+			pageMenu.acessarMenuCadastrosMarcas();
+			pageMarca.verificarOrtografiaPageMarcas();
+			pageMarca.validarMarcaNaListagem(marca);
+		}else{
+			marca = pageMarca.getMarcaTeste();
+		}
+		/*
+		 * Remover marca
 		 */
 		pageMarca.removerMarca(marca);
 		pageMenu.acessarMenuCadastrosMarcas();
